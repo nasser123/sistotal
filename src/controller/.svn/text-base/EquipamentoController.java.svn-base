@@ -1,0 +1,48 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package controller;
+
+import Utilidades.Conexao;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.swing.JOptionPane;
+import model.Cliente;
+import model.Produto;
+
+/**
+ *
+ * @author Produção
+ */
+public class ClienteController {
+
+    public void gravar(EntityManager em, Cliente c) {
+        new Conexao(em).insert(c);
+    }
+
+    public void alterar(EntityManager em, Cliente c) {
+        new Conexao(em).update(c);
+    }
+
+    public void excluir(EntityManager em, Cliente c) {
+        new Conexao(em).delete(c);
+    }
+
+    public Cliente getClienteByIdCliente(javax.persistence.Query query, EntityManager em, Integer idCodigo) {
+        Cliente c = null;
+        Integer codigo = idCodigo;
+        List<Cliente> resultado;
+
+        query = em.createNamedQuery("Cliente.findByIdcliente");
+        query.setParameter("idcliente", codigo);
+        resultado = query.getResultList();
+
+        try {
+            c = resultado.get(0);
+        } catch (IndexOutOfBoundsException iofe) {
+            JOptionPane.showMessageDialog(null, "Cliente não encontrado");
+        }
+        return c;
+    }
+}

@@ -1,0 +1,21 @@
+K 26
+svn:wc:ra_dav:activity-url
+V 14
+/svn/!svn/act/
+K 25
+svn:wc:ra_dav:version-url
+V 25
+/svn/!svn/ver/12/Sistotal
+END
+build.xml
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/!svn/ver/10/Sistotal/build.xml
+END
+manifest.mf
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/svn/!svn/ver/10/Sistotal/manifest.mf
+END

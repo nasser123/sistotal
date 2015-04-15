@@ -1,0 +1,30 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Utilidades;
+
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author Produção
+ */
+public class Validadores {
+
+    public static boolean verificaNr(String valor) {
+        if (valor != null) {
+            try {
+                Integer.parseInt(valor);
+            } catch (NumberFormatException nfe) {
+                return false;
+            }
+
+        }
+
+        return true;
+    }
+    
+    
+}

@@ -1,0 +1,302 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package model;
+
+import Utilidades.Datas;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+/**
+ *
+ * @author Produção
+ */
+@Entity
+@Table(name = "cliente")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c"),
+    @NamedQuery(name = "Cliente.findByIdcliente", query = "SELECT c FROM Cliente c WHERE c.idcliente = :idcliente"),
+    @NamedQuery(name = "Cliente.findByNome", query = "SELECT c FROM Cliente c WHERE c.nome = :nome"),
+    @NamedQuery(name = "Cliente.findByEndereco", query = "SELECT c FROM Cliente c WHERE c.endereco = :endereco"),
+    @NamedQuery(name = "Cliente.findByNumero", query = "SELECT c FROM Cliente c WHERE c.numero = :numero"),
+    @NamedQuery(name = "Cliente.findByComplemento", query = "SELECT c FROM Cliente c WHERE c.complemento = :complemento"),
+    @NamedQuery(name = "Cliente.findByBairro", query = "SELECT c FROM Cliente c WHERE c.bairro = :bairro"),
+    @NamedQuery(name = "Cliente.findByCep", query = "SELECT c FROM Cliente c WHERE c.cep = :cep"),
+    @NamedQuery(name = "Cliente.findByEmail", query = "SELECT c FROM Cliente c WHERE c.email = :email"),
+    @NamedQuery(name = "Cliente.findByCpfCnpj", query = "SELECT c FROM Cliente c WHERE c.cpfCnpj = :cpfCnpj"),
+    @NamedQuery(name = "Cliente.findByInscEstadual", query = "SELECT c FROM Cliente c WHERE c.inscEstadual = :inscEstadual"),
+    @NamedQuery(name = "Cliente.findByFone", query = "SELECT c FROM Cliente c WHERE c.fone = :fone"),
+    @NamedQuery(name = "Cliente.findByCelular", query = "SELECT c FROM Cliente c WHERE c.celular = :celular")})
+public class Cliente implements Serializable {
+    @Column(name =     "data_cadastro")
+    @Temporal(TemporalType.DATE)
+    private Date dataCadastro;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idcliente")
+    private List<Venda> vendaList;
+    @Column(name = "fone")
+    private String fone;
+    @Column(name = "celular")
+    private String celular;
+    @OneToMany(mappedBy = "idcliente")
+    private List<OrdemServico> ordemServicoList;
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "idcliente")
+    private Integer idcliente;
+    @Column(name = "nome")
+    private String nome;
+    @Column(name = "endereco")
+    private String endereco;
+    @Column(name = "numero")
+    private Integer numero;
+    @Column(name = "complemento")
+    private String complemento;
+    @Column(name = "bairro")
+    private String bairro;
+    @Column(name = "cep")
+    private String cep;
+    @Column(name = "email")
+    private String email;
+    @Column(name = "cpf_cnpj")
+    private String cpfCnpj;
+    @Column(name = "insc_estadual")
+    private String inscEstadual;
+    @JoinColumn(name = "idsituacao_cliente", referencedColumnName = "idsituacao_cliente")
+    @ManyToOne(optional = false)
+    private SituacaoCliente idsituacaoCliente;
+    @JoinColumn(name = "idcidade", referencedColumnName = "idcidade")
+    @ManyToOne(optional = false)
+    private Cidade idcidade;
+
+    public Date getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(Date dataCadastro) {
+        Date oldDataCadastro = this.dataCadastro;
+        this.dataCadastro = dataCadastro;
+        changeSupport.firePropertyChange("dataCadastro", oldDataCadastro, dataCadastro);
+    }
+    
+    public String getDataCadastroString(){
+        return Datas.getDate(dataCadastro);
+        
+    }
+
+    public Cliente() {
+    }
+
+    public Cliente(Integer idcliente) {
+        this.idcliente = idcliente;
+    }
+
+    public Integer getIdcliente() {
+        return idcliente;
+    }
+
+    public void setIdcliente(Integer idcliente) {
+        Integer oldIdcliente = this.idcliente;
+        this.idcliente = idcliente;
+        changeSupport.firePropertyChange("idcliente", oldIdcliente, idcliente);
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        String oldNome = this.nome;
+        this.nome = nome;
+        changeSupport.firePropertyChange("nome", oldNome, nome);
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        String oldEndereco = this.endereco;
+        this.endereco = endereco;
+        changeSupport.firePropertyChange("endereco", oldEndereco, endereco);
+    }
+
+    public Integer getNumero() {
+        return numero;
+    }
+
+    public void setNumero(Integer numero) {
+        Integer oldNumero = this.numero;
+        this.numero = numero;
+        changeSupport.firePropertyChange("numero", oldNumero, numero);
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        String oldComplemento = this.complemento;
+        this.complemento = complemento;
+        changeSupport.firePropertyChange("complemento", oldComplemento, complemento);
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        String oldBairro = this.bairro;
+        this.bairro = bairro;
+        changeSupport.firePropertyChange("bairro", oldBairro, bairro);
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        String oldCep = this.cep;
+        this.cep = cep;
+        changeSupport.firePropertyChange("cep", oldCep, cep);
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        String oldEmail = this.email;
+        this.email = email;
+        changeSupport.firePropertyChange("email", oldEmail, email);
+    }
+
+    public String getCpfCnpj() {
+        return cpfCnpj;
+    }
+
+    public void setCpfCnpj(String cpfCnpj) {
+        String oldCpfCnpj = this.cpfCnpj;
+        this.cpfCnpj = cpfCnpj;
+        changeSupport.firePropertyChange("cpfCnpj", oldCpfCnpj, cpfCnpj);
+    }
+
+    public String getInscEstadual() {
+        return inscEstadual;
+    }
+
+    public void setInscEstadual(String inscEstadual) {
+        String oldInscEstadual = this.inscEstadual;
+        this.inscEstadual = inscEstadual;
+        changeSupport.firePropertyChange("inscEstadual", oldInscEstadual, inscEstadual);
+    }
+
+    public SituacaoCliente getIdsituacaoCliente() {
+        return idsituacaoCliente;
+    }
+
+    public void setIdsituacaoCliente(SituacaoCliente idsituacaoCliente) {
+        SituacaoCliente oldIdsituacaoCliente = this.idsituacaoCliente;
+        this.idsituacaoCliente = idsituacaoCliente;
+        changeSupport.firePropertyChange("idsituacaoCliente", oldIdsituacaoCliente, idsituacaoCliente);
+    }
+
+    public Cidade getIdcidade() {
+        return idcidade;
+    }
+
+    public void setIdcidade(Cidade idcidade) {
+        Cidade oldIdcidade = this.idcidade;
+        this.idcidade = idcidade;
+        changeSupport.firePropertyChange("idcidade", oldIdcidade, idcidade);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (idcliente != null ? idcliente.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Cliente)) {
+            return false;
+        }
+        Cliente other = (Cliente) object;
+        if ((this.idcliente == null && other.idcliente != null) || (this.idcliente != null && !this.idcliente.equals(other.idcliente))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "model.Cliente[ idcliente=" + idcliente + " ]";
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
+    }
+
+    @XmlTransient
+    public List<OrdemServico> getOrdemServicoList() {
+        return ordemServicoList;
+    }
+
+    public void setOrdemServicoList(List<OrdemServico> ordemServicoList) {
+        this.ordemServicoList = ordemServicoList;
+    }
+
+    public String getFone() {
+        return fone;
+    }
+
+    public void setFone(String fone) {
+        String oldFone = this.fone;
+        this.fone = fone;
+        changeSupport.firePropertyChange("fone", oldFone, fone);
+    }
+
+    public String getCelular() {
+        return celular;
+    }
+
+    public void setCelular(String celular) {
+        String oldCelular = this.celular;
+        this.celular = celular;
+        changeSupport.firePropertyChange("celular", oldCelular, celular);
+    }
+
+    
+
+    @XmlTransient
+    public List<Venda> getVendaList() {
+        return vendaList;
+    }
+
+    public void setVendaList(List<Venda> vendaList) {
+        this.vendaList = vendaList;
+    }
+
+   
+    
+   
+    
+}

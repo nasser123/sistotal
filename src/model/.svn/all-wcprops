@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/!svn/ver/10/Sistotal/src/model
+END
+SituacaoOs.java
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/10/Sistotal/src/model/SituacaoOs.java
+END
+Grupo.java
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/13/Sistotal/src/model/Grupo.java
+END
+Subgrupo.java
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/13/Sistotal/src/model/Subgrupo.java
+END
+Estado.java
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/10/Sistotal/src/model/Estado.java
+END
+Cidade.java
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/10/Sistotal/src/model/Cidade.java
+END
+TipoSaida.java
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/13/Sistotal/src/model/TipoSaida.java
+END
+Fabricante.java
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/13/Sistotal/src/model/Fabricante.java
+END
+SaidaProduto.java
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/15/Sistotal/src/model/SaidaProduto.java
+END
+Equipamento.java
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/10/Sistotal/src/model/Equipamento.java
+END
+Servico.java
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/12/Sistotal/src/model/Servico.java
+END
+ServicoRealizado.java
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/12/Sistotal/src/model/ServicoRealizado.java
+END
+Venda.java
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/14/Sistotal/src/model/Venda.java
+END
+Cliente.java
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/13/Sistotal/src/model/Cliente.java
+END
+Produto.java
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/13/Sistotal/src/model/Produto.java
+END
+SituacaoServico.java
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/12/Sistotal/src/model/SituacaoServico.java
+END
+OrdemServico.java
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/13/Sistotal/src/model/OrdemServico.java
+END
+SituacaoCliente.java
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/10/Sistotal/src/model/SituacaoCliente.java
+END
