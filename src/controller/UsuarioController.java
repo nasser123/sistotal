@@ -38,7 +38,7 @@ public class UsuarioController implements IDao {
      * and open the template in the editor.
      */
 
-    private EntityManager entity;
+    public static EntityManager entity;
 
     public UsuarioController() {
         this.entity = ConnectionFactory.getEntityManager();

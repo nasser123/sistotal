@@ -26,12 +26,13 @@ public class ConnectionFactory {
     public static Connection getConnection() {
         if (connection == null) {
             Section config = ConfigurationFactory.getConfiguration();
+            
             try {
                 //aqui colocamos os dados de acesso ao banco
-                if (config.get("db.name").equalsIgnoreCase("mysql")) {
+                if (ConfigurationFactory.DATABASE.equalsIgnoreCase("mysql")) {
                     Class.forName("com.mysql.jdbc.Driver").newInstance();
-                    connection = DriverManager.getConnection("jdbc:mysql://" + config.get("db.host") + ":3306/" + config.get("db.database") + "?autoReconnect=true&allowMultiQueries=true&useUnicode=true&characterEncoding=utf8",
-                            config.get("db.user"), config.get("db.password"));
+                    connection = DriverManager.getConnection("jdbc:mysql://" + ConfigurationFactory.DBHOST + ":" + ConfigurationFactory.DBPORT + "/" + ConfigurationFactory.DATABASE + "?autoReconnect=true&allowMultiQueries=true&useUnicode=true&characterEncoding=utf8",
+                            ConfigurationFactory.DBUSER, ConfigurationFactory.DBPASSWORD);
                 }
             } catch (InstantiationException | IllegalAccessException | SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, ex);
@@ -45,10 +46,10 @@ public class ConnectionFactory {
             Section config = ConfigurationFactory.getConfiguration();
             try {
                 //aqui colocamos os dados de acesso ao banco
-                if (config.get("db.name").equalsIgnoreCase("mysql")) {
+                if (ConfigurationFactory.DATABASE.equalsIgnoreCase("mysql")) {
                     Class.forName("com.mysql.jdbc.Driver").newInstance();
-                    connectionNoDatabase = DriverManager.getConnection("jdbc:mysql://" + config.get("db.host") + ":3306/?autoReconnect=true&allowMultiQueries=true&useUnicode=true&characterEncoding=utf8",
-                            config.get("db.user"), config.get("db.password"));
+                    connectionNoDatabase = DriverManager.getConnection("jdbc:mysql://" + ConfigurationFactory.DBHOST + ":3306/?autoReconnect=true&allowMultiQueries=true&useUnicode=true&characterEncoding=utf8",
+                            ConfigurationFactory.DBUSER, ConfigurationFactory.DBPASSWORD);
                 }
             } catch (InstantiationException | IllegalAccessException | SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, ex);
@@ -57,19 +58,20 @@ public class ConnectionFactory {
         return connectionNoDatabase;
     }
 
-    public static EntityManager getEntityManager() {
+    public static EntityManager getEntityManager()  {
         Section config = ConfigurationFactory.getConfiguration();
         Map prop = new HashMap();
         if (entityManager == null) {
             EntityManagerFactory emf;
-            prop.put("javax.persistence.jdbc.url", "jdbc:mysql://" + config.get("db.host") + ":3306/" + config.get("db.database"));
-            prop.put("javax.persistence.jdbc.password", config.get("db.password"));
+            prop.put("javax.persistence.jdbc.url", "jdbc:mysql://" + ConfigurationFactory.DBHOST + ":" + ConfigurationFactory.DBPORT + "/" + ConfigurationFactory.DATABASE);
+            prop.put("javax.persistence.jdbc.password", ConfigurationFactory.DBPASSWORD);
             prop.put("javax.persistence.jdbc.driver", "com.mysql.jdbc.Driver");
-            prop.put("javax.persistence.jdbc.user", config.get("db.user"));
+            prop.put("javax.persistence.jdbc.user", ConfigurationFactory.DBUSER);
             emf = Persistence.createEntityManagerFactory("SistotalPU", prop);
             try {
                 entityManager = emf.createEntityManager();
             } catch (Exception e) {
+                //e.printStackTrace();
                 JOptionPane.showMessageDialog(null, "Sem acesso ao banco de dados");
             }
 
