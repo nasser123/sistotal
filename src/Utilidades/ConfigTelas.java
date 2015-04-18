@@ -123,9 +123,9 @@ public class ConfigTelas {
     
     }
     public static String getTitulo() {
-        Section config = ConfigurationFactory.getConfiguration();
+        //Section config = ConfigurationFactory.getConfiguration();
 
-        return config.get("title");
+        return ("teste");
 
     }
 

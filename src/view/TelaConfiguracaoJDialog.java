@@ -6,6 +6,9 @@
 package view;
 
 import Utilidades.ConfigurationFactory;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -21,12 +24,17 @@ public class TelaConfiguracaoJDialog extends javax.swing.JDialog {
     public TelaConfiguracaoJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.cf = new ConfigurationFactory("main");
+        try {
+            this.cf = new ConfigurationFactory("main");
+        } catch (FileNotFoundException ex) {
+            
+            Logger.getLogger(TelaConfiguracaoJDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         jTextFieldName.setText(cf.DBNAME);
         jTextFieldHost.setText(cf.DBHOST);
         jTextFieldDataBase.setText(cf.DATABASE);
-        jTextFieldPort.setText(cf.DBPORT.toString());
+        jTextFieldPort.setText(String.valueOf(cf.DBPORT));
         jTextFieldUser.setText(cf.DBUSER);
         jPasswordFieldPassword.setText(cf.DBPASSWORD);
     }

@@ -1,5 +1,6 @@
 package Utilidades;
 
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -23,7 +24,7 @@ public class ConnectionFactory {
     private static Connection connectionNoDatabase;
     private static EntityManager entityManager;
 
-    public static Connection getConnection() {
+    public static Connection getConnection() throws FileNotFoundException {
         if (connection == null) {
             Section config = ConfigurationFactory.getConfiguration();
             
@@ -41,7 +42,7 @@ public class ConnectionFactory {
         return connection;
     }
 
-    public static Connection getConnectionWithNoDatabase() {
+    public static Connection getConnectionWithNoDatabase() throws FileNotFoundException {
         if (connectionNoDatabase == null) {
             Section config = ConfigurationFactory.getConfiguration();
             try {
@@ -58,7 +59,7 @@ public class ConnectionFactory {
         return connectionNoDatabase;
     }
 
-    public static EntityManager getEntityManager()  {
+    public static EntityManager getEntityManager() throws FileNotFoundException  {
         Section config = ConfigurationFactory.getConfiguration();
         Map prop = new HashMap();
         if (entityManager == null) {

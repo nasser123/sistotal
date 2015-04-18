@@ -32,7 +32,7 @@ public class ConfigurationFactory {
     public static Integer DBPORT;
     private static Section config;
 
-    public ConfigurationFactory(String secao) {
+    public ConfigurationFactory(String secao) throws FileNotFoundException {
         if (secao == null) {
             config = getConfiguration();
         } else {
@@ -40,37 +40,39 @@ public class ConfigurationFactory {
         }
     }
 
-    public static Section getConfiguration(String section) {
+    public static Section getConfiguration(String section) throws FileNotFoundException {
         if (ini != null) {
 
             return ini.get(section);
         }
         Ini ini = getIni();
         config = ini.get(section);
-        DBNAME = config.get("db.name");
-        DBHOST = config.get("db.host");
-        DATABASE = config.get("db.database");
-        DBPORT = Integer.parseInt(config.get("db.port"));
-        DBUSER = config.get("db.user");
-        DBPASSWORD = config.get("db.password");
-        
+        if (ini.size() != 0) {
+            DBNAME = config.get("db.name");
+            DBHOST = config.get("db.host");
+            DATABASE = config.get("db.database");
+            DBPORT = Integer.parseInt(config.get("db.port"));
+            DBUSER = config.get("db.user");
+            DBPASSWORD = config.get("db.password");
+        }
         return config;
     }
 
-    public static Section getConfiguration() {
+    public static Section getConfiguration() throws FileNotFoundException {
 
         if (ini != null) {
             return ini.get("main");
         }
         Ini ini = getIni();
-        config = ini.get("main");
-        DBNAME = config.get("db.name");
-        DATABASE = config.get("db.database");
-        DBHOST = config.get("db.host");
-        DBPORT = Integer.parseInt(config.get("db.port"));
-        DBUSER = config.get("db.user");
-        DBPASSWORD = config.get("db.password");
-
+        if (ini.size() != 0) {
+            config = ini.get("main");
+            DBNAME = config.get("db.name");
+            DATABASE = config.get("db.database");
+            DBHOST = config.get("db.host");
+            DBPORT = Integer.parseInt(config.get("db.port"));
+            DBUSER = config.get("db.user");
+            DBPASSWORD = config.get("db.password");
+        }
         return config;
     }
 
@@ -82,6 +84,13 @@ public class ConfigurationFactory {
             ini.load(arq);
 
         } catch (FileNotFoundException ex) {
+            File arquivo1 = new File("config.ini");//cria o file do arquivo informado 
+            try {
+                arquivo1.createNewFile();
+                ini.load(arquivo1);
+            } catch (IOException ex1) {
+                Logger.getLogger(ConfigurationFactory.class.getName()).log(Level.SEVERE, null, ex1);
+            }
             JOptionPane.showMessageDialog(null, "Não foi encontrado arquivo de configuração");
             Logger.getLogger(ConfigurationFactory.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -106,23 +115,23 @@ public class ConfigurationFactory {
             BufferedWriter buffW = new BufferedWriter(fileW);
 
             buffW.write("[main]");
-            buffW.newLine ();
-            buffW.write("db.name="+DBNAME);
-            buffW.newLine ();
-            buffW.write("db.host="+DBHOST);
-            buffW.newLine ();
-            buffW.write("db.port="+DBPORT);
-            buffW.newLine ();
-            buffW.write("db.database="+DATABASE);
-            buffW.newLine ();
-            buffW.write("db.user="+DBUSER);
-            buffW.newLine ();
-            buffW.write("db.password="+DBPASSWORD);
-            buffW.newLine ();
+            buffW.newLine();
+            buffW.write("db.name=" + DBNAME);
+            buffW.newLine();
+            buffW.write("db.host=" + DBHOST);
+            buffW.newLine();
+            buffW.write("db.port=" + DBPORT);
+            buffW.newLine();
+            buffW.write("db.database=" + DATABASE);
+            buffW.newLine();
+            buffW.write("db.user=" + DBUSER);
+            buffW.newLine();
+            buffW.write("db.password=" + DBPASSWORD);
+            buffW.newLine();
 
             buffR.close();
             buffW.close();
-            
+
             JOptionPane.showMessageDialog(null, "Configurações gravadas com êxito");
         } catch (IOException io) {
             JOptionPane.showMessageDialog(null, "Não foi possível gravar as alterações");
