@@ -125,7 +125,7 @@ public class ConfigTelas {
     public static String getTitulo() {
         //Section config = ConfigurationFactory.getConfiguration();
 
-        return ("teste");
+        return ("Sistotal");
 
     }
 

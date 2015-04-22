@@ -29,7 +29,7 @@ public class ConfigurationFactory {
     public static String DATABASE;
     public static String DBUSER;
     public static String DBPASSWORD;
-    public static Integer DBPORT;
+    public static String DBPORT;
     private static Section config;
 
     public ConfigurationFactory(String secao) throws FileNotFoundException {
@@ -51,14 +51,14 @@ public class ConfigurationFactory {
             DBNAME = config.get("db.name");
             DBHOST = config.get("db.host");
             DATABASE = config.get("db.database");
-            DBPORT = Integer.parseInt(config.get("db.port"));
+            DBPORT = config.get("db.port");
             DBUSER = config.get("db.user");
             DBPASSWORD = config.get("db.password");
         }
         return config;
     }
 
-    public static Section getConfiguration() throws FileNotFoundException {
+    public static Section getConfiguration()  {
 
         if (ini != null) {
             return ini.get("main");
@@ -69,7 +69,7 @@ public class ConfigurationFactory {
             DBNAME = config.get("db.name");
             DATABASE = config.get("db.database");
             DBHOST = config.get("db.host");
-            DBPORT = Integer.parseInt(config.get("db.port"));
+            DBPORT = config.get("db.port");
             DBUSER = config.get("db.user");
             DBPASSWORD = config.get("db.password");
         }

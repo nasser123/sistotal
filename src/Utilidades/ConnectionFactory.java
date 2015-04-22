@@ -24,13 +24,13 @@ public class ConnectionFactory {
     private static Connection connectionNoDatabase;
     private static EntityManager entityManager;
 
-    public static Connection getConnection() throws FileNotFoundException {
+    public static Connection getConnection()  {
         if (connection == null) {
             Section config = ConfigurationFactory.getConfiguration();
             
             try {
                 //aqui colocamos os dados de acesso ao banco
-                if (ConfigurationFactory.DATABASE.equalsIgnoreCase("mysql")) {
+                if (ConfigurationFactory.DBNAME.equalsIgnoreCase("mysql")) {
                     Class.forName("com.mysql.jdbc.Driver").newInstance();
                     connection = DriverManager.getConnection("jdbc:mysql://" + ConfigurationFactory.DBHOST + ":" + ConfigurationFactory.DBPORT + "/" + ConfigurationFactory.DATABASE + "?autoReconnect=true&allowMultiQueries=true&useUnicode=true&characterEncoding=utf8",
                             ConfigurationFactory.DBUSER, ConfigurationFactory.DBPASSWORD);
@@ -59,7 +59,7 @@ public class ConnectionFactory {
         return connectionNoDatabase;
     }
 
-    public static EntityManager getEntityManager() throws FileNotFoundException  {
+    public static EntityManager getEntityManager()  {
         Section config = ConfigurationFactory.getConfiguration();
         Map prop = new HashMap();
         if (entityManager == null) {

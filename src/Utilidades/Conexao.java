@@ -50,12 +50,12 @@ public class Conexao {
         em.getTransaction().commit();
     }
 
-    public static Connection getConnection() throws ClassNotFoundException, SQLException {
-        return ConnectionFactory.getConnection();
-        
-//        Class.forName(DRIVER_MYSQL_JDBC);
-//        return DriverManager.getConnection(getUrl(), USUARIO, SENHA);
-    }
+//    public static Connection getConnection() throws ClassNotFoundException, SQLException {
+//        return ConnectionFactory.getConnection();
+//        
+////        Class.forName(DRIVER_MYSQL_JDBC);
+////        return DriverManager.getConnection(getUrl(), USUARIO, SENHA);
+//    }
 
     public static void closeConnection(Connection conn,
             Statement stmt, ResultSet rs) {

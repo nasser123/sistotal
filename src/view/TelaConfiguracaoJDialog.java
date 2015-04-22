@@ -153,7 +153,7 @@ public class TelaConfiguracaoJDialog extends javax.swing.JDialog {
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
         cf.DBNAME = jTextFieldName.getText();
         cf.DBHOST = jTextFieldHost.getText();
-        cf.DBPORT = Integer.parseInt(jTextFieldPort.getText());
+        cf.DBPORT = jTextFieldPort.getText();
         cf.DATABASE = jTextFieldDataBase.getText();
         cf.DBUSER = jTextFieldUser.getText();
         
