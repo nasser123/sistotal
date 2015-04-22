@@ -107,8 +107,8 @@ public class Cidade implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Cidade[ idcidade=" + idcidade + " ]";
-        //return nome;
+        //return "model.Cidade[ idcidade=" + idcidade + " ]";
+        return nome;
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {

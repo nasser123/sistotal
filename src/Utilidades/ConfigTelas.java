@@ -19,7 +19,6 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.UnsupportedLookAndFeelException;
-import org.ini4j.Profile.Section;
 
 /**
  * Define configurações padrão das telas
