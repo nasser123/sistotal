@@ -50,6 +50,7 @@
 	<parameter name="sistemaOperacional" class="java.lang.String"/>
 	<parameter name="antiVirus" class="java.lang.String"/>
 	<parameter name="office" class="java.lang.String"/>
+	<parameter name="Imagem" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
      ordem_servico.`idordem_servico` AS ordem_servico_idordem_servico,
@@ -180,8 +181,8 @@ WHERE
 				<textFieldExpression><![CDATA[$F{ordem_servico_idordem_servico}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="6" y="0" width="47" height="42" uuid="16d4e2ea-85b0-40ad-b8fc-fc5127669953"/>
-				<imageExpression><![CDATA["./total_tech_logo.jpg"]]></imageExpression>
+				<reportElement x="1" y="0" width="52" height="42" uuid="bb36637e-54e4-4b59-bb6e-f5321cd02bcd"/>
+				<imageExpression><![CDATA[$P{Imagem}]]></imageExpression>
 			</image>
 		</band>
 	</title>
