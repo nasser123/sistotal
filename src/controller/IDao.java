@@ -17,9 +17,11 @@ public interface IDao {
      * 
      * @param objeto
      * @return a entidade com seu identificador
+     * teste git
      */
     public boolean inserir(Object objeto) throws SQLException;
 
+    
     public boolean alterar(Object objeto) throws SQLException;
 
     public boolean excluir(Object objeto) throws SQLException;
