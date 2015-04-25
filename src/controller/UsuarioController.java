@@ -95,7 +95,7 @@ public class UsuarioController implements IDao {
     }
 
     @Override
-    public Usuario pesquisarPorId(int id) throws SQLException {
+    public Usuario pesquisarPorId(Integer id) throws SQLException {
         Usuario u = null;
         List usuarios = entity.createNamedQuery("Usuario.findByIdusuario").setParameter("idusuario", id).getResultList();
         if (!usuarios.isEmpty()) {

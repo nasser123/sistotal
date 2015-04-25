@@ -24,7 +24,7 @@ public interface IDao {
 
     public boolean excluir(Object objeto) throws SQLException;
 
-    public Object pesquisarPorId(int id) throws SQLException;
+    public Object pesquisarPorId(Integer id) throws SQLException;
 
     public List<? extends Object> pesquisarTodos() throws SQLException;
 

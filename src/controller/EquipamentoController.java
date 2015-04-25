@@ -62,7 +62,7 @@ public class EquipamentoController implements IDao {
     }
 
     @Override
-    public Object pesquisarPorId(int id) throws SQLException {
+    public Object pesquisarPorId(Integer id) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

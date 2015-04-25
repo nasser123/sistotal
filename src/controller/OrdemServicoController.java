@@ -64,8 +64,7 @@ public class OrdemServicoController implements IDao {
     public boolean excluir(Object objeto) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
+@Override
     public OrdemServico pesquisarPorId(Integer id) throws SQLException {
         OrdemServico os = new OrdemServico();
             Integer idOrdem = id;
