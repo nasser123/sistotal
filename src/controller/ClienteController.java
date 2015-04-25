@@ -8,6 +8,7 @@ import Utilidades.ConnectionFactory;
 import java.sql.SQLException;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.swing.JOptionPane;
 import model.Cliente;
 
@@ -60,8 +61,19 @@ public class ClienteController implements IDao {
     }
 
     @Override
-    public Object pesquisarPorId(Integer id) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Cliente pesquisarPorId(Integer id) throws SQLException {
+        Cliente cli = new Cliente();
+            Integer idCliente = id;
+            Query query = entity.createNamedQuery("Cliente.findByIdcliente");
+            query.setParameter("idcliente", idCliente);
+            if (query.getResultList().size() != 0) {
+                cli = (Cliente) query.getResultList().get(0);
+                entity.getTransaction().begin();
+                entity.refresh(cli);
+                entity.getTransaction().commit();
+                return cli;
+            }
+        return null;
     }
 
     @Override

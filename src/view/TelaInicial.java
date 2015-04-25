@@ -6,7 +6,11 @@ package view;
 
 import Utilidades.ConfigTelas;
 import Utilidades.ConnectionFactory;
+import controller.OrdemServicoController;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.OrdemServico;
 import relatorios.ExecutaRelatorio;
 
@@ -428,6 +432,12 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jButtonVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVisualizarActionPerformed
         OrdemServico os = (OrdemServico) jComboBoxOsSelecionada.getSelectedItem();
+        OrdemServicoController osController = new OrdemServicoController();
+        try {
+            os = osController.pesquisarPorId(os.getIdordemServico());
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
         TelaCadastroOrdemServico tosc = new TelaCadastroOrdemServico(os);
         tosc.setVisible(true);
         System.gc();
@@ -551,13 +561,19 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jTable1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseEntered
 
-        
+
     }//GEN-LAST:event_jTable1MouseEntered
 
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         if (evt.getClickCount() > 1) {
             OrdemServico os = (OrdemServico) jComboBoxOsSelecionada.getSelectedItem();
+            OrdemServicoController osController = new OrdemServicoController();
+            try {
+                os = osController.pesquisarPorId(os.getIdordemServico());
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+            }
             TelaCadastroOrdemServico tosc = new TelaCadastroOrdemServico(os);
             tosc.setVisible(true);
             System.gc();
@@ -629,7 +645,7 @@ public class TelaInicial extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(TelaInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /*

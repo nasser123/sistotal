@@ -7,12 +7,15 @@ package view;
 import Utilidades.ConfigTelas;
 import Utilidades.ConnectionFactory;
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
+import controller.ClienteController;
+import java.sql.SQLException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Cidade;
 import model.Cliente;
 import model.Estado;
-import model.OrdemServico;
 import model.SituacaoCliente;
 
 /**
@@ -713,6 +716,12 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     private void jButtonListaOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListaOSActionPerformed
         Cliente c = new Cliente();
         c = (Cliente) jComboBox1.getSelectedItem();
+        ClienteController cliController = new ClienteController();
+            try {
+                c = cliController.pesquisarPorId(c.getIdcliente());
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+            }
         new TelaListaOsPorCliente(this, true, c).setVisible(true);
         this.dispose();
 
@@ -722,6 +731,12 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         if (evt.getClickCount() > 1) {
             Cliente c = new Cliente();
             c = (Cliente) jComboBox1.getSelectedItem();
+            ClienteController cliController = new ClienteController();
+            try {
+                c = cliController.pesquisarPorId(c.getIdcliente());
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+            }
             new TelaListaOsPorCliente(this, true, c).setVisible(true);
         }
     }//GEN-LAST:event_jTable1MouseClicked

@@ -73,8 +73,8 @@ public class OrdemServicoController implements IDao {
             if (query.getResultList().size() != 0) {
                 os = (OrdemServico) query.getResultList().get(0);
                 entity.getTransaction().begin();
-                entity.getTransaction().rollback();
-//                entity.getTransaction().commit();
+                entity.refresh(os);
+                entity.getTransaction().commit();
                 return os;
             }
         return null;
