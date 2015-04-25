@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a8f18236-1399-4cb7-9695-840bcf5603f3">
 	<property name="ireport.zoom" value="1.6105100000000012"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="709"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -50,6 +50,7 @@
 	<parameter name="sistemaOperacional" class="java.lang.String"/>
 	<parameter name="antiVirus" class="java.lang.String"/>
 	<parameter name="office" class="java.lang.String"/>
+	<parameter name="Imagem" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT
      ordem_servico.`idordem_servico` AS ordem_servico_idordem_servico,
@@ -115,7 +116,7 @@ WHERE
 	<field name="cliente_idcliente" class="java.lang.Integer"/>
 	<field name="cliente_nome" class="java.lang.String"/>
 	<field name="cliente_endereco" class="java.lang.String"/>
-	<field name="cliente_numero" class="java.lang.Integer"/>
+	<field name="cliente_numero" class="java.lang.String"/>
 	<field name="cliente_complemento" class="java.lang.String"/>
 	<field name="cliente_bairro" class="java.lang.String"/>
 	<field name="cliente_cep" class="java.lang.String"/>
@@ -180,8 +181,8 @@ WHERE
 				<textFieldExpression><![CDATA[$F{ordem_servico_idordem_servico}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="6" y="0" width="47" height="42" uuid="16d4e2ea-85b0-40ad-b8fc-fc5127669953"/>
-				<imageExpression><![CDATA["./total_tech_logo.jpg"]]></imageExpression>
+				<reportElement x="1" y="0" width="52" height="42" uuid="bb36637e-54e4-4b59-bb6e-f5321cd02bcd"/>
+				<imageExpression><![CDATA[$P{Imagem}]]></imageExpression>
 			</image>
 		</band>
 	</title>
@@ -1137,6 +1138,15 @@ WHERE
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cliente_bairro}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="362" y="578" width="50" height="15" uuid="929cce3a-45af-42da-8ffc-ef74669110e1"/>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[(   )  OK]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="302" y="578" width="60" height="15" uuid="a209f32b-0464-4ab2-b1ed-12eadb0bcb74"/>
+				<text><![CDATA[Silverlight]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 </jasperReport>

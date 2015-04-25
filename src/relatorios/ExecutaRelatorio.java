@@ -48,11 +48,13 @@ public class ExecutaRelatorio {
             parametros.put("sistemaOperacional", sistemaOperacional);
             parametros.put("antiVirus", antiVirus);
             parametros.put("office", office);
+            parametros.put("Imagem","total_tech_logo.jpg");
             try {
                 // abre o relatório
                 ReportUtils.openReport("Ordem de Serviço", inputStream, parametros, ConnectionFactory.getConnection());
                 telaProgresso.setVisible(false);
             } catch (JRException exc) {
+                exc.printStackTrace();
             }
         }
 
