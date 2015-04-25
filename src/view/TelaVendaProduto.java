@@ -9,6 +9,9 @@ import Utilidades.ConnectionFactory;
 import Utilidades.Datas;
 import controller.*;
 import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Cliente;
 import model.Produto;
@@ -309,6 +312,7 @@ public class TelaVendaProduto extends javax.swing.JFrame {
             }
         });
 
+        jButtonSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/sair2.png"))); // NOI18N
         jButtonSair.setText("Sair");
         jButtonSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonSair.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -575,10 +579,13 @@ public class TelaVendaProduto extends javax.swing.JFrame {
     private void jTextFieldCodigoClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCodigoClienteFocusLost
         ClienteController cc = new ClienteController();
         try {
-            this.cliente = cc.getClienteByIdCliente(clienteQuery, SistotalPUEntityManager, Integer.parseInt(this.jTextFieldCodigoCliente.getText()));
+            this.cliente = cc.pesquisarPorId(Integer.parseInt(this.jTextFieldCodigoCliente.getText()));
             preencheDadosCliente(this.cliente);
         } catch (java.lang.ArrayIndexOutOfBoundsException | NullPointerException aiob) {
             JOptionPane.showMessageDialog(rootPane, "Cliente não encontrado");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Cliente não encontrado");
+            Logger.getLogger(TelaVendaProduto.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 

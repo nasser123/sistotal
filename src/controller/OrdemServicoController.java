@@ -113,22 +113,22 @@ public class OrdemServicoController implements IDao {
         }
     }
 
-    public Cliente getClienteByIdCliente(javax.persistence.Query query, EntityManager em, Integer idCodigo) {
-        Cliente c = null;
-        Integer codigo = idCodigo;
-        List<Cliente> resultado;
-
-        query = em.createNamedQuery("Cliente.findByIdcliente");
-        query.setParameter("idcliente", codigo);
-        resultado = query.getResultList();
-
-        try {
-            c = resultado.get(0);
-        } catch (IndexOutOfBoundsException iofe) {
-            JOptionPane.showMessageDialog(null, "Cliente não encontrado");
-        }
-        return c;
-    }
+//    public Cliente getClienteByIdCliente(javax.persistence.Query query, EntityManager em, Integer idCodigo) {
+//        Cliente c = null;
+//        Integer codigo = idCodigo;
+//        List<Cliente> resultado;
+//
+//        query = em.createNamedQuery("Cliente.findByIdcliente");
+//        query.setParameter("idcliente", codigo);
+//        resultado = query.getResultList();
+//
+//        try {
+//            c = resultado.get(0);
+//        } catch (IndexOutOfBoundsException iofe) {
+//            JOptionPane.showMessageDialog(null, "Cliente não encontrado");
+//        }
+//        return c;
+//    }
     
     
 

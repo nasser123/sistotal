@@ -657,22 +657,23 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonGravarActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
-//        int valor = JOptionPane.showConfirmDialog(rootPane, "Você tem certeza que deseja excluir?");
-//        if (valor == 0) {
-//            Cliente c = (Cliente) jComboBox1.getSelectedItem();
-//            try {
-//                SistotalPUEntityManager.getTransaction().begin();
-//                SistotalPUEntityManager.remove(c);
-//                SistotalPUEntityManager.getTransaction().commit();
-//            } catch (    MySQLIntegrityConstraintViolationException | javax.persistence.RollbackException | org.eclipse.persistence.exceptions.DatabaseException ex) {
-//                Logger.getLogger(TelaCadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//
-//
-//
-//
-//        }
-//        atualizaTela();
+        int valor = JOptionPane.showConfirmDialog(rootPane, "Você tem certeza que deseja excluir?");
+        if (valor == 0) {
+            Cliente c = (Cliente) jComboBox1.getSelectedItem();
+            ClienteController cliController = new ClienteController();
+            try {
+                cliController.excluir(c);
+            } catch (    MySQLIntegrityConstraintViolationException | javax.persistence.RollbackException | org.eclipse.persistence.exceptions.DatabaseException ex) {
+                Logger.getLogger(TelaCadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaCadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+
+
+
+        }
+        atualizaTela();
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void excluirCliente(Cliente c) throws MySQLIntegrityConstraintViolationException {
@@ -785,8 +786,6 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     }
 
     private void atualizaTela() {
-        //SistotalPUEntityManager.getTransaction().rollback();
-        //SistotalPUEntityManager.getTransaction().begin();
         java.util.Collection data = clienteQuery.getResultList();
         for (Object entity : data) {
             SistotalPUEntityManager.refresh(entity);

@@ -5,7 +5,9 @@
 package controller;
 
 import Utilidades.ConnectionFactory;
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -56,29 +58,50 @@ public class ClienteController implements IDao {
     }
 
     @Override
-    public boolean excluir(Object objeto) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean excluir(Object cliente) throws SQLException {
+        if (cliente instanceof Cliente) {
+            Cliente c = (Cliente) cliente;
+            if (c.getOrdemServicoList().isEmpty()) {
+                entity.getTransaction().begin();
+                entity.remove(c);
+                entity.getTransaction().commit();
+                JOptionPane.showMessageDialog(null, "Cliente excluido com sucesso.");
+                return true;
+            } else {
+                JOptionPane.showMessageDialog(null, "Cliente não pode ser excluido.");
+            }
+            return false;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public Cliente pesquisarPorId(Integer id) throws SQLException {
         Cliente cli = new Cliente();
-            Integer idCliente = id;
-            Query query = entity.createNamedQuery("Cliente.findByIdcliente");
-            query.setParameter("idcliente", idCliente);
-            if (query.getResultList().size() != 0) {
-                cli = (Cliente) query.getResultList().get(0);
-                entity.getTransaction().begin();
-                entity.refresh(cli);
-                entity.getTransaction().commit();
-                return cli;
-            }
+        Integer idCliente = id;
+        Query query = entity.createNamedQuery("Cliente.findByIdcliente");
+        query.setParameter("idcliente", idCliente);
+        if (!query.getResultList().isEmpty()) {
+            cli = (Cliente) query.getResultList().get(0);
+            entity.getTransaction().begin();
+            entity.refresh(cli);
+            entity.getTransaction().commit();
+            return cli;
+        }
         return null;
     }
 
     @Override
     public List<? extends Object> pesquisarTodos() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Cliente> clienteList = new ArrayList();
+        Query query = entity.createNamedQuery("Cliente.findAll");
+        if (!query.getResultList().isEmpty()) {
+            clienteList = query.getResultList();
+            return clienteList;
+        }
+        return null;
+        
     }
 
     @Override
@@ -93,23 +116,6 @@ public class ClienteController implements IDao {
             return false;
         }
         return true;
-    }
-
-    public Cliente getClienteByIdCliente(javax.persistence.Query query, EntityManager em, Integer idCodigo) {
-        Cliente c = null;
-        Integer codigo = idCodigo;
-        List<Cliente> resultado;
-
-        query = em.createNamedQuery("Cliente.findByIdcliente");
-        query.setParameter("idcliente", codigo);
-        resultado = query.getResultList();
-
-        try {
-            c = resultado.get(0);
-        } catch (IndexOutOfBoundsException iofe) {
-            JOptionPane.showMessageDialog(null, "Cliente não encontrado");
-        }
-        return c;
     }
 
 }
