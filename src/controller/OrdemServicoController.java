@@ -13,7 +13,6 @@ import javax.persistence.Query;
 import javax.swing.JOptionPane;
 import model.Cliente;
 import model.OrdemServico;
-import static model.Produto_.codigo;
 
 /**
  *
@@ -67,8 +66,19 @@ public class OrdemServicoController implements IDao {
     }
 
     @Override
-    public Object pesquisarPorId(int id) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public OrdemServico pesquisarPorId(Integer id) throws SQLException {
+        OrdemServico os = new OrdemServico();
+            Integer idOrdem = id;
+            Query query = entity.createNamedQuery("OrdemServico.findByIdordemServico");
+            query.setParameter("idordemServico", idOrdem);
+            if (query.getResultList().size() != 0) {
+                os = (OrdemServico) query.getResultList().get(0);
+                entity.getTransaction().begin();
+                entity.getTransaction().rollback();
+//                entity.getTransaction().commit();
+                return os;
+            }
+        return null;
     }
 
     public OrdemServico pesquisarPorId(String id) throws SQLException {
@@ -120,5 +130,7 @@ public class OrdemServicoController implements IDao {
         }
         return c;
     }
+    
+    
 
 }
