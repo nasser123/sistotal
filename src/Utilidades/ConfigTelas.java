@@ -10,6 +10,7 @@ import java.awt.KeyboardFocusManager;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.logging.Level;
@@ -122,9 +123,13 @@ public class ConfigTelas {
     
     }
     public static String getTitulo() {
-        //Section config = ConfigurationFactory.getConfiguration();
-
-        return ("Sistotal");
+        try {
+            //Section config = ConfigurationFactory.getConfiguration();
+            ConfigurationFactory cf = new ConfigurationFactory("main");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ConfigTelas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ("Sistotal em " + ConfigurationFactory.DBHOST + "/" + ConfigurationFactory.DATABASE);
 
     }
 
