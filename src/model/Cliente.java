@@ -100,10 +100,16 @@ public class Cliente implements Serializable {
     public void setDataCadastro(Date dataCadastro) {
         Date oldDataCadastro = this.dataCadastro;
         this.dataCadastro = dataCadastro;
+        if(this.dataCadastro == null){
+            this.dataCadastro = Datas.getCurrentTime();
+        }
         changeSupport.firePropertyChange("dataCadastro", oldDataCadastro, dataCadastro);
     }
 
     public String getDataCadastroString() {
+        if(dataCadastro == null){
+            return "";
+        }
         return Datas.getDate(dataCadastro);
 
     }

@@ -31,9 +31,14 @@ public class ClienteController implements IDao {
         if (cliente instanceof Cliente) {
             Cliente c = (Cliente) cliente;
             if (ehValido(c)) {
-                entity.getTransaction().begin();
-                entity.persist(c);
-                entity.getTransaction().commit();
+                if (!existeCliente(c)) {
+                    entity.getTransaction().begin();
+                    entity.persist(c);
+                    entity.getTransaction().commit();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Já existe cliente com esse nome.");
+                    return false;
+                }
                 JOptionPane.showMessageDialog(null, "Cliente salvo com sucesso.");
                 return true;
             }
@@ -47,9 +52,14 @@ public class ClienteController implements IDao {
             Cliente c = (Cliente) cliente;
 //            if (!existeUsuario(c.getUsuario()) && dadosValidos(c)) {
             if (ehValido(c)) {
-                entity.getTransaction().begin();
-                entity.merge(c);
-                entity.getTransaction().commit();
+                if (!existeCliente(c)) {
+                    entity.getTransaction().begin();
+                    entity.merge(c);
+                    entity.getTransaction().commit();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Já existe cliente com esse nome.");
+                    return false;
+                }
                 JOptionPane.showMessageDialog(null, "Cliente salvo com sucesso.");
                 return true;
             }
@@ -101,7 +111,7 @@ public class ClienteController implements IDao {
             return clienteList;
         }
         return null;
-        
+
     }
 
     @Override
@@ -116,6 +126,17 @@ public class ClienteController implements IDao {
             return false;
         }
         return true;
+    }
+
+    private boolean existeCliente(Cliente cliente) {
+        List<Cliente> clienteList = new ArrayList();
+        Query query = entity.createNamedQuery("Cliente.findByNome");
+        query.setParameter("nome", cliente.getNome());
+        if (!query.getResultList().isEmpty()) {
+            return true;
+        }
+        return false;
+
     }
 
 }
