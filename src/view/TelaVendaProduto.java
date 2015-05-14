@@ -624,7 +624,7 @@ public class TelaVendaProduto extends javax.swing.JFrame {
     }
 
     private void jButtonGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGravarActionPerformed
-        if (this.cliente != null && saidaProdutoList.size() != 0 && this.venda != null) {
+        if (this.cliente != null && !saidaProdutoList.isEmpty() && this.venda != null) {
             if (this.venda.verificaPagamento()) {
                 this.vc.gravar(SistotalPUEntityManager, this.venda);
                 SaidaProdutoController spc = new SaidaProdutoController();
