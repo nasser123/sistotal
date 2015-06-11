@@ -11,7 +11,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.swing.JOptionPane;
-import model.Cliente;
 import model.OrdemServico;
 
 /**

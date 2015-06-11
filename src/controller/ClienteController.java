@@ -5,7 +5,6 @@
 package controller;
 
 import Utilidades.ConnectionFactory;
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -133,6 +132,14 @@ public class ClienteController implements IDao {
         Query query = entity.createNamedQuery("Cliente.findByNome");
         query.setParameter("nome", cliente.getNome());
         if (!query.getResultList().isEmpty()) {
+            if (query.getResultList().size() == 1) {
+                Cliente c = (Cliente) query.getSingleResult();
+                if (c.getNome().equalsIgnoreCase(cliente.getNome())) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
             return true;
         }
         return false;
