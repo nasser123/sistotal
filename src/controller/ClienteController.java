@@ -49,7 +49,6 @@ public class ClienteController implements IDao {
     public boolean alterar(Object cliente) throws SQLException {
         if (cliente instanceof Cliente) {
             Cliente c = (Cliente) cliente;
-//            if (!existeUsuario(c.getUsuario()) && dadosValidos(c)) {
             if (ehValido(c)) {
                 if (!existeCliente(c)) {
                     entity.getTransaction().begin();

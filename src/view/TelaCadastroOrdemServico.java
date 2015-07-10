@@ -780,6 +780,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
+        this.jButtonGravarActionPerformed(evt);
         if (this.osCad.getIdordemServico() != null) {
             String sistemaOperacional = jComboBoxSO.getModel().getSelectedItem().toString();
             String antiVirus = jComboBoxAV.getModel().getSelectedItem().toString();
@@ -811,14 +812,14 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxSOActionPerformed
 
     private void jComboBoxSituacaoOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSituacaoOSActionPerformed
-//        if (jComboBoxSituacaoOS.getSelectedIndex() != -1) {
-//            if (jComboBoxSituacaoOS.getSelectedItem().toString().equals("Entregue")) {
-//                jDateChooserEntrega.setEnabled(true);
-//               // jDateChooserEntrega.setDate(Datas.getCurrentTime());
-//            } else {
-//                jDateChooserEntrega.setEnabled(false);
-//            }
-//        }
+        if (jComboBoxSituacaoOS.getSelectedIndex() != -1) {
+            if (jComboBoxSituacaoOS.getSelectedItem().toString().equals("Entregue") || jComboBoxSituacaoOS.getSelectedItem().toString().equals("Fechada")) {
+                jDateChooserEntrega.setEnabled(true);
+                jDateChooserEntrega.setDate(Datas.getCurrentTime());
+            } else {
+                jDateChooserEntrega.setEnabled(false);
+            }
+        }
     }//GEN-LAST:event_jComboBoxSituacaoOSActionPerformed
 
     private void jButtonDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDetalharActionPerformed

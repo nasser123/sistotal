@@ -69,7 +69,7 @@ public class OrdemServicoController implements IDao {
             Integer idOrdem = id;
             Query query = entity.createNamedQuery("OrdemServico.findByIdordemServico");
             query.setParameter("idordemServico", idOrdem);
-            if (query.getResultList().size() != 0) {
+            if (!query.getResultList().isEmpty()) {
                 os = (OrdemServico) query.getResultList().get(0);
                 entity.getTransaction().begin();
                 entity.refresh(os);
@@ -80,13 +80,13 @@ public class OrdemServicoController implements IDao {
     }
 
     public OrdemServico pesquisarPorId(String id) throws SQLException {
-        OrdemServico os = new OrdemServico();
+        
         if (Validadores.verificaNr(id)) {
             Integer idOrdem = Integer.parseInt(id);
             Query query = entity.createNamedQuery("OrdemServico.findByIdordemServico");
             query.setParameter("idordemServico", idOrdem);
-            if (query.getResultList().size() != 0) {
-                os = (OrdemServico) query.getResultList().get(0);
+            if (!query.getResultList().isEmpty()) {
+                OrdemServico os = (OrdemServico) query.getResultList().get(0);
                 return os;
             }
         }

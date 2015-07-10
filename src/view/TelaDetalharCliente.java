@@ -249,10 +249,16 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
         jLabel13.setText("Celular:");
 
         jTextFieldCelular.setEditable(false);
+        jTextFieldCelular.setSelectionStart(0);
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cliente, org.jdesktop.beansbinding.ELProperty.create("${celular}"), jTextFieldCelular, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
+        jTextFieldCelular.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldCelularFocusGained(evt);
+            }
+        });
         jTextFieldCelular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldCelularActionPerformed(evt);
@@ -266,6 +272,17 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cliente, org.jdesktop.beansbinding.ELProperty.create("${fone}"), jTextFieldFone, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
+
+        jTextFieldFone.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldFoneFocusGained(evt);
+            }
+        });
+        jTextFieldFone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldFoneActionPerformed(evt);
+            }
+        });
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel9.setText("CPF/CNPJ:");
@@ -633,7 +650,7 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextFieldCelularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCelularActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jTextFieldCelularActionPerformed
 
     private void jTextFieldCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCPFActionPerformed
@@ -670,6 +687,18 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
         habilitaEdicao();
     }//GEN-LAST:event_jButtonEditarActionPerformed
+
+    private void jTextFieldFoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldFoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldFoneActionPerformed
+
+    private void jTextFieldCelularFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCelularFocusGained
+        jTextFieldCelular.selectAll();
+    }//GEN-LAST:event_jTextFieldCelularFocusGained
+
+    private void jTextFieldFoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldFoneFocusGained
+        jTextFieldFone.selectAll();
+    }//GEN-LAST:event_jTextFieldFoneFocusGained
 
     /**
      * @param args the command line arguments

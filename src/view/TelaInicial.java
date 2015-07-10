@@ -516,10 +516,10 @@ public class TelaInicial extends javax.swing.JFrame {
             ordemServicoList.clear();
             List<OrdemServico> temp = ordemServicoQuery.getResultList();
             ordemServicoList.addAll(temp);
-            for (int i = 0; i < ordemServicoList.size(); i++) {
-                SistotalPUEntityManager.refresh(ordemServicoList.get(i));
-                SistotalPUEntityManager.refresh(ordemServicoList.get(i).getIdcliente());
-            }
+//            for (int i = 0; i < ordemServicoList.size(); i++) {
+//                SistotalPUEntityManager.refresh(ordemServicoList.get(i));
+//                SistotalPUEntityManager.refresh(ordemServicoList.get(i).getIdcliente());
+//            }
 
         }
     }//GEN-LAST:event_jButtonFiltrarActionPerformed
