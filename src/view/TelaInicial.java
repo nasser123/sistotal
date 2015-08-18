@@ -155,6 +155,9 @@ public class TelaInicial extends javax.swing.JFrame {
         columnBinding.setColumnName("Equipamento");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${marca}"));
+        columnBinding.setColumnName("Marca");
+        columnBinding.setColumnClass(String.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idsituacaoOs.descricao}"));
         columnBinding.setColumnName("Situação");
         columnBinding.setColumnClass(String.class);
@@ -196,24 +199,24 @@ public class TelaInicial extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(3).setMinWidth(100);
             jTable1.getColumnModel().getColumn(3).setPreferredWidth(100);
             jTable1.getColumnModel().getColumn(3).setMaxWidth(100);
-            jTable1.getColumnModel().getColumn(4).setCellRenderer(ordemServicoTableCellRenderer1);
-            jTable1.getColumnModel().getColumn(5).setMinWidth(85);
-            jTable1.getColumnModel().getColumn(5).setPreferredWidth(85);
-            jTable1.getColumnModel().getColumn(5).setMaxWidth(85);
-            jTable1.getColumnModel().getColumn(6).setMinWidth(50);
-            jTable1.getColumnModel().getColumn(6).setPreferredWidth(50);
-            jTable1.getColumnModel().getColumn(6).setMaxWidth(50);
+            jTable1.getColumnModel().getColumn(5).setCellRenderer(ordemServicoTableCellRenderer1);
+            jTable1.getColumnModel().getColumn(6).setMinWidth(85);
+            jTable1.getColumnModel().getColumn(6).setPreferredWidth(85);
+            jTable1.getColumnModel().getColumn(6).setMaxWidth(85);
             jTable1.getColumnModel().getColumn(7).setMinWidth(50);
             jTable1.getColumnModel().getColumn(7).setPreferredWidth(50);
             jTable1.getColumnModel().getColumn(7).setMaxWidth(50);
-            jTable1.getColumnModel().getColumn(8).setMinWidth(80);
-            jTable1.getColumnModel().getColumn(8).setPreferredWidth(80);
-            jTable1.getColumnModel().getColumn(8).setMaxWidth(80);
-            jTable1.getColumnModel().getColumn(8).setCellRenderer(ordemServicoTableCellRenderer1);
+            jTable1.getColumnModel().getColumn(8).setMinWidth(50);
+            jTable1.getColumnModel().getColumn(8).setPreferredWidth(50);
+            jTable1.getColumnModel().getColumn(8).setMaxWidth(50);
+            jTable1.getColumnModel().getColumn(9).setMinWidth(80);
+            jTable1.getColumnModel().getColumn(9).setPreferredWidth(80);
+            jTable1.getColumnModel().getColumn(9).setMaxWidth(80);
+            jTable1.getColumnModel().getColumn(9).setCellRenderer(ordemServicoTableCellRenderer1);
         }
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 180, 820, 342);
+        jScrollPane1.setBounds(10, 180, 880, 342);
 
         jButtonVisualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/visualiza_os.png"))); // NOI18N
         jButtonVisualizar.setText("Visualiza");
@@ -251,7 +254,7 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jCheckBoxTodos);
-        jCheckBoxTodos.setBounds(840, 180, 140, 25);
+        jCheckBoxTodos.setBounds(900, 180, 140, 25);
 
         jCheckBoxAbertas.setBackground(new java.awt.Color(255, 255, 255));
         jCheckBoxAbertas.setText("Abertas");
@@ -261,7 +264,7 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jCheckBoxAbertas);
-        jCheckBoxAbertas.setBounds(840, 205, 140, 25);
+        jCheckBoxAbertas.setBounds(900, 205, 140, 25);
 
         jCheckBoxAndamento.setBackground(new java.awt.Color(255, 255, 255));
         jCheckBoxAndamento.setText("Andamento");
@@ -271,7 +274,7 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jCheckBoxAndamento);
-        jCheckBoxAndamento.setBounds(840, 230, 140, 25);
+        jCheckBoxAndamento.setBounds(900, 230, 140, 25);
 
         jCheckBoxAguardando.setBackground(new java.awt.Color(255, 255, 255));
         jCheckBoxAguardando.setText("Aguardando Cliente");
@@ -281,7 +284,7 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jCheckBoxAguardando);
-        jCheckBoxAguardando.setBounds(840, 255, 140, 25);
+        jCheckBoxAguardando.setBounds(900, 255, 140, 25);
 
         jCheckBoxFechada.setBackground(new java.awt.Color(255, 255, 255));
         jCheckBoxFechada.setText("Fechada");
@@ -291,7 +294,7 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jCheckBoxFechada);
-        jCheckBoxFechada.setBounds(840, 280, 140, 25);
+        jCheckBoxFechada.setBounds(900, 280, 140, 25);
 
         jCheckBoxEntregue.setBackground(new java.awt.Color(255, 255, 255));
         jCheckBoxEntregue.setText("Entregue");
@@ -301,7 +304,7 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jCheckBoxEntregue);
-        jCheckBoxEntregue.setBounds(840, 305, 140, 25);
+        jCheckBoxEntregue.setBounds(900, 305, 140, 25);
 
         jButtonFiltrar.setText("Atualizar");
         jButtonFiltrar.addActionListener(new java.awt.event.ActionListener() {
@@ -327,7 +330,7 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jRadioButtonTodos);
-        jRadioButtonTodos.setBounds(840, 330, 140, 25);
+        jRadioButtonTodos.setBounds(900, 330, 140, 25);
 
         jRadioButtonPagos.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(jRadioButtonPagos);
@@ -338,7 +341,7 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jRadioButtonPagos);
-        jRadioButtonPagos.setBounds(840, 355, 140, 25);
+        jRadioButtonPagos.setBounds(900, 355, 140, 25);
 
         jRadioButtonNaoPagos.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(jRadioButtonNaoPagos);
@@ -349,7 +352,7 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jRadioButtonNaoPagos);
-        jRadioButtonNaoPagos.setBounds(840, 380, 140, 25);
+        jRadioButtonNaoPagos.setBounds(900, 380, 140, 25);
 
         jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/relatorio.png"))); // NOI18N
         jButtonImprimir.setText("Imprimir");
@@ -401,7 +404,9 @@ public class TelaInicial extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1059, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -410,7 +415,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         bindingGroup.bind();
 
-        setSize(new java.awt.Dimension(1016, 675));
+        setSize(new java.awt.Dimension(1075, 675));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

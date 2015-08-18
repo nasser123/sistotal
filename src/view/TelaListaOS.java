@@ -80,6 +80,10 @@ public class TelaListaOS extends javax.swing.JFrame {
         columnBinding.setColumnName("Equipamento");
         columnBinding.setColumnClass(model.Equipamento.class);
         columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${marca}"));
+        columnBinding.setColumnName("Marca");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idsituacaoOs.descricao}"));
         columnBinding.setColumnName("Situação");
         columnBinding.setColumnClass(String.class);
@@ -115,21 +119,21 @@ public class TelaListaOS extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(1).setMinWidth(90);
             jTable1.getColumnModel().getColumn(1).setPreferredWidth(90);
             jTable1.getColumnModel().getColumn(1).setMaxWidth(90);
-            jTable1.getColumnModel().getColumn(4).setMinWidth(100);
-            jTable1.getColumnModel().getColumn(4).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(4).setMaxWidth(100);
-            jTable1.getColumnModel().getColumn(5).setMinWidth(90);
-            jTable1.getColumnModel().getColumn(5).setPreferredWidth(90);
-            jTable1.getColumnModel().getColumn(5).setMaxWidth(90);
-            jTable1.getColumnModel().getColumn(6).setMinWidth(60);
-            jTable1.getColumnModel().getColumn(6).setPreferredWidth(60);
-            jTable1.getColumnModel().getColumn(6).setMaxWidth(60);
-            jTable1.getColumnModel().getColumn(7).setMinWidth(50);
-            jTable1.getColumnModel().getColumn(7).setPreferredWidth(50);
-            jTable1.getColumnModel().getColumn(7).setMaxWidth(50);
-            jTable1.getColumnModel().getColumn(8).setMinWidth(80);
-            jTable1.getColumnModel().getColumn(8).setPreferredWidth(80);
-            jTable1.getColumnModel().getColumn(8).setMaxWidth(80);
+            jTable1.getColumnModel().getColumn(5).setMinWidth(100);
+            jTable1.getColumnModel().getColumn(5).setPreferredWidth(100);
+            jTable1.getColumnModel().getColumn(5).setMaxWidth(100);
+            jTable1.getColumnModel().getColumn(6).setMinWidth(90);
+            jTable1.getColumnModel().getColumn(6).setPreferredWidth(90);
+            jTable1.getColumnModel().getColumn(6).setMaxWidth(90);
+            jTable1.getColumnModel().getColumn(7).setMinWidth(60);
+            jTable1.getColumnModel().getColumn(7).setPreferredWidth(60);
+            jTable1.getColumnModel().getColumn(7).setMaxWidth(60);
+            jTable1.getColumnModel().getColumn(8).setMinWidth(50);
+            jTable1.getColumnModel().getColumn(8).setPreferredWidth(50);
+            jTable1.getColumnModel().getColumn(8).setMaxWidth(50);
+            jTable1.getColumnModel().getColumn(9).setMinWidth(80);
+            jTable1.getColumnModel().getColumn(9).setPreferredWidth(80);
+            jTable1.getColumnModel().getColumn(9).setMaxWidth(80);
         }
 
         jButtonVisualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/visualiza_os.png"))); // NOI18N
@@ -210,7 +214,7 @@ public class TelaListaOS extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextFieldFiltro)
+                .addComponent(jTextFieldFiltro, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -219,14 +223,13 @@ public class TelaListaOS extends javax.swing.JFrame {
                 .addComponent(jRadioButtonCodigo)
                 .addGap(235, 235, 235))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(297, 297, 297)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 811, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(297, 297, 297)
+                .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,7 +258,9 @@ public class TelaListaOS extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,7 +269,7 @@ public class TelaListaOS extends javax.swing.JFrame {
 
         bindingGroup.bind();
 
-        setSize(new java.awt.Dimension(847, 638));
+        setSize(new java.awt.Dimension(918, 638));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
