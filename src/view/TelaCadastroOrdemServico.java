@@ -39,7 +39,10 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jComboBoxEquipamento.setSelectedIndex(0);
         jComboBoxSituacaoOS.setSelectedIndex(0);
         jComboBoxLocal.setSelectedIndex(0);
+
     }
+
+    
 
     public TelaCadastroOrdemServico(Cliente c) {
         this.osCad = new OrdemServico();
@@ -55,7 +58,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jDateChooserAbertura.setDate(Datas.getCurrentTime());
         jLabelNrOs.setText("");
         outroSistema = false;
-        
+
         jComboBoxEquipamento.setSelectedIndex(0);
         jComboBoxSituacaoOS.setSelectedIndex(0);
         jComboBoxLocal.setSelectedIndex(0);
@@ -82,9 +85,10 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         outroSistema = false;
 
     }
-    private void configuraTextArea(){
+
+    private void configuraTextArea() {
         jTextAreaEfeitoCliente.setLineWrap(true);
-    
+
     }
 
     private void preencheTodosDados() {
@@ -204,7 +208,6 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
 //                jDateChooserEntrega.setEnabled(false);
 //            }
 //        }
-        
     }
 
     /**
@@ -291,6 +294,10 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         jComboBoxLocal = new javax.swing.JComboBox();
         jLabel26 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(870, 740));
@@ -368,7 +375,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jPanel1.add(jComboBoxSituacaoOS, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 585, 150, 25));
 
         jLabelTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabelTitulo.setText("Ordem de Serviço  Nr");
+        jLabelTitulo.setText("Ordem de Serviço  Nº");
         jPanel1.add(jLabelTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(254, 12, 170, 30));
 
         jLabel3.setText("Data de Abertura:");
@@ -384,35 +391,37 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
                 jTextFieldCodigoActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextFieldCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(232, 70, 55, -1));
+        jPanel1.add(jTextFieldCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 70, 55, -1));
 
         jTextFieldNome.setEnabled(false);
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${idcliente.nome}"), jTextFieldNome, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
-        jPanel1.add(jTextFieldNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(297, 70, 246, -1));
+        jPanel1.add(jTextFieldNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(317, 70, 246, -1));
 
         jLabel4.setText("Código");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(232, 50, 55, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 50, 55, -1));
 
         jLabel5.setText("Nome");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(297, 52, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(317, 52, -1, -1));
 
         jButtonPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/16x16/1408_16x16.png"))); // NOI18N
-        jButtonPesquisar.setText("Pesquisar");
+        jButtonPesquisar.setMnemonic('P');
+        jButtonPesquisar.setText("Pesquisar (F2)");
+        jButtonPesquisar.setToolTipText("");
         jButtonPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPesquisarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(115, 67, -1, -1));
+        jPanel1.add(jButtonPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(115, 67, 130, -1));
 
         jLabel6.setText("Telefone");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 50, 70, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 50, 70, -1));
 
         jLabel7.setText("Celular");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 50, 70, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 50, 70, -1));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 98, 870, -1));
 
         jLabel8.setText("Dados do Equipamento");
@@ -481,6 +490,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
 
         jButtonGravar.setBackground(new java.awt.Color(255, 255, 255));
         jButtonGravar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/save.png"))); // NOI18N
+        jButtonGravar.setMnemonic('G');
         jButtonGravar.setText("Gravar");
         jButtonGravar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonGravar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -506,25 +516,27 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("!= null"), jTextFieldFone, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
         bindingGroup.addBinding(binding);
 
-        jPanel1.add(jTextFieldFone, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 70, 80, -1));
+        jPanel1.add(jTextFieldFone, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 70, 80, -1));
 
         jTextFieldCelular.setEnabled(false);
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${idcliente.celular}"), jTextFieldCelular, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
-        jPanel1.add(jTextFieldCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 70, 70, -1));
+        jPanel1.add(jTextFieldCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 70, 70, -1));
 
         jButtonNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/16x16/add_user.png"))); // NOI18N
-        jButtonNovo.setText("Novo");
+        jButtonNovo.setMnemonic('N');
+        jButtonNovo.setText("Novo(F3)");
         jButtonNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonNovoActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 67, 90, -1));
+        jPanel1.add(jButtonNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 67, 100, -1));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/8394_32x32.png"))); // NOI18N
+        jButton1.setMnemonic('e');
         jButton1.setText("editar");
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -536,6 +548,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 620, 90, 80));
 
         jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/cancelar32.png"))); // NOI18N
+        jButtonCancelar.setMnemonic('c');
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -555,6 +568,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jPanel1.add(jLabelNrOs, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 12, 100, 30));
 
         jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/relatorio.png"))); // NOI18N
+        jButtonImprimir.setMnemonic('I');
         jButtonImprimir.setText("Imprimir");
         jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -566,6 +580,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jPanel1.add(jButtonImprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 620, 90, 80));
 
         jButtonSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/sair2.png"))); // NOI18N
+        jButtonSair.setMnemonic('S');
         jButtonSair.setText("Sair");
         jButtonSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonSair.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -643,13 +658,15 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 565, -1, -1));
         jPanel1.add(jDateChooserEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 585, 156, 25));
 
+        jButtonDetalhar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/16x16/edit_profile.png"))); // NOI18N
+        jButtonDetalhar.setMnemonic('D');
         jButtonDetalhar.setText("Detalhar");
         jButtonDetalhar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDetalharActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonDetalhar, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 67, -1, -1));
+        jPanel1.add(jButtonDetalhar, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 67, -1, -1));
 
         jLabel23.setText("Demais equipamentos");
         jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, -1));
@@ -687,6 +704,32 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
+        jMenu1.setText("Ordem de Serviço");
+
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/16x16/1408_16x16.png"))); // NOI18N
+        jMenuItem2.setText("Pesquisar");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/16x16/add_user.png"))); // NOI18N
+        jMenuItem1.setText("Novo");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
         bindingGroup.bind();
 
         setSize(new java.awt.Dimension(875, 750));
@@ -702,11 +745,16 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldCodigoActionPerformed
 
     private void jButtonPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarActionPerformed
+        pesquisaCliente();
+    }//GEN-LAST:event_jButtonPesquisarActionPerformed
+
+    private void pesquisaCliente() {
         TelaListaClientesJDialog tlc = new TelaListaClientesJDialog(this, true);
         tlc.setVisible(true);
         this.ordemServico.setIdcliente(tlc.getCliente());
         this.preencheDadosCliente();
-    }//GEN-LAST:event_jButtonPesquisarActionPerformed
+
+    }
 
     private void jTextFieldPlacaMaeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPlacaMaeActionPerformed
         // TODO add your handling code here:
@@ -731,7 +779,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         if (jDateChooserEntrega != null) {
             this.ordemServico.setDataTermino(jDateChooserEntrega.getDate());
         }
-        
+
         OrdemServicoController osc = new OrdemServicoController();
         if (this.ordemServico.getIdordemServico() == null) {
             try {
@@ -748,8 +796,6 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
                 Logger.getLogger(TelaCadastroOrdemServico.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-
-
         }
 
     }//GEN-LAST:event_jButtonGravarActionPerformed
@@ -758,12 +804,17 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
 //        TelaCadastroCliente tcc = new TelaCadastroCliente(true);
 //        tcc.setVisible(true);
 //        this.dispose();
+        novoCliente();
+
+    }//GEN-LAST:event_jButtonNovoActionPerformed
+
+    private void novoCliente() {
         Cliente c = new Cliente();
         TelaDetalharCliente tdc = new TelaDetalharCliente(this, true, c, true, false);
         tdc.setVisible(true);
         this.ordemServico.setIdcliente(tdc.getCliente());
-    }//GEN-LAST:event_jButtonNovoActionPerformed
 
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         liberaEdicao();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -839,6 +890,14 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     private void jTextFieldFonteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldFonteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldFonteActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+       novoCliente();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        pesquisaCliente();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -928,6 +987,10 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelNrOs;
     private javax.swing.JLabel jLabelOutro;
     private javax.swing.JLabel jLabelTitulo;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

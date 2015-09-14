@@ -393,6 +393,10 @@ public class TelaListaOsPorCliente extends javax.swing.JDialog {
         jTextArea2.setLineWrap(true);
         jTextArea2.setRows(5);
         jTextArea2.setBorder(javax.swing.BorderFactory.createTitledBorder("Feedback do cliente"));
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jTable1, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.feedback}"), jTextArea2, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         jScrollPane5.setViewportView(jTextArea2);
 
         jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/edit_profile.png"))); // NOI18N
