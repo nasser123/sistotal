@@ -317,6 +317,11 @@ public class TelaVendaProduto extends javax.swing.JFrame {
         jButtonSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonSair.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jButtonSair.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSairActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, saidaProdutoList, jComboBox1);
         bindingGroup.addBinding(jComboBoxBinding);
@@ -678,6 +683,10 @@ public class TelaVendaProduto extends javax.swing.JFrame {
         }
         abreNovaTela();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jButtonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSairActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButtonSairActionPerformed
 
     private void preencheDadosProduto(Produto p) {
         this.produto = p;

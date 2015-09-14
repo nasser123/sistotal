@@ -110,45 +110,104 @@
       <SubComponents>
         <Component class="javax.swing.JTable" name="jTable2">
           <Properties>
-            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="4" rowCount="4">
-                <Column editable="true" title="Title 1" type="java.lang.Object"/>
-                <Column editable="true" title="Title 2" type="java.lang.Object"/>
-                <Column editable="true" title="Title 3" type="java.lang.Object"/>
-                <Column editable="true" title="Title 4" type="java.lang.Object"/>
-              </Table>
+            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+              <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+              </TableColumnModel>
+            </Property>
+            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
           <BindingProperties>
             <BindingProperty name="elements" source="jTable1" sourcePath="${selectedElement.saidaProdutoList}" target="jTable2" targetPath="elements" updateStrategy="0" immediately="true">
-              <Subbinding sourcePath="${dataSaida}">
-                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="java.util.Date.class"/>
-              </Subbinding>
-              <Subbinding sourcePath="${idordemServico}">
-                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="model.OrdemServico.class"/>
-              </Subbinding>
-              <Subbinding sourcePath="${idproduto}">
-                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="model.Produto.class"/>
-              </Subbinding>
               <Subbinding sourcePath="${idsaidaProduto}">
+                <BindingParameter name="NAME" value="Title 4"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Integer.class"/>
               </Subbinding>
+              <Subbinding sourcePath="${idordemServico}">
+                <BindingParameter name="NAME" value="Title 2"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="model.OrdemServico.class"/>
+              </Subbinding>
+              <Subbinding sourcePath="${idproduto.descricao}">
+                <BindingParameter name="NAME" value="Title 3"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
+              </Subbinding>
+              <Subbinding sourcePath="${dataSaida}">
+                <BindingParameter name="NAME" value="Title 1"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="java.util.Date.class"/>
+              </Subbinding>
               <Subbinding sourcePath="${idtipoSaida}">
+                <BindingParameter name="NAME" value="Idtipo Saida"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="model.TipoSaida.class"/>
               </Subbinding>
               <Subbinding sourcePath="${idvenda}">
+                <BindingParameter name="NAME" value="Idvenda"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="model.Venda.class"/>
               </Subbinding>
               <Subbinding sourcePath="${lucroBruto}">
+                <BindingParameter name="NAME" value="Lucro Bruto"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="java.math.BigDecimal.class"/>
               </Subbinding>
               <Subbinding sourcePath="${qtd}">
+                <BindingParameter name="NAME" value="Qtd"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Integer.class"/>
               </Subbinding>
               <Subbinding sourcePath="${subTotal}">
+                <BindingParameter name="NAME" value="Sub Total"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Float.class"/>
               </Subbinding>
               <Subbinding sourcePath="${valorunitario}">
+                <BindingParameter name="NAME" value="Valorunitario"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="java.math.BigDecimal.class"/>
               </Subbinding>
             </BindingProperty>

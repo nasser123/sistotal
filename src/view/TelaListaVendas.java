@@ -57,32 +57,20 @@ public class TelaListaVendas extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(jTable1);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${selectedElement.saidaProdutoList}");
         jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jTable1, eLProperty, jTable2);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${dataSaida}"));
-        columnBinding.setColumnName("Data Saida");
-        columnBinding.setColumnClass(java.util.Date.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idordemServico}"));
-        columnBinding.setColumnName("Idordem Servico");
-        columnBinding.setColumnClass(model.OrdemServico.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idproduto}"));
-        columnBinding.setColumnName("Idproduto");
-        columnBinding.setColumnClass(model.Produto.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idsaidaProduto}"));
-        columnBinding.setColumnName("Idsaida Produto");
+        columnBinding.setColumnName("Title 4");
         columnBinding.setColumnClass(Integer.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idordemServico}"));
+        columnBinding.setColumnName("Title 2");
+        columnBinding.setColumnClass(model.OrdemServico.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idproduto.descricao}"));
+        columnBinding.setColumnName("Title 3");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${dataSaida}"));
+        columnBinding.setColumnName("Title 1");
+        columnBinding.setColumnClass(java.util.Date.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idtipoSaida}"));
         columnBinding.setColumnName("Idtipo Saida");
         columnBinding.setColumnClass(model.TipoSaida.class);
