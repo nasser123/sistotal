@@ -170,9 +170,9 @@
           </Properties>
           <BindingProperties>
             <BindingProperty name="elements" source="jTable1" sourcePath="${selectedElement.saidaProdutoList}" target="jTable2" targetPath="elements" updateStrategy="0" immediately="true">
-              <Subbinding sourcePath="${idsaidaProduto}">
-                <BindingParameter name="NAME" value="Title 4"/>
-                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Integer.class"/>
+              <Subbinding sourcePath="${dataSaida}">
+                <BindingParameter name="NAME" value="Title 1"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="java.util.Date.class"/>
               </Subbinding>
               <Subbinding sourcePath="${idordemServico}">
                 <BindingParameter name="NAME" value="Title 2"/>
@@ -182,17 +182,17 @@
                 <BindingParameter name="NAME" value="Title 3"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
               </Subbinding>
-              <Subbinding sourcePath="${dataSaida}">
-                <BindingParameter name="NAME" value="Title 1"/>
-                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="java.util.Date.class"/>
+              <Subbinding sourcePath="${idsaidaProduto}">
+                <BindingParameter name="NAME" value="Title 4"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Integer.class"/>
               </Subbinding>
-              <Subbinding sourcePath="${idtipoSaida}">
+              <Subbinding sourcePath="${idtipoSaida.descricao}">
                 <BindingParameter name="NAME" value="Idtipo Saida"/>
-                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="model.TipoSaida.class"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
               </Subbinding>
-              <Subbinding sourcePath="${idvenda}">
+              <Subbinding sourcePath="${idvenda.idvenda}">
                 <BindingParameter name="NAME" value="Idvenda"/>
-                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="model.Venda.class"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Integer.class"/>
               </Subbinding>
               <Subbinding sourcePath="${lucroBruto}">
                 <BindingParameter name="NAME" value="Lucro Bruto"/>
