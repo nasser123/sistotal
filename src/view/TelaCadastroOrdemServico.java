@@ -26,6 +26,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     Cliente cliente;
     OrdemServico osCad;
     boolean outroSistema;
+    boolean mensagem = true;
 
     public TelaCadastroOrdemServico() {
         this.osCad = new OrdemServico();
@@ -34,7 +35,6 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         ct.carregarConfig(this);
         jDateChooserAbertura.setDate(Datas.getCurrentTime());
         jLabelTitulo.setText("Ordem de Serviço");
-        jLabelNrOs.setText("");
         outroSistema = false;
         jComboBoxEquipamento.setSelectedIndex(0);
         jComboBoxSituacaoOS.setSelectedIndex(0);
@@ -56,7 +56,6 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jTextFieldCelular.setText(this.cliente.getCelular().toString());
         jTextFieldFone.setText(this.cliente.getFone().toString());
         jDateChooserAbertura.setDate(Datas.getCurrentTime());
-        jLabelNrOs.setText("");
         outroSistema = false;
 
         jComboBoxEquipamento.setSelectedIndex(0);
@@ -73,7 +72,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         this.ordemServico = os;
 
         preencheTodosDados();
-        jLabelTitulo.setText("Ordem de Serviço N° ");
+        jLabelTitulo.setText("Ordem de Serviço N° " + os.getIdordemServico());
         bloqueiaEdicao();
 
         jButtonNovo.setEnabled(false);
@@ -94,11 +93,11 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     private void preencheTodosDados() {
         jDateChooserAbertura.setDate(this.ordemServico.getDataAbertura());
 
-        if (this.ordemServico.getPago()) {
-            jComboBoxPago.setSelectedIndex(1);
-        } else {
-            jComboBoxPago.setSelectedIndex(0);
-        }
+//        if (this.ordemServico.getPago()) {
+//            jComboBoxPago.setSelectedIndex(1);
+//        } else {
+//            jComboBoxPago.setSelectedIndex(0);
+//        }
 
         if (this.ordemServico.getDataTermino() != null) {
             jDateChooserEntrega.setDate(this.ordemServico.getDataTermino());
@@ -168,7 +167,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jTextFieldOutro.setEnabled(false);
         jButtonGravar.setEnabled(false);
         jTextField_outro_hardware.setEnabled(false);
-        jComboBoxPago.setEnabled(false);
+//        jComboBoxPago.setEnabled(false);
         jTextFieldValor.setEnabled(false);
         jComboBoxLocal.setEnabled(false);
 
@@ -192,10 +191,12 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jComboBoxSO.setEnabled(true);
         jButtonGravar.setEnabled(true);
         jTextField_outro_hardware.setEnabled(true);
-        jComboBoxPago.setEnabled(true);
+//        jComboBoxPago.setEnabled(true);
         jTextFieldValor.setEnabled(true);
         jComboBoxLocal.setEnabled(true);
         jDateChooserEntrega.setEnabled(true);
+        
+        jButtonPesquisar.setEnabled(true);
 
 //        if (jComboBoxSituacaoOS.getSelectedIndex() != -1) {
 //            if (jComboBoxSituacaoOS.getSelectedItem().toString().equals("Entregue")) {
@@ -268,7 +269,6 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jButtonNovo = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
-        jLabelNrOs = new javax.swing.JLabel();
         jButtonImprimir = new javax.swing.JButton();
         jButtonSair = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -289,11 +289,11 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jLabel23 = new javax.swing.JLabel();
         jTextField_outro_hardware = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
-        jComboBoxPago = new javax.swing.JComboBox();
         jTextFieldValor = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
         jComboBoxLocal = new javax.swing.JComboBox();
         jLabel26 = new javax.swing.JLabel();
+        jCheckBox1 = new javax.swing.JCheckBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -375,8 +375,9 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jPanel1.add(jComboBoxSituacaoOS, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 585, 150, 25));
 
         jLabelTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabelTitulo.setText("Ordem de Serviço  Nº");
-        jPanel1.add(jLabelTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(254, 12, 170, 30));
+        jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitulo.setText("Ordem de Serviço");
+        jPanel1.add(jLabelTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 30));
 
         jLabel3.setText("Data de Abertura:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 565, -1, -1));
@@ -489,7 +490,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 565, 150, -1));
 
         jButtonGravar.setBackground(new java.awt.Color(255, 255, 255));
-        jButtonGravar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/save.png"))); // NOI18N
+        jButtonGravar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/gravar32.png"))); // NOI18N
         jButtonGravar.setMnemonic('G');
         jButtonGravar.setText("Gravar");
         jButtonGravar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -558,14 +559,6 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButtonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 620, 90, 80));
-
-        jLabelNrOs.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabelNrOs.setForeground(new java.awt.Color(255, 0, 0));
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${idordemServico}"), jLabelNrOs, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
-        jPanel1.add(jLabelNrOs, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 12, 100, 30));
 
         jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/relatorio.png"))); // NOI18N
         jButtonImprimir.setMnemonic('I');
@@ -681,12 +674,14 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jLabel24.setText("Pago:");
         jPanel1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 565, 170, -1));
 
-        jComboBoxPago.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
-        jPanel1.add(jComboBoxPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 585, 170, 25));
-
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${valor}"), jTextFieldValor, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
+        jTextFieldValor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldValorFocusGained(evt);
+            }
+        });
         jPanel1.add(jTextFieldValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 585, 110, 25));
 
         jLabel25.setText("Valor Total:");
@@ -701,6 +696,14 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
 
         jLabel26.setText("Local:");
         jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 509, 80, -1));
+
+        jCheckBox1.setBackground(new java.awt.Color(255, 255, 255));
+        jCheckBox1.setText("Sim");
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${pago}"), jCheckBox1, org.jdesktop.beansbinding.BeanProperty.create("selected"));
+        bindingGroup.addBinding(binding);
+
+        jPanel1.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 585, -1, -1));
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -732,7 +735,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
 
         bindingGroup.bind();
 
-        setSize(new java.awt.Dimension(875, 750));
+        setSize(new java.awt.Dimension(875, 764));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -763,11 +766,11 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     private void jButtonGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGravarActionPerformed
         this.ordemServico.setDataAbertura(jDateChooserAbertura.getDate());
 
-        if (jComboBoxPago.getSelectedIndex() == 0) {
-            this.ordemServico.setPago(false);
-        } else {
-            this.ordemServico.setPago(true);
-        }
+//        if (jComboBoxPago.getSelectedIndex() == 0) {
+//            this.ordemServico.setPago(false);
+//        } else {
+//            this.ordemServico.setPago(true);
+//        }
         if (jComboBoxSO.getSelectedIndex() < (jComboBoxSO.getItemCount() - 1)) {
             this.ordemServico.setSistemaOperacional(jComboBoxSO.getSelectedItem().toString());
         } else {
@@ -791,12 +794,13 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
 
         } else {
             try {
-                osc.alterar(ordemServico);
+                osc.alterar(ordemServico, this.mensagem);
             } catch (SQLException ex) {
                 Logger.getLogger(TelaCadastroOrdemServico.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
+        this.mensagem = true;
 
     }//GEN-LAST:event_jButtonGravarActionPerformed
 
@@ -810,7 +814,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
 
     private void novoCliente() {
         Cliente c = new Cliente();
-        TelaDetalharCliente tdc = new TelaDetalharCliente(this, true, c, true, false);
+        TelaDetalharCliente tdc = new TelaDetalharCliente(this, true, c, true, false, null);
         tdc.setVisible(true);
         this.ordemServico.setIdcliente(tdc.getCliente());
 
@@ -831,7 +835,9 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
+        this.mensagem = false;
         this.jButtonGravarActionPerformed(evt);
+        
         if (this.osCad.getIdordemServico() != null) {
             String sistemaOperacional = jComboBoxSO.getModel().getSelectedItem().toString();
             String antiVirus = jComboBoxAV.getModel().getSelectedItem().toString();
@@ -875,10 +881,10 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
 
     private void jButtonDetalharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDetalharActionPerformed
         if (this.cliente != null) {
-            new TelaDetalharCliente(this, true, this.cliente, false, false).setVisible(true);
+            new TelaDetalharCliente(this, true, this.cliente, false, false, null).setVisible(true);
         } else {
             if (this.osCad != null) {
-                new TelaDetalharCliente(this, true, this.osCad.getIdcliente(), false, false).setVisible(true);
+                new TelaDetalharCliente(this, true, this.osCad.getIdcliente(), false, false, null).setVisible(true);
             }
         }
     }//GEN-LAST:event_jButtonDetalharActionPerformed
@@ -898,6 +904,10 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         pesquisaCliente();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jTextFieldValorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldValorFocusGained
+        jTextFieldValor.selectAll();
+    }//GEN-LAST:event_jTextFieldValorFocusGained
 
     /**
      * @param args the command line arguments
@@ -953,11 +963,11 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     private javax.swing.JButton jButtonNovo;
     private javax.swing.JButton jButtonPesquisar;
     private javax.swing.JButton jButtonSair;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox jComboBoxAV;
     private javax.swing.JComboBox jComboBoxEquipamento;
     private javax.swing.JComboBox jComboBoxLocal;
     private javax.swing.JComboBox jComboBoxOffice;
-    private javax.swing.JComboBox jComboBoxPago;
     private javax.swing.JComboBox jComboBoxSO;
     private javax.swing.JComboBox jComboBoxSituacaoOS;
     private com.toedter.calendar.JDateChooser jDateChooserAbertura;
@@ -984,7 +994,6 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel jLabelNrOs;
     private javax.swing.JLabel jLabelOutro;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JMenu jMenu1;

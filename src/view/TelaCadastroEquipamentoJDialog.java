@@ -173,7 +173,7 @@ public class TelaCadastroEquipamentoJDialog extends javax.swing.JDialog {
             }
         } else {
             try {
-                gravou = ec.alterar(equipamento);
+                gravou = ec.alterar(equipamento, true);
             } catch (SQLException ex) {
                 Logger.getLogger(TelaCadastroEquipamentoJDialog.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -60,6 +60,7 @@ public class TelaVendaProduto extends javax.swing.JFrame {
         saidaProdutoQuery = java.beans.Beans.isDesignTime() ? null : SistotalPUEntityManager.createQuery("SELECT s FROM SaidaProduto s");
         saidaProdutoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(saidaProdutoQuery.getResultList());
         clienteQuery = java.beans.Beans.isDesignTime() ? null : SistotalPUEntityManager.createQuery("SELECT c FROM Cliente c");
+        venda1 = new model.Venda();
         jPanel1 = new javax.swing.JPanel();
         jTextFieldCodigoBarras = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -172,13 +173,17 @@ public class TelaVendaProduto extends javax.swing.JFrame {
         jTable2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTable2.setFocusable(false);
 
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, saidaProdutoList, jTable2);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idproduto.codigo}"));
-        columnBinding.setColumnName("Código");
-        columnBinding.setColumnClass(Integer.class);
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${saidaProdutoList}");
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, venda1, eLProperty, jTable2);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idproduto}"));
+        columnBinding.setColumnName("Idproduto");
+        columnBinding.setColumnClass(model.Produto.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idproduto.descricao}"));
-        columnBinding.setColumnName("Descrição");
+        columnBinding.setColumnName("Descricao");
         columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${lucroBruto}"));
+        columnBinding.setColumnName("Lucro Bruto");
+        columnBinding.setColumnClass(java.math.BigDecimal.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${qtd}"));
         columnBinding.setColumnName("Qtd");
         columnBinding.setColumnClass(Integer.class);
@@ -192,7 +197,7 @@ public class TelaVendaProduto extends javax.swing.JFrame {
         jTableBinding.bind();
         jScrollPane2.setViewportView(jTable2);
         if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(3).setResizable(false);
+            jTable2.getColumnModel().getColumn(4).setResizable(false);
         }
 
         jTextFieldCodigoCliente.setText("1");
@@ -529,7 +534,7 @@ public class TelaVendaProduto extends javax.swing.JFrame {
 
         sp.setIdordemServico(null);
         sp.setLucroBruto(produto.getCustoAtual(), sp.getValorunitario(), sp.getQtd());
-        this.saidaProdutoList.add(sp);
+        this.venda.getSaidaProdutoList().add(sp);
 
         limpaDadosProduto();
         preencheTotais();
@@ -630,28 +635,13 @@ public class TelaVendaProduto extends javax.swing.JFrame {
 
     private void jButtonGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGravarActionPerformed
         if (this.cliente != null && !saidaProdutoList.isEmpty() && this.venda != null) {
-            if (this.venda.verificaPagamento()) {
-                this.vc.gravar(SistotalPUEntityManager, this.venda);
-                SaidaProdutoController spc = new SaidaProdutoController();
-                spc.gravarLista(SistotalPUEntityManager, this.saidaProdutoList);
-                //criarVenda();
-                JOptionPane.showMessageDialog(rootPane, "Venda cadastrada com sucesso!");
-                abreNovaTela();
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Valor pago incoerente!");
+            try {
+                this.venda.setSaidaProdutoList(saidaProdutoList);
+                this.vc.inserir(this.venda);
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaVendaProduto.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-        } else {
-            if (this.cliente == null) {
-                JOptionPane.showMessageDialog(rootPane, "Selecione um cliente!");
-            }
-            if (saidaProdutoList.isEmpty()) {
-                JOptionPane.showMessageDialog(rootPane, "Insira pelo menos um produto!");
-            }
-
-
         }
-
 
     }//GEN-LAST:event_jButtonGravarActionPerformed
 
@@ -812,6 +802,7 @@ public class TelaVendaProduto extends javax.swing.JFrame {
     private javax.persistence.Query produtoQuery;
     private java.util.List<model.SaidaProduto> saidaProdutoList;
     private javax.persistence.Query saidaProdutoQuery;
+    private model.Venda venda1;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

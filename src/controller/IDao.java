@@ -22,7 +22,7 @@ public interface IDao {
     public boolean inserir(Object objeto) throws SQLException;
 
     
-    public boolean alterar(Object objeto) throws SQLException;
+    public boolean alterar(Object objeto, boolean mensagem) throws SQLException;
 
     public boolean excluir(Object objeto) throws SQLException;
 
