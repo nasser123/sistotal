@@ -39,7 +39,6 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jComboBoxEquipamento.setSelectedIndex(0);
         jComboBoxSituacaoOS.setSelectedIndex(0);
         jComboBoxLocal.setSelectedIndex(0);
-
     }
 
     
@@ -93,11 +92,11 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     private void preencheTodosDados() {
         jDateChooserAbertura.setDate(this.ordemServico.getDataAbertura());
 
-//        if (this.ordemServico.getPago()) {
-//            jComboBoxPago.setSelectedIndex(1);
-//        } else {
-//            jComboBoxPago.setSelectedIndex(0);
-//        }
+        if (this.ordemServico.getPago()) {
+            jComboBoxPago.setSelectedIndex(1);
+        } else {
+            jComboBoxPago.setSelectedIndex(0);
+        }
 
         if (this.ordemServico.getDataTermino() != null) {
             jDateChooserEntrega.setDate(this.ordemServico.getDataTermino());
@@ -167,9 +166,10 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jTextFieldOutro.setEnabled(false);
         jButtonGravar.setEnabled(false);
         jTextField_outro_hardware.setEnabled(false);
-//        jComboBoxPago.setEnabled(false);
+        jComboBoxPago.setEnabled(false);
         jTextFieldValor.setEnabled(false);
         jComboBoxLocal.setEnabled(false);
+        
 
     }
 
@@ -191,7 +191,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jComboBoxSO.setEnabled(true);
         jButtonGravar.setEnabled(true);
         jTextField_outro_hardware.setEnabled(true);
-//        jComboBoxPago.setEnabled(true);
+        jComboBoxPago.setEnabled(true);
         jTextFieldValor.setEnabled(true);
         jComboBoxLocal.setEnabled(true);
         jDateChooserEntrega.setEnabled(true);
@@ -293,7 +293,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         jComboBoxLocal = new javax.swing.JComboBox();
         jLabel26 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        jComboBoxPago = new javax.swing.JComboBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -697,13 +697,8 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jLabel26.setText("Local:");
         jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 509, 80, -1));
 
-        jCheckBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBox1.setText("Sim");
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${pago}"), jCheckBox1, org.jdesktop.beansbinding.BeanProperty.create("selected"));
-        bindingGroup.addBinding(binding);
-
-        jPanel1.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 585, -1, -1));
+        jComboBoxPago.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
+        jPanel1.add(jComboBoxPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(674, 590, 150, -1));
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -766,11 +761,11 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     private void jButtonGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGravarActionPerformed
         this.ordemServico.setDataAbertura(jDateChooserAbertura.getDate());
 
-//        if (jComboBoxPago.getSelectedIndex() == 0) {
-//            this.ordemServico.setPago(false);
-//        } else {
-//            this.ordemServico.setPago(true);
-//        }
+        if (jComboBoxPago.getSelectedIndex() == 0) {
+            this.ordemServico.setPago(false);
+        } else {
+            this.ordemServico.setPago(true);
+        }
         if (jComboBoxSO.getSelectedIndex() < (jComboBoxSO.getItemCount() - 1)) {
             this.ordemServico.setSistemaOperacional(jComboBoxSO.getSelectedItem().toString());
         } else {
@@ -963,11 +958,11 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     private javax.swing.JButton jButtonNovo;
     private javax.swing.JButton jButtonPesquisar;
     private javax.swing.JButton jButtonSair;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox jComboBoxAV;
     private javax.swing.JComboBox jComboBoxEquipamento;
     private javax.swing.JComboBox jComboBoxLocal;
     private javax.swing.JComboBox jComboBoxOffice;
+    private javax.swing.JComboBox jComboBoxPago;
     private javax.swing.JComboBox jComboBoxSO;
     private javax.swing.JComboBox jComboBoxSituacaoOS;
     private com.toedter.calendar.JDateChooser jDateChooserAbertura;

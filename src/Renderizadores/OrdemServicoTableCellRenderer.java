@@ -53,6 +53,9 @@ public class OrdemServicoTableCellRenderer extends DefaultTableCellRenderer {
         if (value.equals("Entregue")){
             return Color.WHITE;
         }
+        if(value.equals("Pendente")){
+            return Color.ORANGE;
+        }
        
         return Color.GREEN;
     }

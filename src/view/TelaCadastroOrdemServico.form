@@ -1034,19 +1034,18 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JCheckBox" name="jCheckBox1">
+        <Component class="javax.swing.JComboBox" name="jComboBoxPago">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="2">
+                <StringItem index="0" value="N&#xe3;o"/>
+                <StringItem index="1" value="Sim"/>
+              </StringArray>
             </Property>
-            <Property name="text" type="java.lang.String" value="Sim"/>
           </Properties>
-          <BindingProperties>
-            <BindingProperty name="selected" source="ordemServico" sourcePath="${pago}" target="jCheckBox1" targetPath="selected" updateStrategy="0" immediately="false"/>
-          </BindingProperties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="670" y="585" width="-1" height="-1"/>
+              <AbsoluteConstraints x="674" y="590" width="150" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>

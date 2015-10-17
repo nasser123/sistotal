@@ -42,6 +42,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jCheckBoxAguardando.setSelected(true);
         jCheckBoxFechada.setSelected(true);
         jCheckBoxEntregue.setSelected(true);
+        jCheckBoxPendente.setSelected(true);
         jRadioButtonTodos.setSelected(true);
 
     }
@@ -85,6 +86,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jRadioButtonNaoPagos = new javax.swing.JRadioButton();
         jButtonImprimir = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jCheckBoxPendente = new javax.swing.JCheckBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemClientes = new javax.swing.JMenuItem();
@@ -333,7 +335,15 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Versão: 2.01 - 16/10/2015");
+        jLabel2.setText("Versão: 2.0.2 - 17/10/2015");
+
+        jCheckBoxPendente.setBackground(new java.awt.Color(255, 255, 255));
+        jCheckBoxPendente.setText("Pendente");
+        jCheckBoxPendente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxPendenteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -385,7 +395,8 @@ public class TelaInicial extends javax.swing.JFrame {
                             .addComponent(jCheckBoxEntregue, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jRadioButtonTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jRadioButtonPagos, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jRadioButtonNaoPagos, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jRadioButtonNaoPagos, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCheckBoxPendente, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(10, 10, 10))
         );
         jPanel1Layout.setVerticalGroup(
@@ -411,16 +422,19 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addComponent(jCheckBoxAndamento, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(jCheckBoxAguardando, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckBoxPendente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jCheckBoxFechada, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jCheckBoxEntregue, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
+                        .addGap(15, 15, 15)
                         .addComponent(jRadioButtonTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(jRadioButtonPagos, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
-                        .addComponent(jRadioButtonNaoPagos, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jRadioButtonNaoPagos, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -535,12 +549,14 @@ public class TelaInicial extends javax.swing.JFrame {
             jCheckBoxAguardando.setSelected(true);
             jCheckBoxFechada.setSelected(true);
             jCheckBoxEntregue.setSelected(true);
+            jCheckBoxPendente.setSelected(true);
         } else {
             jCheckBoxAbertas.setSelected(false);
             jCheckBoxAndamento.setSelected(false);
             jCheckBoxAguardando.setSelected(false);
             jCheckBoxFechada.setSelected(false);
             jCheckBoxEntregue.setSelected(false);
+            jCheckBoxPendente.setSelected(false);
         }
 
         this.jButtonFiltrarActionPerformed(evt);
@@ -551,6 +567,7 @@ public class TelaInicial extends javax.swing.JFrame {
         if (!jCheckBoxAbertas.isSelected()
                 && !jCheckBoxAndamento.isSelected()
                 && !jCheckBoxAguardando.isSelected()
+                && !jCheckBoxPendente.isSelected()
                 && !jCheckBoxFechada.isSelected()
                 && !jCheckBoxEntregue.isSelected()) {
             //JOptionPane.showMessageDialog(rootPane, "Selecione algum tipo de situação de Ordem de Serviço");
@@ -572,6 +589,9 @@ public class TelaInicial extends javax.swing.JFrame {
             }
             if (jCheckBoxEntregue.isSelected()) {
                 auxSql = auxSql + "5";
+            }
+            if (jCheckBoxPendente.isSelected()) {
+                auxSql = auxSql + "6";
             }
 
             if (jRadioButtonNaoPagos.isSelected()) {
@@ -710,6 +730,13 @@ public class TelaInicial extends javax.swing.JFrame {
         tosc.setVisible(true);
     }//GEN-LAST:event_jMenuItemNovaOSActionPerformed
 
+    private void jCheckBoxPendenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxPendenteActionPerformed
+             if (!jCheckBoxPendente.isSelected()) {
+            jCheckBoxTodos.setSelected(false);
+        }
+        this.jButtonFiltrarActionPerformed(evt);
+    }//GEN-LAST:event_jCheckBoxPendenteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -763,6 +790,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBoxAndamento;
     private javax.swing.JCheckBox jCheckBoxEntregue;
     private javax.swing.JCheckBox jCheckBoxFechada;
+    private javax.swing.JCheckBox jCheckBoxPendente;
     private javax.swing.JCheckBox jCheckBoxTodos;
     private javax.swing.JComboBox jComboBoxOsSelecionada;
     private javax.swing.JComboBox jComboBoxSituacaoOs;

@@ -55,7 +55,7 @@ public class ClienteController implements IDao {
                     entity.merge(c);
                     entity.getTransaction().commit();
                 } else {
-                    JOptionPane.showMessageDialog(null, "Já existe cliente com esse nome.");
+                    //JOptionPane.showMessageDialog(null, "Já existe cliente com esse nome.");
                     return false;
                 }
                 if (mensagem) {
