@@ -46,7 +46,7 @@ public class ClienteController implements IDao {
     }
 
     @Override
-    public boolean alterar(Object cliente) throws SQLException {
+    public boolean alterar(Object cliente, boolean mensagem) throws SQLException {
         if (cliente instanceof Cliente) {
             Cliente c = (Cliente) cliente;
             if (ehValido(c)) {
@@ -55,10 +55,12 @@ public class ClienteController implements IDao {
                     entity.merge(c);
                     entity.getTransaction().commit();
                 } else {
-                    JOptionPane.showMessageDialog(null, "Já existe cliente com esse nome.");
+                    //JOptionPane.showMessageDialog(null, "Já existe cliente com esse nome.");
                     return false;
                 }
-                JOptionPane.showMessageDialog(null, "Cliente salvo com sucesso.");
+                if (mensagem) {
+                    JOptionPane.showMessageDialog(null, "Cliente salvo com sucesso.");
+                }
                 return true;
             }
         }
@@ -129,14 +131,14 @@ public class ClienteController implements IDao {
     private boolean existeCliente(Cliente cliente) {
         List<Cliente> clienteList = new ArrayList();
         Query query = entity.createNamedQuery("Cliente.findByNome");
-        query.setParameter("nome", cliente.getNome());
+        query.setParameter("nome", cliente.getNome().toUpperCase());
         if (!query.getResultList().isEmpty()) {
             if (query.getResultList().size() == 1) {
                 Cliente c = (Cliente) query.getSingleResult();
-                if (c.getNome().equalsIgnoreCase(cliente.getNome())) {
-                    return false;
-                } else {
+                if (c.getNome().toUpperCase().equals(cliente.getNome().toUpperCase())) {
                     return true;
+                } else {
+                    return false;
                 }
             }
             return true;

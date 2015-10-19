@@ -482,7 +482,6 @@
         <Component class="javax.swing.JTextField" name="jTextFieldCelular">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
-            <Property name="selectionStart" type="int" value="0"/>
           </Properties>
           <BindingProperties>
             <BindingProperty name="text" source="cliente" sourcePath="${celular}" target="jTextFieldCelular" targetPath="text" updateStrategy="0" immediately="false">

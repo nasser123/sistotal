@@ -588,7 +588,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
 
     private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
         Cliente c = new Cliente();
-        new TelaDetalharCliente(this, true, c, true, false).setVisible(true);
+        new TelaDetalharCliente(this, true, c, true, false, jTextFieldFiltro.getText()).setVisible(true);
         
 //        habilitaNovo();
 //        liberaEdicao();
@@ -710,7 +710,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         //this.liberaEdicao();
         Cliente c = new Cliente();
         c = (Cliente) jComboBox1.getSelectedItem();
-        TelaDetalharCliente tdc = new TelaDetalharCliente(this, true, c, false, true);
+        TelaDetalharCliente tdc = new TelaDetalharCliente(this, true, c, false, true, null);
         tdc.setVisible(true);
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
@@ -724,7 +724,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
                 Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
             }
         new TelaListaOsPorCliente(this, true, c).setVisible(true);
-        this.dispose();
+        
 
     }//GEN-LAST:event_jButtonListaOSActionPerformed
 

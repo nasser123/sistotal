@@ -55,6 +55,8 @@
         </Property>
       </Properties>
     </Component>
+    <Component class="model.Venda" name="venda1">
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
@@ -431,6 +433,11 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
                       <Title/>
                       <Editor/>
@@ -452,14 +459,18 @@
                 </Property>
               </Properties>
               <BindingProperties>
-                <BindingProperty name="elements" source="saidaProdutoList" target="jTable2" targetPath="elements" updateStrategy="0" immediately="true">
-                  <Subbinding sourcePath="${idproduto.codigo}">
-                    <BindingParameter name="NAME" value="C&#xf3;digo"/>
-                    <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Integer.class"/>
+                <BindingProperty name="elements" source="venda1" sourcePath="${saidaProdutoList}" target="jTable2" targetPath="elements" updateStrategy="0" immediately="true">
+                  <Subbinding sourcePath="${idproduto}">
+                    <BindingParameter name="NAME" value="Idproduto"/>
+                    <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="model.Produto.class"/>
                   </Subbinding>
                   <Subbinding sourcePath="${idproduto.descricao}">
-                    <BindingParameter name="NAME" value="Descri&#xe7;&#xe3;o"/>
+                    <BindingParameter name="NAME" value="Descricao"/>
                     <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
+                  </Subbinding>
+                  <Subbinding sourcePath="${lucroBruto}">
+                    <BindingParameter name="NAME" value="Lucro Bruto"/>
+                    <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="java.math.BigDecimal.class"/>
                   </Subbinding>
                   <Subbinding sourcePath="${qtd}">
                     <BindingParameter name="NAME" value="Qtd"/>

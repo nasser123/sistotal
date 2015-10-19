@@ -38,13 +38,12 @@ public class OrdemServicoController implements IDao {
                 return true;
             }
         }
-        
+
         return false;
     }
 
-
     @Override
-    public boolean alterar(Object ordemServico) throws SQLException {
+    public boolean alterar(Object ordemServico, boolean mensagem) throws SQLException {
         if (ordemServico instanceof OrdemServico) {
             OrdemServico os = (OrdemServico) ordemServico;
 //            if (!existeUsuario(c.getUsuario()) && dadosValidos(c)) {
@@ -52,7 +51,9 @@ public class OrdemServicoController implements IDao {
                 entity.getTransaction().begin();
                 entity.merge(os);
                 entity.getTransaction().commit();
-                JOptionPane.showMessageDialog(null, "Ordem de serviço salva com sucesso.");
+                if (mensagem) {
+                    JOptionPane.showMessageDialog(null, "Ordem de serviço salva com sucesso.");
+                }
                 return true;
             }
         }
@@ -63,24 +64,25 @@ public class OrdemServicoController implements IDao {
     public boolean excluir(Object objeto) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-@Override
+
+    @Override
     public OrdemServico pesquisarPorId(Integer id) throws SQLException {
         OrdemServico os = new OrdemServico();
-            Integer idOrdem = id;
-            Query query = entity.createNamedQuery("OrdemServico.findByIdordemServico");
-            query.setParameter("idordemServico", idOrdem);
-            if (!query.getResultList().isEmpty()) {
-                os = (OrdemServico) query.getResultList().get(0);
-                entity.getTransaction().begin();
-                entity.refresh(os);
-                entity.getTransaction().commit();
-                return os;
-            }
+        Integer idOrdem = id;
+        Query query = entity.createNamedQuery("OrdemServico.findByIdordemServico");
+        query.setParameter("idordemServico", idOrdem);
+        if (!query.getResultList().isEmpty()) {
+            os = (OrdemServico) query.getResultList().get(0);
+            entity.getTransaction().begin();
+            entity.refresh(os);
+            entity.getTransaction().commit();
+            return os;
+        }
         return null;
     }
 
     public OrdemServico pesquisarPorId(String id) throws SQLException {
-        
+
         if (Validadores.verificaNr(id)) {
             Integer idOrdem = Integer.parseInt(id);
             Query query = entity.createNamedQuery("OrdemServico.findByIdordemServico");
@@ -128,7 +130,4 @@ public class OrdemServicoController implements IDao {
 //        }
 //        return c;
 //    }
-    
-    
-
 }

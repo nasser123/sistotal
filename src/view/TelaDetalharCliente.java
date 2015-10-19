@@ -36,26 +36,27 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
      * @param cliente enviar cliente
      * @param novo true para novo cliente, false para edição
      * @param editar true para edição
+     * @param nome abre para cadastro de novo cliente
      */
-    public TelaDetalharCliente(java.awt.Frame parent, boolean modal, Cliente cliente, boolean novo, boolean editar) {
+    public TelaDetalharCliente(java.awt.Frame parent, boolean modal, Cliente cliente, boolean novo, boolean editar, String nome) {
         super(parent, modal);
         this.novo = novo;
         this.c = cliente;
         this.setTitle(ConfigTelas.getTitulo());
-        if (novo) {
-            //this.criaClienteNovo();
-        }
+        
         initComponents();
         this.jComboBox1.setVisible(false);
         if (novo) {
             jComboBox1.setSelectedIndex(0);
+            habilitaNovo();
+            if(nome != null){
+                jTextFieldNome.setText(nome);
+            }
         }
         ConfigTelas ct = new ConfigTelas(this.jPanel1);
         ct.configuraTabulacao(jPanel1);
         jPanel2.setVisible(false);
-        if (novo) {
-            habilitaNovo();
-        }
+        
         if (editar){
             habilitaEdicao();
         }
@@ -674,7 +675,7 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
             }
         }else{
             try {
-                cc.alterar(cliente);
+                cc.alterar(cliente, true);
             } catch (SQLException ex) {
                 Logger.getLogger(TelaDetalharCliente.class.getName()).log(Level.SEVERE, null, ex);
             }

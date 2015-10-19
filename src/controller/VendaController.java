@@ -5,21 +5,25 @@
 package controller;
 
 import Utilidades.Conexao;
+import Utilidades.ConnectionFactory;
+import java.sql.SQLException;
+import java.util.List;
 import javax.persistence.EntityManager;
+import javax.swing.JOptionPane;
 import model.Venda;
 
 /**
  *
  * @author Produção
  */
-public class VendaController {
+public class VendaController implements IDao {
 
-    public void gravar(EntityManager em, Venda v) {
-        //if (v.verificaPagamento()) {
-            new Conexao(em).insert(v);
-     //   }
+    private EntityManager entity;
 
+    public VendaController() {
+        this.entity = ConnectionFactory.getEntityManager();
     }
+
 
     public void alterar(EntityManager em, Venda v) {
         new Conexao(em).update(v);
@@ -28,20 +32,45 @@ public class VendaController {
     public void excluir(EntityManager em, Venda v) {
         new Conexao(em).delete(v);
     }
-//    public Cliente getClienteByIdCliente(javax.persistence.Query query, EntityManager em, Integer idCodigo) {
-//        Venda v = null;
-//        Integer codigo = idCodigo;
-//        List<Cliente> resultado;
-//
-//        query = em.createNamedQuery("Cliente.findByIdcliente");
-//        query.setParameter("idcliente", codigo);
-//        resultado = query.getResultList();
-//
-//        try {
-//            c = resultado.get(0);
-//        } catch (IndexOutOfBoundsException iofe) {
-//            JOptionPane.showMessageDialog(null, "Cliente não encontrado");
-//        }
-//        return c;
-//    }
+
+    @Override
+    public boolean inserir(Object objeto) throws SQLException {
+        if (objeto instanceof Venda) {
+            Venda vc = (Venda) objeto;
+            entity.getTransaction().begin();
+            entity.persist(vc);
+            entity.getTransaction().commit();
+        } else {
+            JOptionPane.showMessageDialog(null, "Não foi possivel gravar a venda.");
+            return false;
+        }
+        JOptionPane.showMessageDialog(null, "Venda gravada com sucesso.");
+        return true;
+
+    }
+
+    @Override
+    public boolean alterar(Object objeto, boolean mensagem) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean excluir(Object objeto) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Object pesquisarPorId(Integer id) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<? extends Object> pesquisarTodos() throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<? extends Object> pesquisarTodosOrdenadoPor(String criterioOrdenamento) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

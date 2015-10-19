@@ -107,7 +107,7 @@ public class UsuarioController implements IDao {
     }
 
     @Override
-    public boolean alterar(Object objeto) throws SQLException {
+    public boolean alterar(Object objeto, boolean mensagem) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

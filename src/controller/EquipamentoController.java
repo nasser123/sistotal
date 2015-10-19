@@ -33,7 +33,7 @@ public class EquipamentoController implements IDao {
                 entity.getTransaction().begin();
                 entity.persist(e);
                 entity.getTransaction().commit();
-                JOptionPane.showMessageDialog(null, "Equipamento salvo com sucesso.");
+                    JOptionPane.showMessageDialog(null, "Equipamento salvo com sucesso.");
                 return true;
             }
         }
@@ -41,7 +41,7 @@ public class EquipamentoController implements IDao {
     }
 
     @Override
-    public boolean alterar(Object equipamento) throws SQLException {
+    public boolean alterar(Object equipamento, boolean mensagem) throws SQLException {
         if (equipamento instanceof Equipamento) {
             Equipamento e = (Equipamento) equipamento;
 //            if (!existeUsuario(c.getUsuario()) && dadosValidos(c)) {
@@ -49,7 +49,9 @@ public class EquipamentoController implements IDao {
                 entity.getTransaction().begin();
                 entity.merge(e);
                 entity.getTransaction().commit();
-                JOptionPane.showMessageDialog(null, "Equipamento salvo com sucesso.");
+                if (mensagem) {
+                    JOptionPane.showMessageDialog(null, "Equipamento salvo com sucesso.");
+                }
                 return true;
             }
         }
@@ -80,7 +82,5 @@ public class EquipamentoController implements IDao {
         boolean validado = true;
         return true;
     }
-
-    
 
 }

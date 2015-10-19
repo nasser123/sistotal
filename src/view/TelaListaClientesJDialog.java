@@ -122,7 +122,7 @@ public class TelaListaClientesJDialog extends javax.swing.JDialog {
         });
 
         jButtonOS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/nova_os.png"))); // NOI18N
-        jButtonOS.setText("Nova OS");
+        jButtonOS.setText("Selecionar");
         jButtonOS.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonOS.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonOS.addActionListener(new java.awt.event.ActionListener() {
