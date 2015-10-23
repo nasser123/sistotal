@@ -723,7 +723,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
             }
-        new TelaListaOsPorCliente(this, true, c).setVisible(true);
+        new TelaListaOsPorCliente(this, false, c).setVisible(true);
         
 
     }//GEN-LAST:event_jButtonListaOSActionPerformed

@@ -39,9 +39,8 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jComboBoxEquipamento.setSelectedIndex(0);
         jComboBoxSituacaoOS.setSelectedIndex(0);
         jComboBoxLocal.setSelectedIndex(0);
+        this.setAlwaysOnTop(true);
     }
-
-    
 
     public TelaCadastroOrdemServico(Cliente c) {
         this.osCad = new OrdemServico();
@@ -65,7 +64,9 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
 
     public TelaCadastroOrdemServico(OrdemServico os) {
         this.osCad = os;
+
         initComponents();
+        SistotalPUEntityManager.refresh(this.osCad);
         ConfigTelas ct = new ConfigTelas(this);
         ct.carregarConfig(this);
         this.ordemServico = os;
@@ -169,7 +170,6 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jComboBoxPago.setEnabled(false);
         jTextFieldValor.setEnabled(false);
         jComboBoxLocal.setEnabled(false);
-        
 
     }
 
@@ -195,7 +195,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jTextFieldValor.setEnabled(true);
         jComboBoxLocal.setEnabled(true);
         jDateChooserEntrega.setEnabled(true);
-        
+
         jButtonPesquisar.setEnabled(true);
 
 //        if (jComboBoxSituacaoOS.getSelectedIndex() != -1) {
@@ -832,7 +832,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     private void jButtonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImprimirActionPerformed
         this.mensagem = false;
         this.jButtonGravarActionPerformed(evt);
-        
+
         if (this.osCad.getIdordemServico() != null) {
             String sistemaOperacional = jComboBoxSO.getModel().getSelectedItem().toString();
             String antiVirus = jComboBoxAV.getModel().getSelectedItem().toString();
@@ -893,7 +893,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldFonteActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-       novoCliente();
+        novoCliente();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed

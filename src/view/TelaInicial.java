@@ -335,7 +335,7 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Versão: 2.0.2 - 17/10/2015");
+        jLabel2.setText("Versão: 2.0.3 - 23/10/2015");
 
         jCheckBoxPendente.setBackground(new java.awt.Color(255, 255, 255));
         jCheckBoxPendente.setText("Pendente");
