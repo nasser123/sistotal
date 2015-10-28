@@ -616,14 +616,14 @@ public class TelaInicial extends javax.swing.JFrame {
                 }
             }
 
+            
 //            
             ordemServicoQuery = SistotalPUEntityManager.createNativeQuery("Select * from ordem_servico where idsituacao_os in (" + auxSql + ") and pago in (" + auxSqlPago + ")", OrdemServico.class);
             ordemServicoList.clear();
             List<OrdemServico> temp = ordemServicoQuery.getResultList();
             ordemServicoList.addAll(temp);
             for (int i = 0; i < ordemServicoList.size(); i++) {
-                SistotalPUEntityManager.refresh(ordemServicoList.get(i));
-                SistotalPUEntityManager.refresh(ordemServicoList.get(i).getIdcliente());
+               SistotalPUEntityManager.refresh(ordemServicoList.get(i));
             }
 
         }
