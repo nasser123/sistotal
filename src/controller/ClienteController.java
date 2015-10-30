@@ -50,14 +50,14 @@ public class ClienteController implements IDao {
         if (cliente instanceof Cliente) {
             Cliente c = (Cliente) cliente;
             if (ehValido(c)) {
-                if (!existeCliente(c)) {
+               // if (!existeCliente(c)) {
                     entity.getTransaction().begin();
                     entity.merge(c);
                     entity.getTransaction().commit();
-                } else {
+                //} else {
                     //JOptionPane.showMessageDialog(null, "Já existe cliente com esse nome.");
-                    return false;
-                }
+                //    return false;
+                //}
                 if (mensagem) {
                     JOptionPane.showMessageDialog(null, "Cliente salvo com sucesso.");
                 }

@@ -67,6 +67,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
 
         initComponents();
         SistotalPUEntityManager.refresh(this.osCad);
+        SistotalPUEntityManager.refresh(this.osCad.getIdcliente());
         ConfigTelas ct = new ConfigTelas(this);
         ct.carregarConfig(this);
         this.ordemServico = os;

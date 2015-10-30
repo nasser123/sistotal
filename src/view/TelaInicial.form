@@ -633,7 +633,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Vers&#xe3;o: 2.0.3 - 23/10/2015"/>
+            <Property name="text" type="java.lang.String" value="Vers&#xe3;o: 2.0.4 - 30/10/2015"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBoxPendente">
