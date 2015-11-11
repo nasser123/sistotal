@@ -335,7 +335,7 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Versão: 2.0.2 - 17/10/2015");
+        jLabel2.setText("Versão: 2.0.4 - 30/10/2015");
 
         jCheckBoxPendente.setBackground(new java.awt.Color(255, 255, 255));
         jCheckBoxPendente.setText("Pendente");
@@ -616,14 +616,14 @@ public class TelaInicial extends javax.swing.JFrame {
                 }
             }
 
+            
 //            
             ordemServicoQuery = SistotalPUEntityManager.createNativeQuery("Select * from ordem_servico where idsituacao_os in (" + auxSql + ") and pago in (" + auxSqlPago + ")", OrdemServico.class);
             ordemServicoList.clear();
             List<OrdemServico> temp = ordemServicoQuery.getResultList();
             ordemServicoList.addAll(temp);
             for (int i = 0; i < ordemServicoList.size(); i++) {
-                SistotalPUEntityManager.refresh(ordemServicoList.get(i));
-                SistotalPUEntityManager.refresh(ordemServicoList.get(i).getIdcliente());
+               SistotalPUEntityManager.refresh(ordemServicoList.get(i));
             }
 
         }

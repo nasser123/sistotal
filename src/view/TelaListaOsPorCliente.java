@@ -875,12 +875,12 @@ public class TelaListaOsPorCliente extends javax.swing.JDialog {
             Logger.getLogger(TelaListaOsPorCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        ClienteController cc = new ClienteController();
-        try {
-            cc.alterar(cliente, true);
-        } catch (SQLException ex) {
-            Logger.getLogger(TelaListaOsPorCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        ClienteController cc = new ClienteController();
+//        try {
+//            cc.alterar(cliente, true);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(TelaListaOsPorCliente.class.getName()).log(Level.SEVERE, null, ex);
+//        }
        
         new TelaListaOsPorCliente(frame, true, cliente).setVisible(true);
         this.dispose();
