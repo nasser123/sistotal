@@ -12,6 +12,7 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.swing.JRViewer;
+import net.sf.jasperreports.view.JasperViewer;
 import view.TelaProgresso;
 
 /**
@@ -111,29 +112,31 @@ public class ReportUtils {
          * Cria um JRViewer para exibir o relatório.
          * Um JRViewer é uma JPanel.
          */
-        JRViewer viewer = new JRViewer(print);
+        JasperViewer viewer = new JasperViewer(print, false);
+        viewer.setVisible(true);
+        viewer.toFront();
 
-        // cria o JFrame
-        JFrame frameRelatorio = new JFrame(titulo);
-
-        // adiciona o JRViewer no JFrame
-        frameRelatorio.add(viewer, BorderLayout.CENTER);
-
-        // configura o tamanho padrão do JFrame
-        frameRelatorio.setSize(700, 500);
-
-        // maximiza o JFrame para ocupar a tela toda.
-       // frameRelatorio.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
-        // configura a operação padrão quando o JFrame for fechado.
-        frameRelatorio.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        //frameRelatorio.setAlwaysOnTop(true);
-
-        // exibe o JFrame
-        
-        
-        frameRelatorio.toFront();
-        frameRelatorio.setVisible(true);
+//        // cria o JFrame
+//        JFrame frameRelatorio = new JFrame(titulo);
+//
+//        // adiciona o JRViewer no JFrame
+//        frameRelatorio.add(viewer, BorderLayout.CENTER);
+//
+//        // configura o tamanho padrão do JFrame
+//        frameRelatorio.setSize(700, 500);
+//
+//        // maximiza o JFrame para ocupar a tela toda.
+//       // frameRelatorio.setExtendedState(JFrame.MAXIMIZED_BOTH);
+//
+//        // configura a operação padrão quando o JFrame for fechado.
+//        frameRelatorio.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//        //frameRelatorio.setAlwaysOnTop(true);
+//
+//        // exibe o JFrame
+//        
+//        
+//        frameRelatorio.toFront();
+//        frameRelatorio.setVisible(true);
        
         //telaProgresso.dispose();
 
