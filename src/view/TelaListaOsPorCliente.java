@@ -353,7 +353,6 @@ public class TelaListaOsPorCliente extends javax.swing.JDialog {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cliente, org.jdesktop.beansbinding.ELProperty.create("${dataCadastroString}"), jTextFieldDataCadastro, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
-        jTextAreaEfeitoCliente.setEditable(false);
         jTextAreaEfeitoCliente.setColumns(20);
         jTextAreaEfeitoCliente.setLineWrap(true);
         jTextAreaEfeitoCliente.setRows(5);
@@ -364,7 +363,6 @@ public class TelaListaOsPorCliente extends javax.swing.JDialog {
 
         jScrollPane2.setViewportView(jTextAreaEfeitoCliente);
 
-        jTextAreaObservacao.setEditable(false);
         jTextAreaObservacao.setColumns(20);
         jTextAreaObservacao.setLineWrap(true);
         jTextAreaObservacao.setRows(5);
@@ -407,7 +405,6 @@ public class TelaListaOsPorCliente extends javax.swing.JDialog {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jTable1, org.jdesktop.beansbinding.ELProperty.create("${selectedElement}"), jComboBox1, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
-        jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
@@ -418,7 +415,6 @@ public class TelaListaOsPorCliente extends javax.swing.JDialog {
 
         jScrollPane4.setViewportView(jTextArea1);
 
-        jTextArea2.setEditable(false);
         jTextArea2.setColumns(20);
         jTextArea2.setLineWrap(true);
         jTextArea2.setRows(5);

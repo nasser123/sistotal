@@ -74,7 +74,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
 
         preencheTodosDados();
         jLabelTitulo.setText("Ordem de Serviço N° " + os.getIdordemServico());
-        bloqueiaEdicao();
+        //bloqueiaEdicao();
 
         jButtonNovo.setEnabled(false);
         jButtonPesquisar.setEnabled(false);

@@ -58,7 +58,7 @@ public class TelaInicial extends javax.swing.JFrame {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         SistotalPUEntityManager = ConnectionFactory.getEntityManager();
-        ordemServicoQuery = java.beans.Beans.isDesignTime() ? null : SistotalPUEntityManager.createQuery("SELECT o FROM OrdemServico o");
+        ordemServicoQuery = java.beans.Beans.isDesignTime() ? null : SistotalPUEntityManager.createQuery("SELECT o FROM OrdemServico o order by o.idordemServico desc");
         ordemServicoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(ordemServicoQuery.getResultList());
         situacaoOsQuery = java.beans.Beans.isDesignTime() ? null : SistotalPUEntityManager.createQuery("SELECT s FROM SituacaoOs s");
         situacaoOsList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : situacaoOsQuery.getResultList();
@@ -335,7 +335,7 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Versão: 2.0.4 - 30/10/2015");
+        jLabel2.setText("Versão: 2.0.5 - 16/01/2017");
 
         jCheckBoxPendente.setBackground(new java.awt.Color(255, 255, 255));
         jCheckBoxPendente.setText("Pendente");
@@ -618,7 +618,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
             
 //            
-            ordemServicoQuery = SistotalPUEntityManager.createNativeQuery("Select * from ordem_servico where idsituacao_os in (" + auxSql + ") and pago in (" + auxSqlPago + ")", OrdemServico.class);
+            ordemServicoQuery = SistotalPUEntityManager.createNativeQuery("Select * from ordem_servico where idsituacao_os in (" + auxSql + ") and pago in (" + auxSqlPago + ") order by idordem_servico desc", OrdemServico.class);
             ordemServicoList.clear();
             List<OrdemServico> temp = ordemServicoQuery.getResultList();
             ordemServicoList.addAll(temp);
@@ -705,7 +705,7 @@ public class TelaInicial extends javax.swing.JFrame {
         String office = os.getOffice();
         ExecutaRelatorio er = new ExecutaRelatorio();
         er.abrirRelatorioOS(os, sistemaOperacional, antiVirus, office);
-        this.toBack();
+        //this.toBack();
 
     }//GEN-LAST:event_jButtonImprimirActionPerformed
 
