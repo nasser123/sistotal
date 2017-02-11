@@ -91,9 +91,11 @@ public class TelaInicial extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItemClientes = new javax.swing.JMenuItem();
         jMenuItemEquipamento = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jMenuOrdensServico = new javax.swing.JMenu();
         jMenuItemListaOS = new javax.swing.JMenuItem();
         jMenuItemNovaOS = new javax.swing.JMenuItem();
+        jMenuItemUsuarios = new javax.swing.JMenuItem();
+        jMenuItemAtualizar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -101,7 +103,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jButtonOS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/nova_os.png"))); // NOI18N
         jButtonOS.setMnemonic('N');
-        jButtonOS.setText("Nova OS");
+        jButtonOS.setText("Nova OS(F3)");
         jButtonOS.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonOS.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonOS.addActionListener(new java.awt.event.ActionListener() {
@@ -112,7 +114,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jButtonClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/user.png"))); // NOI18N
         jButtonClientes.setMnemonic('c');
-        jButtonClientes.setText("Clientes");
+        jButtonClientes.setText("Clientes(F2)");
         jButtonClientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonClientes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonClientes.addActionListener(new java.awt.event.ActionListener() {
@@ -123,7 +125,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jButtonListaOS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/2526_32x32.png"))); // NOI18N
         jButtonListaOS.setMnemonic('l');
-        jButtonListaOS.setText("Lista OS");
+        jButtonListaOS.setText("Lista OS(F4)");
         jButtonListaOS.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonListaOS.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonListaOS.addActionListener(new java.awt.event.ActionListener() {
@@ -282,8 +284,9 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
+        jButtonFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/6115_32x32.png"))); // NOI18N
         jButtonFiltrar.setMnemonic('a');
-        jButtonFiltrar.setText("Atualizar");
+        jButtonFiltrar.setText("Atualizar(F5)");
         jButtonFiltrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonFiltrarActionPerformed(evt);
@@ -355,11 +358,11 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(282, 282, 282)
-                                .addComponent(jButtonClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButtonClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(21, 21, 21)
-                                .addComponent(jButtonListaOS, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButtonListaOS, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(19, 19, 19)
-                                .addComponent(jButtonOS, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jButtonOS, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -380,8 +383,8 @@ public class TelaInicial extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
-                                .addComponent(jButtonFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                                .addComponent(jButtonFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jScrollPane1)))
@@ -410,10 +413,10 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jButtonFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonFiltrar))
                 .addGap(1, 1, 1)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jCheckBoxTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
@@ -470,7 +473,7 @@ public class TelaInicial extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItemEquipamento);
 
-        jMenu2.setText("Ordens de Serviço");
+        jMenuOrdensServico.setText("Ordens de Serviço");
 
         jMenuItemListaOS.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
         jMenuItemListaOS.setText("Lista");
@@ -479,7 +482,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 jMenuItemListaOSActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItemListaOS);
+        jMenuOrdensServico.add(jMenuItemListaOS);
 
         jMenuItemNovaOS.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
         jMenuItemNovaOS.setText("Nova Ordem de Serviço");
@@ -488,9 +491,26 @@ public class TelaInicial extends javax.swing.JFrame {
                 jMenuItemNovaOSActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItemNovaOS);
+        jMenuOrdensServico.add(jMenuItemNovaOS);
 
-        jMenu1.add(jMenu2);
+        jMenu1.add(jMenuOrdensServico);
+
+        jMenuItemUsuarios.setText("Usuários");
+        jMenuItemUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemUsuariosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemUsuarios);
+
+        jMenuItemAtualizar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
+        jMenuItemAtualizar.setText("Atualizar");
+        jMenuItemAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemAtualizarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItemAtualizar);
 
         jMenuBar1.add(jMenu1);
 
@@ -737,6 +757,15 @@ public class TelaInicial extends javax.swing.JFrame {
         this.jButtonFiltrarActionPerformed(evt);
     }//GEN-LAST:event_jCheckBoxPendenteActionPerformed
 
+    private void jMenuItemUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemUsuariosActionPerformed
+        new TelaCadastroUsuario().setVisible(true);
+    }//GEN-LAST:event_jMenuItemUsuariosActionPerformed
+
+    private void jMenuItemAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAtualizarActionPerformed
+        this.jButtonFiltrarActionPerformed(evt);
+    }//GEN-LAST:event_jMenuItemAtualizarActionPerformed
+
+   
     /**
      * @param args the command line arguments
      */
@@ -755,7 +784,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 System.out.println(info.getName());
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    System.out.println(info.getName());
+                    //System.out.println(info.getName());
                     break;
                 }
             }
@@ -797,12 +826,14 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItemAtualizar;
     private javax.swing.JMenuItem jMenuItemClientes;
     private javax.swing.JMenuItem jMenuItemEquipamento;
     private javax.swing.JMenuItem jMenuItemListaOS;
     private javax.swing.JMenuItem jMenuItemNovaOS;
+    private javax.swing.JMenuItem jMenuItemUsuarios;
+    private javax.swing.JMenu jMenuOrdensServico;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButtonNaoPagos;
     private javax.swing.JRadioButton jRadioButtonPagos;

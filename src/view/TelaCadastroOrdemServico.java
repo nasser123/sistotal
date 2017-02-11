@@ -9,6 +9,7 @@ import Utilidades.ConnectionFactory;
 import Utilidades.Datas;
 import controller.OrdemServicoController;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.*;
@@ -33,13 +34,13 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         initComponents();
         ConfigTelas ct = new ConfigTelas(this);
         ct.carregarConfig(this);
-        jDateChooserAbertura.setDate(Datas.getCurrentTime());
+        jDateChooserDataAgendamento.setDate(Datas.getCurrentTime());
         jLabelTitulo.setText("Ordem de Serviço");
         outroSistema = false;
         jComboBoxEquipamento.setSelectedIndex(0);
         jComboBoxSituacaoOS.setSelectedIndex(0);
         jComboBoxLocal.setSelectedIndex(0);
-        this.setAlwaysOnTop(true);
+        //this.setAlwaysOnTop(true);
     }
 
     public TelaCadastroOrdemServico(Cliente c) {
@@ -53,7 +54,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jTextFieldNome.setText(this.cliente.getNome());
         jTextFieldCelular.setText(this.cliente.getCelular().toString());
         jTextFieldFone.setText(this.cliente.getFone().toString());
-        jDateChooserAbertura.setDate(Datas.getCurrentTime());
+        jDateChooserDataAgendamento.setDate(Datas.getCurrentTime());
         outroSistema = false;
 
         jComboBoxEquipamento.setSelectedIndex(0);
@@ -81,6 +82,38 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
 
     }
 
+    private void selecionaHora(Date hora) {
+        Date dHora = hora;
+        int iHora = 0;
+        int iMin = 0;
+        iHora = Datas.getHour(dHora);
+        iMin = Datas.getMinute(dHora);
+
+        for (int i = 0; i < jComboBoxHora.getItemCount(); i++) {
+            Integer sHora = Integer.parseInt(jComboBoxHora.getItemAt(i).toString());
+            if (sHora.equals(iHora)) {
+                jComboBoxHora.setSelectedIndex(i);
+                break;
+            }
+        }
+        for (int i = 0; i < jComboBoxMin.getItemCount(); i++) {
+            Integer sMin = Integer.parseInt(jComboBoxMin.getItemAt(i).toString());
+            if (sMin.equals(iMin)) {
+                jComboBoxMin.setSelectedIndex(i);
+                break;
+            }
+        }
+
+    }
+
+    private void preecheComboMinutos() {
+//        Vector<String> minutos = new Vector();
+//        for (Integer i = 0; i < 60; i++) {
+//            jComboBoxMin.addItem(i);
+//            i = i + 9;
+//        }
+    }
+
     private void preencheDadosCliente() {
         outroSistema = false;
 
@@ -92,8 +125,10 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     }
 
     private void preencheTodosDados() {
-        jDateChooserAbertura.setDate(this.ordemServico.getDataAbertura());
+        jDateChooserDataAgendamento.setDate(this.ordemServico.getDataAbertura());
 
+        jTextFieldResponsavel.setText(this.ordemServico.getResponsavel());
+        
         if (this.ordemServico.getPago()) {
             jComboBoxPago.setSelectedIndex(1);
         } else {
@@ -158,7 +193,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jComboBoxSituacaoOS.setEnabled(false);
         jTextAreaEfeitoCliente.setEnabled(false);
         jTextAreaObservacoes.setEnabled(false);
-        jDateChooserAbertura.setEnabled(false);
+        jDateChooserDataAgendamento.setEnabled(false);
         jTextAreaServicosRealizados.setEnabled(false);
         jTextAreaFeedBack.setEnabled(false);
         jComboBoxAV.setEnabled(false);
@@ -223,17 +258,17 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         SistotalPUEntityManager = ConnectionFactory.getEntityManager();
-        ordemServico = this.osCad;
         equipamentoQuery = java.beans.Beans.isDesignTime() ? null : SistotalPUEntityManager.createQuery("SELECT e FROM Equipamento e");
         equipamentoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(equipamentoQuery.getResultList());
         situacaoOsQuery = java.beans.Beans.isDesignTime() ? null : SistotalPUEntityManager.createQuery("SELECT s FROM SituacaoOs s");
         situacaoOsList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(situacaoOsQuery.getResultList());
         tipoServicoQuery = java.beans.Beans.isDesignTime() ? null : SistotalPUEntityManager.createQuery("SELECT t FROM TipoServico t");
         tipoServicoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : tipoServicoQuery.getResultList();
+        ordemServico = new model.OrdemServico();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaEfeitoCliente = new javax.swing.JTextArea();
-        jDateChooserAbertura = new com.toedter.calendar.JDateChooser();
+        jDateChooserDataAgendamento = new com.toedter.calendar.JDateChooser();
         jTextFieldProcessador = new javax.swing.JTextField();
         jTextFieldMemoria = new javax.swing.JTextField();
         jTextFieldDiscoRigido = new javax.swing.JTextField();
@@ -295,6 +330,13 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jComboBoxLocal = new javax.swing.JComboBox();
         jLabel26 = new javax.swing.JLabel();
         jComboBoxPago = new javax.swing.JComboBox();
+        jLabel15 = new javax.swing.JLabel();
+        jTextFieldResponsavel = new javax.swing.JTextField();
+        jDateChooserAbertura1 = new com.toedter.calendar.JDateChooser();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jComboBoxHora = new javax.swing.JComboBox();
+        jComboBoxMin = new javax.swing.JComboBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -316,57 +358,37 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jTextAreaEfeitoCliente.setWrapStyleWord(true);
         jTextAreaEfeitoCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Problemas apresentados:"));
         jTextAreaEfeitoCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${efeitoCliente}"), jTextAreaEfeitoCliente, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
         jScrollPane1.setViewportView(jTextAreaEfeitoCliente);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 224, 407, 140));
-        jPanel1.add(jDateChooserAbertura, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 585, 156, 25));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 224, 480, 140));
+        jPanel1.add(jDateChooserDataAgendamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 190, 156, 25));
 
         jTextFieldProcessador.setToolTipText("");
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${processador}"), jTextFieldProcessador, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
         jTextFieldProcessador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldProcessadorActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextFieldProcessador, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 146, 236, -1));
+        jPanel1.add(jTextFieldProcessador, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 146, 120, -1));
 
         jTextFieldMemoria.setToolTipText("");
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${memoria}"), jTextFieldMemoria, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
         jTextFieldMemoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldMemoriaActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextFieldMemoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(266, 146, 130, -1));
+        jPanel1.add(jTextFieldMemoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 146, 90, -1));
 
         jTextFieldDiscoRigido.setToolTipText("");
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${discoRigido}"), jTextFieldDiscoRigido, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
-        jPanel1.add(jTextFieldDiscoRigido, new org.netbeans.lib.awtextra.AbsoluteConstraints(414, 146, 148, -1));
+        jPanel1.add(jTextFieldDiscoRigido, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 146, 110, -1));
 
         org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, equipamentoList, jComboBoxEquipamento);
         bindingGroup.addBinding(jComboBoxBinding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${idequipamento}"), jComboBoxEquipamento, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
-        bindingGroup.addBinding(binding);
 
-        jPanel1.add(jComboBoxEquipamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(582, 190, 250, -1));
+        jPanel1.add(jComboBoxEquipamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 146, 140, -1));
 
         jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, situacaoOsList, jComboBoxSituacaoOS);
         bindingGroup.addBinding(jComboBoxBinding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${idsituacaoOs}"), jComboBoxSituacaoOS, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
-        bindingGroup.addBinding(binding);
 
         jComboBoxSituacaoOS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -385,7 +407,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
 
         jTextFieldCodigo.setEnabled(false);
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${idcliente.idcliente}"), jTextFieldCodigo, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${idcliente.idcliente}"), jTextFieldCodigo, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
         jTextFieldCodigo.addActionListener(new java.awt.event.ActionListener() {
@@ -424,54 +446,45 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
 
         jLabel7.setText("Celular");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 50, 70, -1));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 98, 870, -1));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 98, 990, -1));
 
         jLabel8.setText("Dados do Equipamento");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 106, -1, -1));
 
         jLabel9.setText("Processador");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 126, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 126, -1, -1));
 
         jLabel10.setText("Memória");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(264, 126, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 126, -1, -1));
 
         jLabel11.setText("Disco Rígido");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(414, 126, -1, -1));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 126, -1, -1));
 
         jLabel12.setText("Fonte");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 126, 70, -1));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 126, 70, -1));
 
         jTextFieldFonte.setToolTipText("");
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${fonte}"), jTextFieldFonte, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        binding.setSourceNullValue(" ");
-        bindingGroup.addBinding(binding);
-
         jTextFieldFonte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldFonteActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextFieldFonte, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 146, 90, -1));
+        jPanel1.add(jTextFieldFonte, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 146, 90, -1));
 
         jTextFieldPlacaMae.setToolTipText("");
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${placaMae}"), jTextFieldPlacaMae, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
         jTextFieldPlacaMae.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldPlacaMaeActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextFieldPlacaMae, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 146, 150, -1));
+        jPanel1.add(jTextFieldPlacaMae, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 146, 130, -1));
 
         jLabel13.setText("Placa Mãe:");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 126, 111, -1));
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 126, 111, -1));
 
         jLabel14.setText("Tipo de Equipamento:");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(584, 170, 140, -1));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 218, 870, -1));
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 126, 140, -1));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 218, 990, -1));
 
         jTextAreaObservacoes.setColumns(20);
         jTextAreaObservacoes.setLineWrap(true);
@@ -479,13 +492,9 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jTextAreaObservacoes.setWrapStyleWord(true);
         jTextAreaObservacoes.setBorder(javax.swing.BorderFactory.createTitledBorder("Observações"));
         jTextAreaObservacoes.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${observacao}"), jTextAreaObservacoes, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
         jScrollPane3.setViewportView(jTextAreaObservacoes);
 
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(435, 224, 407, 140));
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 230, 490, 140));
 
         jLabel16.setText("Situação");
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 565, 150, -1));
@@ -504,27 +513,13 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jPanel1.add(jButtonGravar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 620, 90, 80));
 
         jTextFieldMarca.setToolTipText("");
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${marca}"), jTextFieldMarca, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
-        jPanel1.add(jTextFieldMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 190, 140, -1));
+        jPanel1.add(jTextFieldMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 146, 90, -1));
 
         jLabel17.setText("Marca/Modelo:");
-        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 170, -1, -1));
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${idcliente.fone}"), jTextFieldFone, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("!= null"), jTextFieldFone, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
-        bindingGroup.addBinding(binding);
-
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 126, 90, -1));
         jPanel1.add(jTextFieldFone, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 70, 80, -1));
 
         jTextFieldCelular.setEnabled(false);
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${idcliente.celular}"), jTextFieldCelular, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
         jPanel1.add(jTextFieldCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 70, 70, -1));
 
         jButtonNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/16x16/add_user.png"))); // NOI18N
@@ -593,13 +588,9 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jTextAreaServicosRealizados.setWrapStyleWord(true);
         jTextAreaServicosRealizados.setBorder(javax.swing.BorderFactory.createTitledBorder("Descrição dos serviços"));
         jTextAreaServicosRealizados.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${descricaoServicos}"), jTextAreaServicosRealizados, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
         jScrollPane2.setViewportView(jTextAreaServicosRealizados);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 373, 407, 130));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 373, 480, 130));
 
         jComboBoxSO.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Windows XP", "Windows 7 32", "Windows 7 64", "Windows 8.1 32", "Windows 8.1 64", "Ubuntu", "Windows 10 32", "Windows 10 64", "Outro" }));
         jComboBoxSO.addActionListener(new java.awt.event.ActionListener() {
@@ -640,13 +631,9 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jTextAreaFeedBack.setWrapStyleWord(true);
         jTextAreaFeedBack.setBorder(javax.swing.BorderFactory.createTitledBorder("Feedback do cliente"));
         jTextAreaFeedBack.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${feedback}"), jTextAreaFeedBack, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
         jScrollPane4.setViewportView(jTextAreaFeedBack);
 
-        jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(435, 373, 407, 130));
+        jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 380, 490, 130));
 
         jLabel22.setText("Data de Entrega:");
         jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 565, -1, -1));
@@ -663,20 +650,13 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jPanel1.add(jButtonDetalhar, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 67, -1, -1));
 
         jLabel23.setText("Demais equipamentos");
-        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, -1));
+        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 126, -1, -1));
 
         jTextField_outro_hardware.setToolTipText("");
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${outroHardware}"), jTextField_outro_hardware, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
-        jPanel1.add(jTextField_outro_hardware, new org.netbeans.lib.awtextra.AbsoluteConstraints(9, 190, 400, -1));
+        jPanel1.add(jTextField_outro_hardware, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 146, 150, -1));
 
         jLabel24.setText("Pago:");
         jPanel1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 565, 170, -1));
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${valor}"), jTextFieldValor, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
 
         jTextFieldValor.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -690,16 +670,45 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
 
         jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tipoServicoList, jComboBoxLocal);
         bindingGroup.addBinding(jComboBoxBinding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${idtipoServico}"), jComboBoxLocal, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
-        bindingGroup.addBinding(binding);
 
-        jPanel1.add(jComboBoxLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 529, 180, 25));
+        jComboBoxLocal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxLocalActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jComboBoxLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 180, 25));
 
         jLabel26.setText("Local:");
-        jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 509, 80, -1));
+        jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 80, -1));
 
         jComboBoxPago.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
         jPanel1.add(jComboBoxPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(674, 590, 150, -1));
+
+        jLabel15.setText("Técnico Responsável");
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 170, 240, -1));
+
+        jTextFieldResponsavel.setToolTipText("");
+        jTextFieldResponsavel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldResponsavelActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jTextFieldResponsavel, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 190, 250, -1));
+        jPanel1.add(jDateChooserAbertura1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 585, 156, 25));
+
+        jLabel27.setText("Data Agendamento");
+        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 150, -1));
+
+        jLabel21.setText("Hora");
+        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 170, -1, -1));
+
+        jComboBoxHora.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
+        jPanel1.add(jComboBoxHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 190, 50, 25));
+
+        jComboBoxMin.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "15", "30", "45" }));
+        jComboBoxMin.removeAllItems();
+        this.preecheComboMinutos();
+        jPanel1.add(jComboBoxMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 190, 50, 25));
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
@@ -731,7 +740,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
 
         bindingGroup.bind();
 
-        setSize(new java.awt.Dimension(875, 764));
+        setSize(new java.awt.Dimension(1027, 764));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -760,7 +769,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldPlacaMaeActionPerformed
 
     private void jButtonGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGravarActionPerformed
-        this.ordemServico.setDataAbertura(jDateChooserAbertura.getDate());
+        this.ordemServico.setDataAbertura(jDateChooserDataAgendamento.getDate());
 
         if (jComboBoxPago.getSelectedIndex() == 0) {
             this.ordemServico.setPago(false);
@@ -774,7 +783,8 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         }
         this.ordemServico.setAntivirus(jComboBoxAV.getSelectedItem().toString());
         this.ordemServico.setOffice(jComboBoxOffice.getSelectedItem().toString());
-
+        
+        
         if (jDateChooserEntrega != null) {
             this.ordemServico.setDataTermino(jDateChooserEntrega.getDate());
         }
@@ -905,6 +915,29 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jTextFieldValor.selectAll();
     }//GEN-LAST:event_jTextFieldValorFocusGained
 
+    private void jTextFieldResponsavelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldResponsavelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldResponsavelActionPerformed
+
+    private void jComboBoxLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxLocalActionPerformed
+
+        if (jComboBoxLocal.getSelectedItem() != null) {
+            TipoServico ts = (TipoServico) jComboBoxLocal.getSelectedItem();
+
+            if (ts.getDescricao().equals("Externo")) {
+                jDateChooserDataAgendamento.setEnabled(true);
+                jComboBoxHora.setEnabled(true);
+                jComboBoxMin.setEnabled(true);
+
+            } else {
+                jDateChooserDataAgendamento.setEnabled(true);
+                jComboBoxHora.setEnabled(true);
+                jComboBoxMin.setEnabled(true);
+
+            }
+        }
+    }//GEN-LAST:event_jComboBoxLocalActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -961,28 +994,34 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSair;
     private javax.swing.JComboBox jComboBoxAV;
     private javax.swing.JComboBox jComboBoxEquipamento;
+    private javax.swing.JComboBox jComboBoxHora;
     private javax.swing.JComboBox jComboBoxLocal;
+    private javax.swing.JComboBox jComboBoxMin;
     private javax.swing.JComboBox jComboBoxOffice;
     private javax.swing.JComboBox jComboBoxPago;
     private javax.swing.JComboBox jComboBoxSO;
     private javax.swing.JComboBox jComboBoxSituacaoOS;
-    private com.toedter.calendar.JDateChooser jDateChooserAbertura;
+    private com.toedter.calendar.JDateChooser jDateChooserAbertura1;
+    private com.toedter.calendar.JDateChooser jDateChooserDataAgendamento;
     private com.toedter.calendar.JDateChooser jDateChooserEntrega;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1018,6 +1057,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldOutro;
     private javax.swing.JTextField jTextFieldPlacaMae;
     private javax.swing.JTextField jTextFieldProcessador;
+    private javax.swing.JTextField jTextFieldResponsavel;
     private javax.swing.JTextField jTextFieldValor;
     private javax.swing.JTextField jTextField_outro_hardware;
     private model.OrdemServico ordemServico;

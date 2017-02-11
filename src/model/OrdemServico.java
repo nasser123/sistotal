@@ -37,6 +37,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "OrdemServico.findByMarca", query = "SELECT o FROM OrdemServico o WHERE o.marca = :marca")})
 public class OrdemServico implements Serializable {
 
+   
+
     @JoinColumn(name = "idtipo_servico", referencedColumnName = "idtipo_servico")
     @ManyToOne(optional = false)
     private TipoServico idtipoServico;
@@ -107,6 +109,63 @@ public class OrdemServico implements Serializable {
     @ManyToOne
     private Cliente idcliente;
 
+    @Column(name = "responsavel")
+    private String responsavel;
+    @Column(name = "local")
+    private String local;
+    @Column(name = "data_agendamento")
+    @Temporal(TemporalType.DATE)
+    private Date data_agendamento;
+    @Column(name = "hora_agendamento")
+    @Temporal(TemporalType.TIME)
+    private Date hora_agendamento;
+    
+    
+    
+    
+    
+    public PropertyChangeSupport getChangeSupport() {
+        return changeSupport;
+    }
+
+    public void setChangeSupport(PropertyChangeSupport changeSupport) {
+        this.changeSupport = changeSupport;
+    }
+
+    public String getResponsavel() {
+        return responsavel;
+    }
+
+    public void setResponsavel(String responsavel) {
+        this.responsavel = responsavel;
+    }
+
+    public String getLocal() {
+        return local;
+    }
+
+    public void setLocal(String local) {
+        this.local = local;
+    }
+
+    public Date getData_agendamento() {
+        return data_agendamento;
+    }
+
+    public void setData_agendamento(Date data_agendamento) {
+        this.data_agendamento = data_agendamento;
+    }
+
+    public Date getHora_agendamento() {
+        return hora_agendamento;
+    }
+
+    public void setHora_agendamento(Date hora_agendamento) {
+        this.hora_agendamento = hora_agendamento;
+    }
+    
+    
+    
     public OrdemServico() {
     }
 
@@ -505,4 +564,5 @@ public class OrdemServico implements Serializable {
         changeSupport.firePropertyChange("idtipoServico", oldIdtipoServico, idtipoServico);
     }
 
+    
 }

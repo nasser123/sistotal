@@ -136,7 +136,7 @@ public class ReportUtils {
 
         // exibe o JFrame
         
-        
+        frameRelatorio.setLocationRelativeTo(null);
         frameRelatorio.setAlwaysOnTop(true);
         frameRelatorio.setVisible(true);
         

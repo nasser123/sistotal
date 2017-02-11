@@ -22,6 +22,7 @@ package view;
 import Utilidades.ConfigTelas;
 import controller.UsuarioController;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -169,6 +170,8 @@ public class TelaLogin extends javax.swing.JFrame {
                 realizarLogin();
             } catch (NoSuchAlgorithmException | InterruptedException ex) {
                 Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -227,7 +230,7 @@ public class TelaLogin extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
-    private void realizarLogin() throws NoSuchAlgorithmException, InterruptedException {
+    private void realizarLogin() throws NoSuchAlgorithmException, InterruptedException, SQLException {
         String usuario = jTextField1.getText();
 
         char[] senhaTemp = jPasswordField1.getPassword();

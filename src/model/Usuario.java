@@ -6,6 +6,8 @@
 
 package model;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -19,6 +21,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -36,6 +39,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Usuario.findByUsername", query = "SELECT u FROM Usuario u WHERE u.username = :username"),
     @NamedQuery(name = "Usuario.findBySenha", query = "SELECT u FROM Usuario u WHERE u.senha = :senha")})
 public class Usuario implements Serializable {
+
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,11 +64,11 @@ public class Usuario implements Serializable {
         this.idusuario = idusuario;
     }
     
-    public Usuario(String nome, String email, String username, String senha){
+    public Usuario(String nome, String email, String username){
         this.nome       =   nome;
         this.email      =   email;
         this.username   =   username;
-        this.senha      =   senha;
+//        this.senha      =   senha;
     
     }
 
@@ -71,7 +77,9 @@ public class Usuario implements Serializable {
     }
 
     public void setIdusuario(Integer idusuario) {
+        Integer oldIdusuario = this.idusuario;
         this.idusuario = idusuario;
+        changeSupport.firePropertyChange("idusuario", oldIdusuario, idusuario);
     }
 
     public String getNome() {
@@ -79,7 +87,9 @@ public class Usuario implements Serializable {
     }
 
     public void setNome(String nome) {
+        String oldNome = this.nome;
         this.nome = nome;
+        changeSupport.firePropertyChange("nome", oldNome, nome);
     }
 
     public String getEmail() {
@@ -87,7 +97,9 @@ public class Usuario implements Serializable {
     }
 
     public void setEmail(String email) {
+        String oldEmail = this.email;
         this.email = email;
+        changeSupport.firePropertyChange("email", oldEmail, email);
     }
 
     public String getUsername() {
@@ -95,7 +107,9 @@ public class Usuario implements Serializable {
     }
 
     public void setUsername(String username) {
+        String oldUsername = this.username;
         this.username = username;
+        changeSupport.firePropertyChange("username", oldUsername, username);
     }
 
     public String getSenha() {
@@ -132,6 +146,14 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return "br.com.model.Usuario[ idusuario=" + idusuario + " ]";
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
     
 }

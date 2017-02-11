@@ -15,24 +15,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+
 package controller;
 
-import Utilidades.ConnectionFactory;
-import Utilidades.Variaveis;
-import model.Usuario;
+import java.security.NoSuchAlgorithmException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.swing.JOptionPane;
+import model.Usuario;
+import Utilidades.ConnectionFactory;
+import Utilidades.Senhas;
+import Utilidades.Variaveis;
 
 /**
  *
  * @author Nasser
  */
-public class UsuarioController implements IDao {
+public class UsuarioController  {
     /*
      * To change this template, choose Tools | Templates
      * and open the template in the editor.
@@ -44,119 +48,160 @@ public class UsuarioController implements IDao {
         this.entity = ConnectionFactory.getEntityManager();
     }
 
-    
-    @Override
     public boolean inserir(Object usuario) throws SQLException {
         if (usuario instanceof Usuario) {
             Usuario u = (Usuario) usuario;
-            if (!existeUsername(u.getUsername())) {
+            if (!existeUsuario(u.getUsername()) && dadosValidos(u)) {
                 entity.getTransaction().begin();
                 entity.persist(u);
                 entity.getTransaction().commit();
-
+                JOptionPane.showMessageDialog(null, "Usuário salvo com sucesso.");
                 return true;
             }
         }
         return false;
     }
-    
-    public boolean inserir(String nome, String email, String username, String senha) throws SQLException {
-            Usuario u = new Usuario(nome, email, username, senha);
-            
-            if (!existeUsername(u.getUsername())) {
-                entity.getTransaction().begin();
-                entity.persist(u);
-                entity.getTransaction().commit();
-                return true;
+
+    private boolean dadosValidos(Usuario u) {
+        if (u.getNome().equals("")) {
+            JOptionPane.showMessageDialog(null, "Campo 'nome' não pode ser vazio");
+            return false;
+        } else {
+            if (u.getSenha().equals("")) {
+                JOptionPane.showMessageDialog(null, "Campo 'senha' não pode ser vazio");
+                return false;
+            } else {
+                if (u.getUsername().equals("")) {
+                    JOptionPane.showMessageDialog(null, "Campo 'username' não pode ser vazio");
+                    return false;
+                }
             }
+        }
+        return true;
+
+    }
+
+    public boolean inserir(String nome, String email, String username, char[] senha) throws SQLException {
+        Usuario u = new Usuario(nome, email, username);
+
+        if (!existeUsuario(u.getUsername())) {
+            u.setEmail(email);
+
+            if (!entity.getTransaction().isActive()) {
+                entity.getTransaction().begin();
+            }
+            entity.persist(u);
+            entity.getTransaction().commit();
+            JOptionPane.showMessageDialog(null, "Usuario salvo com sucesso.");
+            return true;
+        }
+        JOptionPane.showMessageDialog(null, "Verifique os dados digitados");
         return false;
     }
 
-    @Override
     public boolean excluir(Object usuario) throws SQLException {
         if (usuario instanceof Usuario) {
-            Usuario s = (Usuario) usuario;
-            entity.getTransaction().begin();
-            entity.remove(s);
-            entity.getTransaction().commit();
-
-            return true;
+            Usuario u = (Usuario) usuario;
+            if (!entity.getTransaction().isActive()) {
+                entity.getTransaction().begin();
+                entity.remove(u);
+                entity.getTransaction().commit();
+                JOptionPane.showMessageDialog(null, "Usuário excluido com sucesso.");
+                return true;
+            }
         }
+        JOptionPane.showMessageDialog(null, "Esse usuário não pode ser excluido.");
         return false;
     }
 
-    private boolean existeUsername(String username) {
+    private boolean existeUsuario(String usuario) {
         Usuario u = null;
-        List usuarios = entity.createNamedQuery("Usuario.findByUsername").setParameter("username", username).getResultList();
+        List usuarios = entity.createNamedQuery("Usuario.findByUsuario").setParameter("usuario", usuario).getResultList();
         if (!usuarios.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Já existe cadastro com esse usuario.");
             return true;
         }
         return false;
     }
 
-    @Override
-    public Usuario pesquisarPorId(Integer id) throws SQLException {
+    public Usuario pesquisarPorId(int id) throws SQLException {
         Usuario u = null;
         List usuarios = entity.createNamedQuery("Usuario.findByIdusuario").setParameter("idusuario", id).getResultList();
         if (!usuarios.isEmpty()) {
             u = (Usuario) usuarios.get(0);
             return u;
         }
-
         return null;
     }
 
-    @Override
-    public boolean alterar(Object objeto, boolean mensagem) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private List<Usuario> getUsuarioBanco(String usuario) {
+        return entity.createNamedQuery("Usuario.findByUsername").setParameter("username", usuario).getResultList();
+
+}
+    
+    public Usuario pesquisarPorUsuario(String usuario) throws SQLException {
+        Usuario u = null;
+        List usuarios = entity.createNamedQuery("Usuario.findByUsuario").setParameter("usuario", usuario).getResultList();
+        if (!usuarios.isEmpty()) {
+            u = (Usuario) usuarios.get(0);
+            return u;
+        }
+        JOptionPane.showMessageDialog(null, "Usuário digitado não existe.");
+        return null;
     }
 
-    @Override
+    public boolean alterar(Object objeto, boolean mensagem) throws SQLException {
+        if (objeto instanceof Usuario) {
+            Usuario u = (Usuario) objeto;
+            if (dadosValidos(u)) {
+                if (!entity.getTransaction().isActive()) {
+                    entity.getTransaction().begin();
+                }
+                entity.merge(u);
+                entity.refresh(u);
+                entity.getTransaction().commit();
+                if (mensagem) {
+                    JOptionPane.showMessageDialog(null, "Usuario alterado com sucesso.");
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
     public List<? extends Object> pesquisarTodos() throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public List<? extends Object> pesquisarTodosOrdenadoPor(String criterioOrdenamento) throws SQLException {
-        Query query = entity.createNativeQuery("Select * from Usuario order by "  + criterioOrdenamento, Usuario.class);
+        Query query = entity.createNativeQuery("Select * from Usuario order by " + criterioOrdenamento, Usuario.class
+        );
         List usuarios = query.getResultList();
+
         if (!usuarios.isEmpty()) {
             return usuarios;
         }
+
         return null;
     }
 
-    public List<Usuario> pesquisarTodosPor(String colunaPesquisa, String atributoPesquisa) throws SQLException {
-        Query query = entity.createNativeQuery("Select * from Usuario where " + colunaPesquisa + " = \"" + atributoPesquisa + "\"", Usuario.class);
-        List usuarios = query.getResultList();
-        if (!usuarios.isEmpty()) {
-            return usuarios;
-        }
-        return null;
-    }
-    private List<Usuario> getUsuarioBanco(String usuario) {
-        return entity.createNamedQuery("Usuario.findByUsername").setParameter("username", usuario).getResultList();
-
-    }
     /*
-     * Realiza o teste de login
-     */
-
-    public boolean verificaLogin(String username, String senha) throws NoSuchAlgorithmException {
+    */
+    public boolean verificaLogin(String usuario, String senha) throws SQLException, NoSuchAlgorithmException {
         if (senha != null) {
 //            transforma a senha texto em md5
             MessageDigest m = MessageDigest.getInstance("MD5");
             m.update(senha.getBytes(), 0, senha.length());
             String s = new BigInteger(1, m.digest()).toString(16);
 
-            List<Usuario> usuarios = getUsuarioBanco(username);
+            List<Usuario> usuarios = getUsuarioBanco(usuario);
             boolean verifica = false;
             if (usuarios != null) {
-                for (Usuario usuario : usuarios) {
-                    if (usuario != null) {
-                        if (s.equals(usuario.getSenha())) {
+                for (Usuario usuario2 : usuarios) {
+                    if (usuario2 != null) {
+                        if (s.equals(usuario2.getSenha())) {
                             verifica = true;
-                            Variaveis.setUsuario(usuario);
+                            Variaveis.setUsuario(usuario2);
                             break;
                         }
                     }
@@ -165,5 +210,21 @@ public class UsuarioController implements IDao {
             return verifica;
         }
         return false;
+
+    }
+
+    public Usuario pesquisarPorId(Integer id) throws SQLException {
+        Usuario usu = new Usuario();
+        Integer idUsuario = id;
+        Query query = entity.createNamedQuery("Usuario.findByIdcliente");
+        query.setParameter("idusuario", idUsuario);
+        if (!query.getResultList().isEmpty()) {
+            usu = (Usuario) query.getResultList().get(0);
+            entity.getTransaction().begin();
+            entity.refresh(usu);
+            entity.getTransaction().commit();
+            return usu;
+        }
+        return null;
     }
 }
