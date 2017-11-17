@@ -101,6 +101,7 @@ public class TelaListaClientes extends javax.swing.JFrame {
 
         jButtonSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/sair2.png"))); // NOI18N
         jButtonSair.setText("Sair");
+        jButtonSair.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonSair.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonSair.addActionListener(new java.awt.event.ActionListener() {
@@ -111,6 +112,7 @@ public class TelaListaClientes extends javax.swing.JFrame {
 
         jButtonOS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/nova_os.png"))); // NOI18N
         jButtonOS.setText("Nova OS");
+        jButtonOS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonOS.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonOS.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 

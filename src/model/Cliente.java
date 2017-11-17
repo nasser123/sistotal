@@ -39,6 +39,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cliente.findByCelular", query = "SELECT c FROM Cliente c WHERE c.celular = :celular")})
 public class Cliente implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idcliente")
+    private List<EntradaPagamentos> entradaPagamentosList;
+
     @Column(name = "numero")
     private String numero;
     @Column(name = "fone")
@@ -429,6 +432,15 @@ public class Cliente implements Serializable {
             v = v.add(this.getOrdemServicoList().get(i).getValor());
         }
         return v;
+    }
+
+    @XmlTransient
+    public List<EntradaPagamentos> getEntradaPagamentosList() {
+        return entradaPagamentosList;
+    }
+
+    public void setEntradaPagamentosList(List<EntradaPagamentos> entradaPagamentosList) {
+        this.entradaPagamentosList = entradaPagamentosList;
     }
 
 }

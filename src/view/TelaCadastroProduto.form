@@ -110,11 +110,6 @@
         <Property name="text" type="java.lang.String" value="grupoListCellRenderer1"/>
       </Properties>
     </Component>
-    <Component class="renderizadores.SubGrupoListCellRenderer" name="subGrupoListCellRenderer1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="subGrupoListCellRenderer1"/>
-      </Properties>
-    </Component>
     <Component class="javax.persistence.Query" name="produtoQuery2">
       <Properties>
         <Property name="query" type="java.lang.String" value="SELECT p FROM Produto p"/>
@@ -671,7 +666,7 @@
         <Component class="javax.swing.JComboBox" name="jComboBoxSubGrupo">
           <Properties>
             <Property name="renderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.ComponentChooserEditor">
-              <ComponentRef name="subGrupoListCellRenderer1"/>
+              <ComponentRef name="default"/>
             </Property>
           </Properties>
           <BindingProperties>

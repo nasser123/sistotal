@@ -7,6 +7,7 @@ package controller;
 import Utilidades.ConnectionFactory;
 import Utilidades.Validadores;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -112,6 +113,20 @@ public class OrdemServicoController implements IDao {
             JOptionPane.showMessageDialog(null, "Selecione um cliente");
             return false;
         }
+    }
+
+    public List<OrdemServico> pesquisarTelaInicial(String auxSql, String auxSqlPago) throws SQLException {
+        Query query = entity.createNativeQuery("Select idordem_servico from ordem_servico where idsituacao_os in (" + auxSql + ") and pago in (" + auxSqlPago + ") order by idordem_servico desc");
+        List<OrdemServico> osList = new ArrayList();
+        if (!query.getResultList().isEmpty()) {
+            List<Integer> idList = query.getResultList();
+            for (int i = 0; i < idList.size(); i++) {
+                osList.add((OrdemServico)this.pesquisarPorId(idList.get(i)));
+            }
+            return osList;
+        }
+        return null;
+
     }
 
 //    public Cliente getClienteByIdCliente(javax.persistence.Query query, EntityManager em, Integer idCodigo) {

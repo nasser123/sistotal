@@ -43,6 +43,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jCheckBoxFechada.setSelected(true);
         jCheckBoxEntregue.setSelected(true);
         jCheckBoxPendente.setSelected(true);
+        jCheckBoxCancelada.setSelected(true);
         jRadioButtonTodos.setSelected(true);
 
     }
@@ -64,6 +65,7 @@ public class TelaInicial extends javax.swing.JFrame {
         situacaoOsList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : situacaoOsQuery.getResultList();
         ordemServicoTableCellRenderer1 = new Renderizadores.OrdemServicoTableCellRenderer();
         buttonGroup1 = new javax.swing.ButtonGroup();
+        colunaHoraRenderer1 = new Renderizadores.ColunaHoraRenderer();
         jPanel1 = new javax.swing.JPanel();
         jButtonOS = new javax.swing.JButton();
         jButtonClientes = new javax.swing.JButton();
@@ -87,6 +89,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jButtonImprimir = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jCheckBoxPendente = new javax.swing.JCheckBox();
+        jCheckBoxCancelada = new javax.swing.JCheckBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItemClientes = new javax.swing.JMenuItem();
@@ -104,6 +107,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jButtonOS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/nova_os.png"))); // NOI18N
         jButtonOS.setMnemonic('N');
         jButtonOS.setText("Nova OS(F3)");
+        jButtonOS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonOS.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonOS.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonOS.addActionListener(new java.awt.event.ActionListener() {
@@ -115,6 +119,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jButtonClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/user.png"))); // NOI18N
         jButtonClientes.setMnemonic('c');
         jButtonClientes.setText("Clientes(F2)");
+        jButtonClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonClientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonClientes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonClientes.addActionListener(new java.awt.event.ActionListener() {
@@ -126,6 +131,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jButtonListaOS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/2526_32x32.png"))); // NOI18N
         jButtonListaOS.setMnemonic('l');
         jButtonListaOS.setText("Lista OS(F4)");
+        jButtonListaOS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonListaOS.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonListaOS.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonListaOS.addActionListener(new java.awt.event.ActionListener() {
@@ -143,7 +149,7 @@ public class TelaInicial extends javax.swing.JFrame {
         columnBinding.setColumnClass(Integer.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${dataAbertura}"));
-        columnBinding.setColumnName("Data Abertura");
+        columnBinding.setColumnName("Abertura");
         columnBinding.setColumnClass(java.util.Date.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idcliente.nome}"));
@@ -163,20 +169,32 @@ public class TelaInicial extends javax.swing.JFrame {
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${dataTermino}"));
-        columnBinding.setColumnName("Data Entrega");
+        columnBinding.setColumnName("Entrega");
         columnBinding.setColumnClass(java.util.Date.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${valor}"));
         columnBinding.setColumnName("Valor");
         columnBinding.setColumnClass(java.math.BigDecimal.class);
         columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idtipoServico.descricao}"));
+        columnBinding.setColumnName("Local");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${pago}"));
         columnBinding.setColumnName("Pago");
         columnBinding.setColumnClass(Boolean.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idtipoServico.descricao}"));
-        columnBinding.setColumnName("Local");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idusuario.nome}"));
+        columnBinding.setColumnName("Responsavel");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${data_agendamento}"));
+        columnBinding.setColumnName("Agendamento");
+        columnBinding.setColumnClass(java.util.Date.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${hora_agendamento}"));
+        columnBinding.setColumnName("Hora");
+        columnBinding.setColumnClass(java.util.Date.class);
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
@@ -193,11 +211,14 @@ public class TelaInicial extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(0).setMinWidth(50);
             jTable1.getColumnModel().getColumn(0).setPreferredWidth(50);
             jTable1.getColumnModel().getColumn(0).setMaxWidth(50);
-            jTable1.getColumnModel().getColumn(1).setMinWidth(85);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(85);
-            jTable1.getColumnModel().getColumn(1).setMaxWidth(85);
+            jTable1.getColumnModel().getColumn(1).setMinWidth(80);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(80);
+            jTable1.getColumnModel().getColumn(1).setMaxWidth(80);
             jTable1.getColumnModel().getColumn(3).setMinWidth(100);
             jTable1.getColumnModel().getColumn(3).setPreferredWidth(100);
+            jTable1.getColumnModel().getColumn(5).setMinWidth(100);
+            jTable1.getColumnModel().getColumn(5).setPreferredWidth(100);
+            jTable1.getColumnModel().getColumn(5).setMaxWidth(100);
             jTable1.getColumnModel().getColumn(5).setCellRenderer(ordemServicoTableCellRenderer1);
             jTable1.getColumnModel().getColumn(6).setMinWidth(85);
             jTable1.getColumnModel().getColumn(6).setPreferredWidth(85);
@@ -205,18 +226,26 @@ public class TelaInicial extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(7).setMinWidth(50);
             jTable1.getColumnModel().getColumn(7).setPreferredWidth(50);
             jTable1.getColumnModel().getColumn(7).setMaxWidth(80);
-            jTable1.getColumnModel().getColumn(8).setMinWidth(50);
-            jTable1.getColumnModel().getColumn(8).setPreferredWidth(50);
-            jTable1.getColumnModel().getColumn(8).setMaxWidth(70);
-            jTable1.getColumnModel().getColumn(9).setMinWidth(80);
-            jTable1.getColumnModel().getColumn(9).setPreferredWidth(80);
-            jTable1.getColumnModel().getColumn(9).setMaxWidth(80);
-            jTable1.getColumnModel().getColumn(9).setCellRenderer(ordemServicoTableCellRenderer1);
+            jTable1.getColumnModel().getColumn(8).setMinWidth(80);
+            jTable1.getColumnModel().getColumn(8).setPreferredWidth(80);
+            jTable1.getColumnModel().getColumn(8).setMaxWidth(80);
+            jTable1.getColumnModel().getColumn(8).setCellRenderer(ordemServicoTableCellRenderer1);
+            jTable1.getColumnModel().getColumn(9).setMinWidth(50);
+            jTable1.getColumnModel().getColumn(9).setPreferredWidth(50);
+            jTable1.getColumnModel().getColumn(9).setMaxWidth(50);
+            jTable1.getColumnModel().getColumn(11).setMinWidth(80);
+            jTable1.getColumnModel().getColumn(11).setPreferredWidth(80);
+            jTable1.getColumnModel().getColumn(11).setMaxWidth(80);
+            jTable1.getColumnModel().getColumn(12).setMinWidth(60);
+            jTable1.getColumnModel().getColumn(12).setPreferredWidth(60);
+            jTable1.getColumnModel().getColumn(12).setMaxWidth(60);
+            jTable1.getColumnModel().getColumn(12).setCellRenderer(colunaHoraRenderer1);
         }
 
         jButtonVisualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/visualiza_os.png"))); // NOI18N
         jButtonVisualizar.setMnemonic('v');
         jButtonVisualizar.setText("Visualiza");
+        jButtonVisualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonVisualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonVisualizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
@@ -287,6 +316,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jButtonFiltrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/6115_32x32.png"))); // NOI18N
         jButtonFiltrar.setMnemonic('a');
         jButtonFiltrar.setText("Atualizar(F5)");
+        jButtonFiltrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonFiltrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonFiltrarActionPerformed(evt);
@@ -326,6 +356,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/relatorio.png"))); // NOI18N
         jButtonImprimir.setMnemonic('i');
         jButtonImprimir.setText("Imprimir");
+        jButtonImprimir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
@@ -338,13 +369,21 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Versão: 2.0.5 - 16/01/2017");
+        jLabel2.setText("Versão: 2.0.7 - 13/11/2017");
 
         jCheckBoxPendente.setBackground(new java.awt.Color(255, 255, 255));
         jCheckBoxPendente.setText("Pendente");
         jCheckBoxPendente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBoxPendenteActionPerformed(evt);
+            }
+        });
+
+        jCheckBoxCancelada.setBackground(new java.awt.Color(255, 255, 255));
+        jCheckBoxCancelada.setText("Cancelada");
+        jCheckBoxCancelada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxCanceladaActionPerformed(evt);
             }
         });
 
@@ -377,13 +416,13 @@ public class TelaInicial extends javax.swing.JFrame {
                                 .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(29, 29, 29)
                                 .addComponent(jButtonVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 323, Short.MAX_VALUE))
+                        .addGap(0, 587, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 348, Short.MAX_VALUE)
                                 .addComponent(jButtonFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
@@ -399,7 +438,8 @@ public class TelaInicial extends javax.swing.JFrame {
                             .addComponent(jRadioButtonTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jRadioButtonPagos, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jRadioButtonNaoPagos, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCheckBoxPendente, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jCheckBoxPendente, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCheckBoxCancelada, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(10, 10, 10))
         );
         jPanel1Layout.setVerticalGroup(
@@ -416,7 +456,7 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(jButtonFiltrar))
                 .addGap(1, 1, 1)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jCheckBoxTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
@@ -431,7 +471,9 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addComponent(jCheckBoxFechada, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jCheckBoxEntregue, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckBoxCancelada, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
                         .addComponent(jRadioButtonTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(jRadioButtonPagos, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -440,17 +482,19 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBoxSituacaoOs, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxOsSelecionada, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(50, 50, 50))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jComboBoxSituacaoOs, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jComboBoxOsSelecionada, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(50, 50, 50))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButtonVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jButtonVisualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addContainerGap()))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
 
@@ -529,7 +573,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         bindingGroup.bind();
 
-        setSize(new java.awt.Dimension(1075, 705));
+        setSize(new java.awt.Dimension(1317, 745));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -570,6 +614,7 @@ public class TelaInicial extends javax.swing.JFrame {
             jCheckBoxFechada.setSelected(true);
             jCheckBoxEntregue.setSelected(true);
             jCheckBoxPendente.setSelected(true);
+            jCheckBoxCancelada.setSelected(true);
         } else {
             jCheckBoxAbertas.setSelected(false);
             jCheckBoxAndamento.setSelected(false);
@@ -577,6 +622,7 @@ public class TelaInicial extends javax.swing.JFrame {
             jCheckBoxFechada.setSelected(false);
             jCheckBoxEntregue.setSelected(false);
             jCheckBoxPendente.setSelected(false);
+            jCheckBoxCancelada.setSelected(false);
         }
 
         this.jButtonFiltrarActionPerformed(evt);
@@ -589,7 +635,9 @@ public class TelaInicial extends javax.swing.JFrame {
                 && !jCheckBoxAguardando.isSelected()
                 && !jCheckBoxPendente.isSelected()
                 && !jCheckBoxFechada.isSelected()
-                && !jCheckBoxEntregue.isSelected()) {
+                && !jCheckBoxEntregue.isSelected()
+                && !jCheckBoxCancelada.isSelected()
+                ) {
             //JOptionPane.showMessageDialog(rootPane, "Selecione algum tipo de situação de Ordem de Serviço");
         } else {
 
@@ -612,6 +660,9 @@ public class TelaInicial extends javax.swing.JFrame {
             }
             if (jCheckBoxPendente.isSelected()) {
                 auxSql = auxSql + "6";
+            }
+            if (jCheckBoxCancelada.isSelected()) {
+                auxSql = auxSql + "7";
             }
 
             if (jRadioButtonNaoPagos.isSelected()) {
@@ -636,15 +687,15 @@ public class TelaInicial extends javax.swing.JFrame {
                 }
             }
 
-            
-//            
-            ordemServicoQuery = SistotalPUEntityManager.createNativeQuery("Select * from ordem_servico where idsituacao_os in (" + auxSql + ") and pago in (" + auxSqlPago + ") order by idordem_servico desc", OrdemServico.class);
             ordemServicoList.clear();
-            List<OrdemServico> temp = ordemServicoQuery.getResultList();
-            ordemServicoList.addAll(temp);
-            for (int i = 0; i < ordemServicoList.size(); i++) {
-               SistotalPUEntityManager.refresh(ordemServicoList.get(i));
+            OrdemServicoController osController = new OrdemServicoController();
+            try {
+                ordemServicoList.addAll(osController.pesquisarTelaInicial(auxSql, auxSqlPago));
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+
 
         }
     }//GEN-LAST:event_jButtonFiltrarActionPerformed
@@ -736,7 +787,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jMenuItemClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemClientesActionPerformed
         TelaCadastroCliente tcc = new TelaCadastroCliente();
-        tcc.setVisible(true);
+        tcc.setVisible(true) ;
     }//GEN-LAST:event_jMenuItemClientesActionPerformed
 
     private void jMenuItemListaOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemListaOSActionPerformed
@@ -764,6 +815,13 @@ public class TelaInicial extends javax.swing.JFrame {
     private void jMenuItemAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAtualizarActionPerformed
         this.jButtonFiltrarActionPerformed(evt);
     }//GEN-LAST:event_jMenuItemAtualizarActionPerformed
+
+    private void jCheckBoxCanceladaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxCanceladaActionPerformed
+        if (!jCheckBoxCancelada.isSelected()) {
+            jCheckBoxTodos.setSelected(false);
+        }
+        this.jButtonFiltrarActionPerformed(evt);
+    }//GEN-LAST:event_jCheckBoxCanceladaActionPerformed
 
    
     /**
@@ -808,6 +866,7 @@ public class TelaInicial extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager SistotalPUEntityManager;
     private javax.swing.ButtonGroup buttonGroup1;
+    private Renderizadores.ColunaHoraRenderer colunaHoraRenderer1;
     private javax.swing.JButton jButtonClientes;
     private javax.swing.JButton jButtonFiltrar;
     private javax.swing.JButton jButtonImprimir;
@@ -817,6 +876,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBoxAbertas;
     private javax.swing.JCheckBox jCheckBoxAguardando;
     private javax.swing.JCheckBox jCheckBoxAndamento;
+    private javax.swing.JCheckBox jCheckBoxCancelada;
     private javax.swing.JCheckBox jCheckBoxEntregue;
     private javax.swing.JCheckBox jCheckBoxFechada;
     private javax.swing.JCheckBox jCheckBoxPendente;

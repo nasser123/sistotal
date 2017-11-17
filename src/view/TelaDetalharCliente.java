@@ -250,7 +250,6 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
         jLabel13.setText("Celular:");
 
         jTextFieldCelular.setEditable(false);
-        jTextFieldCelular.setSelectionStart(0);
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cliente, org.jdesktop.beansbinding.ELProperty.create("${celular}"), jTextFieldCelular, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
@@ -327,6 +326,7 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
 
         jButtonSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/sair2.png"))); // NOI18N
         jButtonSair.setText("Sair");
+        jButtonSair.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonSair.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonSair.addActionListener(new java.awt.event.ActionListener() {
@@ -341,6 +341,7 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
 
         jButtonGravar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/gravar32.png"))); // NOI18N
         jButtonGravar.setText("Gravar");
+        jButtonGravar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonGravar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonGravar.setMaximumSize(new java.awt.Dimension(65, 65));
         jButtonGravar.setMinimumSize(new java.awt.Dimension(65, 65));
@@ -435,6 +436,7 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
 
         jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/edit_profile.png"))); // NOI18N
         jButtonEditar.setText("Editar");
+        jButtonEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEditar.setMaximumSize(new java.awt.Dimension(65, 65));
         jButtonEditar.setMinimumSize(new java.awt.Dimension(65, 65));

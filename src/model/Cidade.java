@@ -24,6 +24,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cidade.findByIdcidade", query = "SELECT c FROM Cidade c WHERE c.idcidade = :idcidade"),
     @NamedQuery(name = "Cidade.findByNome", query = "SELECT c FROM Cidade c WHERE c.nome = :nome")})
 public class Cidade implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idcidade")
+    private List<Fornecedor> fornecedorList;
     @Transient
     private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
     private static final long serialVersionUID = 1L;
@@ -117,6 +120,15 @@ public class Cidade implements Serializable {
 
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         changeSupport.removePropertyChangeListener(listener);
+    }
+
+    @XmlTransient
+    public List<Fornecedor> getFornecedorList() {
+        return fornecedorList;
+    }
+
+    public void setFornecedorList(List<Fornecedor> fornecedorList) {
+        this.fornecedorList = fornecedorList;
     }
     
 }

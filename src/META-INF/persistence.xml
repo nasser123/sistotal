@@ -22,6 +22,22 @@
     <class>model.TipoSaida</class>
     <class>model.TipoServico</class>
     <class>model.OrdemServico_1</class>
+    <class>model.SituacaoConta</class>
+    <class>model.Cartao</class>
+    <class>model.SerialEntrada</class>
+    <class>model.ContasAReceber</class>
+    <class>model.Atributos</class>
+    <class>model.TipoAtributo</class>
+    <class>model.EntradaPagamentos</class>
+    <class>model.Fornecedor</class>
+    <class>model.ContasAPagar</class>
+    <class>model.ListaAtributosProduto</class>
+    <class>model.VendaCartao</class>
+    <class>model.ListaAtributoSubgrupo</class>
+    <class>model.EntradaProduto</class>
+    <class>model.Pdv</class>
+    <class>model.CentroCusto</class>
+    <class>model.ControleCartoes</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://10.1.1.1:3306/total_teste?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

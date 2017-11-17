@@ -24,7 +24,7 @@ public class Datas {
     private static String DIA = "dd";
     private static String MES = "MM";
     private static String ANO = "yyyy";
-    private static String TIME = "HHH:mm:ss";
+    private static String TIME_DATABASE = "HH:mm:ss";
     private static String HOUR = "H";
     private static String MINUTE = "m";
     private static String DATE_DATABASE = "yyyy-MM-dd";
@@ -73,7 +73,7 @@ public class Datas {
      * @return {@link String} no formato "HH:mm:ss"
      */
     public static String getTime(Date hora) {
-        DateFormat date = new SimpleDateFormat(TIME);
+        DateFormat date = new SimpleDateFormat(TIME_DATABASE);
         return date.format(hora);
     }
 
@@ -117,7 +117,7 @@ public class Datas {
     }
 
     public static String getDiferenca(long d) {
-        DateFormat date = new SimpleDateFormat(TIME);
+        DateFormat date = new SimpleDateFormat(TIME_DATABASE);
         return date.format(d);
     }
 
@@ -215,5 +215,38 @@ public class Datas {
         } else {
             return null;
         }
+    }
+    
+    /**
+     * Método para retornar a hora no formato HH:MM:SS
+     *
+     * @param hora
+     * @param min
+     * @param seg
+     * @return {@link Date} no formato HH:MM:SS
+     */
+    public static Date getTimeDataBase(String hora, String min, String seg) {
+        String sData = hora + ":" + min + ":" + seg;
+        SimpleDateFormat sdf = new SimpleDateFormat(TIME_DATABASE);
+
+        Date date = null;
+        try {
+            date = sdf.parse(sData);
+        } catch (ParseException ex) {
+            Logger.getLogger(Datas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return date;
+    }
+    
+    /**
+     * Método para retornar a hora no formato HH:MM:SS
+     *
+     * @param hora a hora a ser convertida
+     * @return {@link String} no formato "HH:MM:SS"
+     */
+    public static String getTimeDataBase(Date hora) {
+
+        DateFormat date = DateFormat.getTimeInstance();
+        return date.format(hora);
     }
 }

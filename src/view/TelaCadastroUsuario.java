@@ -169,6 +169,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
 
         jButtonGravar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/gravar32.png"))); // NOI18N
         jButtonGravar.setText("Gravar");
+        jButtonGravar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonGravar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonGravar.setMaximumSize(new java.awt.Dimension(65, 65));
         jButtonGravar.setMinimumSize(new java.awt.Dimension(65, 65));
@@ -188,6 +189,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
 
         jButtonNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/add_user.png"))); // NOI18N
         jButtonNovo.setText("Novo");
+        jButtonNovo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonNovo.setPreferredSize(new java.awt.Dimension(65, 65));
         jButtonNovo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -222,6 +224,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
 
         jButtonExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/delete_user.png"))); // NOI18N
         jButtonExcluir.setText("Excluir");
+        jButtonExcluir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonExcluir.setPreferredSize(new java.awt.Dimension(65, 65));
         jButtonExcluir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -239,6 +242,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
 
         jButtonSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/sair2.png"))); // NOI18N
         jButtonSair.setText("Sair");
+        jButtonSair.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonSair.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonSair.addActionListener(new java.awt.event.ActionListener() {
@@ -265,6 +269,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
 
         jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/edit_profile.png"))); // NOI18N
         jButtonEditar.setText("Editar");
+        jButtonEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonEditar.setPreferredSize(new java.awt.Dimension(65, 65));
         jButtonEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);

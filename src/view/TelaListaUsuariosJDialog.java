@@ -83,6 +83,7 @@ public class TelaListaUsuariosJDialog extends javax.swing.JDialog {
 
         jButtonSelecionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/sair2.png"))); // NOI18N
         jButtonSelecionar.setText("Sair");
+        jButtonSelecionar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonSelecionar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonSelecionar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonSelecionar.addActionListener(new java.awt.event.ActionListener() {
@@ -93,6 +94,7 @@ public class TelaListaUsuariosJDialog extends javax.swing.JDialog {
 
         jButtonOS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/nova_os.png"))); // NOI18N
         jButtonOS.setText("Selecionar");
+        jButtonOS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonOS.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonOS.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonOS.addActionListener(new java.awt.event.ActionListener() {
@@ -138,8 +140,8 @@ public class TelaListaUsuariosJDialog extends javax.swing.JDialog {
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(149, 149, 149)
                         .addComponent(jButtonOS, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                        .addComponent(jButtonSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                        .addComponent(jButtonSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(24, 24, 24))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -161,8 +163,8 @@ public class TelaListaUsuariosJDialog extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(46, 46, 46)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonOS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButtonSelecionar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jButtonOS, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonSelecionar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)

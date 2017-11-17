@@ -10,8 +10,8 @@ https://conveniototal.googlecode.com/svn
 2013-04-11T00:16:55.454478Z
 10
 nasser123rs@gmail.com
-
-
+has-props
+has-prop-mods
 svn:special svn:externals svn:needs-lock
 
 
@@ -72,7 +72,7 @@ file
 
 
 
-
+delete
 2012-05-16T16:12:06.785000Z
 7a25a34a8d742856dcd3b031bd2667b4
 2013-04-11T00:16:55.454478Z
@@ -106,7 +106,7 @@ file
 
 
 
-
+delete
 2012-05-16T16:12:07.048000Z
 0377f49953f27deb42bf5d96e933bb41
 2013-04-11T00:16:55.454478Z
@@ -140,7 +140,7 @@ file
 
 
 
-
+delete
 2012-05-16T16:12:06.306000Z
 8818954383925211b56563676def7032
 2013-04-11T00:16:55.454478Z
@@ -344,7 +344,7 @@ file
 
 
 
-
+delete
 2012-05-16T16:12:06.320000Z
 197fd96ec1e17d637683489e4d200bc0
 2013-04-11T00:16:55.454478Z
@@ -412,7 +412,7 @@ file
 
 
 
-
+delete
 2012-05-16T16:12:06.451000Z
 145fc32095b294db91f65eaf085c46c1
 2013-04-11T00:16:55.454478Z
@@ -616,7 +616,7 @@ file
 
 
 
-
+delete
 2012-05-16T16:12:06.659000Z
 2f748ee5df0807b0134dd58092095038
 2013-04-11T00:16:55.454478Z
@@ -650,7 +650,7 @@ file
 
 
 
-
+delete
 2012-05-16T16:12:06.739000Z
 53cf33533284876151ef3decf54fff1e
 2013-04-11T00:16:55.454478Z
@@ -956,7 +956,7 @@ file
 
 
 
-
+delete
 2012-05-16T16:12:06.708000Z
 03fc5a1ebbcf6513bf88be7fd3b37d79
 2013-04-11T00:16:55.454478Z
@@ -1189,6 +1189,29 @@ has-props
 
 3432
 
+add.png
+file
+
+
+
+add
+
+53cf33533284876151ef3decf54fff1e
+
+
+
+has-props
+
+
+
+
+
+
+
+copied
+https://conveniototal.googlecode.com/svn/Sistotal/src/icones/16x16/7687_16x16.png
+10
+
 add_home.png
 file
 
@@ -1393,6 +1416,29 @@ has-props
 
 3551
 
+atualizar.png
+file
+
+
+
+add
+
+197fd96ec1e17d637683489e4d200bc0
+
+
+
+has-props
+
+
+
+
+
+
+
+copied
+https://conveniototal.googlecode.com/svn/Sistotal/src/icones/16x16/6115_16x16.png
+10
+
 calculator.png
 file
 
@@ -1426,6 +1472,29 @@ has-props
 
 
 3427
+
+cancelar.png
+file
+
+
+
+add
+
+145fc32095b294db91f65eaf085c46c1
+
+
+
+has-props
+
+
+
+
+
+
+
+copied
+https://conveniototal.googlecode.com/svn/Sistotal/src/icones/16x16/6155_16x16.png
+10
 
 cd.png
 file
@@ -1903,6 +1972,29 @@ has-props
 
 3473
 
+editar.png
+file
+
+
+
+add
+
+03fc5a1ebbcf6513bf88be7fd3b37d79
+
+
+
+has-props
+
+
+
+
+
+
+
+copied
+https://conveniototal.googlecode.com/svn/Sistotal/src/icones/16x16/8394_16x16.png
+10
+
 euro_currency_sign.png
 file
 
@@ -1936,6 +2028,29 @@ has-props
 
 
 3563
+
+excluir.png
+file
+
+
+
+add
+
+7a25a34a8d742856dcd3b031bd2667b4
+
+
+
+has-props
+
+
+
+
+
+
+
+copied
+https://conveniototal.googlecode.com/svn/Sistotal/src/icones/16x16/11292_16x16.png
+10
 
 folder_conflicted.png
 file
@@ -2209,6 +2324,52 @@ has-props
 
 3547
 
+ok.png
+file
+
+
+
+add
+
+2f748ee5df0807b0134dd58092095038
+
+
+
+has-props
+
+
+
+
+
+
+
+copied
+https://conveniototal.googlecode.com/svn/Sistotal/src/icones/16x16/7484_16x16.png
+10
+
+pesquisar.png
+file
+
+
+
+add
+
+8818954383925211b56563676def7032
+
+
+
+has-props
+
+
+
+
+
+
+
+copied
+https://conveniototal.googlecode.com/svn/Sistotal/src/icones/16x16/1408_16x16.png
+10
+
 phone_book.png
 file
 
@@ -2378,6 +2539,29 @@ has-props
 
 
 3458
+
+salvar.png
+file
+
+
+
+add
+
+0377f49953f27deb42bf5d96e933bb41
+
+
+
+has-props
+
+
+
+
+
+
+
+copied
+https://conveniototal.googlecode.com/svn/Sistotal/src/icones/16x16/1295_16x16.png
+10
 
 save.png
 file

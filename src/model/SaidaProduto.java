@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.util.*;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -27,6 +28,14 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "SaidaProduto.findByDataSaida", query = "SELECT s FROM SaidaProduto s WHERE s.dataSaida = :dataSaida"),
     @NamedQuery(name = "SaidaProduto.findByLucroBruto", query = "SELECT s FROM SaidaProduto s WHERE s.lucroBruto = :lucroBruto")})
 public class SaidaProduto implements Serializable {
+
+    @Column(name = "saida_produtocol")
+    private String saidaProdutocol;
+    @JoinTable(name = "saida_produto_has_serial_entrada", joinColumns = {
+        @JoinColumn(name = "idsaida_produto", referencedColumnName = "idsaida_produto")}, inverseJoinColumns = {
+        @JoinColumn(name = "idserial_entrada", referencedColumnName = "idserial_entrada")})
+    @ManyToMany
+    private List<SerialEntrada> serialEntradaList;
     @Transient
     private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
     private static final long serialVersionUID = 1L;
@@ -205,6 +214,23 @@ public class SaidaProduto implements Serializable {
 
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         changeSupport.removePropertyChangeListener(listener);
+    }
+
+    public String getSaidaProdutocol() {
+        return saidaProdutocol;
+    }
+
+    public void setSaidaProdutocol(String saidaProdutocol) {
+        this.saidaProdutocol = saidaProdutocol;
+    }
+
+    @XmlTransient
+    public List<SerialEntrada> getSerialEntradaList() {
+        return serialEntradaList;
+    }
+
+    public void setSerialEntradaList(List<SerialEntrada> serialEntradaList) {
+        this.serialEntradaList = serialEntradaList;
     }
     
 }

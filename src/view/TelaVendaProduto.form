@@ -125,7 +125,7 @@
                               <Component id="jTextFieldCliente" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jButtonPesquisaCliente" min="-2" pref="80" max="-2" attributes="0"/>
+                          <Component id="jButtonPesquisaCliente" min="-2" pref="90" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -165,7 +165,7 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jButtonPesquisar" min="-2" pref="80" max="-2" attributes="0"/>
+                                  <Component id="jButtonPesquisar" min="-2" pref="90" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="jTextFieldCodigoBarras" alignment="0" min="-2" pref="123" max="-2" attributes="0"/>
@@ -188,16 +188,16 @@
                                       <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jButtonInserir" min="-2" pref="80" max="-2" attributes="0"/>
+                                  <Component id="jButtonInserir" min="-2" pref="90" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jButtonExcluir" min="-2" pref="80" max="-2" attributes="0"/>
+                                  <Component id="jButtonExcluir" min="-2" pref="90" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="288" max="-2" attributes="0"/>
-                                  <Component id="jButtonCancelar" min="-2" pref="80" max="-2" attributes="0"/>
+                                  <Component id="jButtonCancelar" min="-2" pref="90" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="jButtonSair" min="-2" pref="80" max="-2" attributes="0"/>
+                                  <Component id="jButtonSair" min="-2" pref="90" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
-                                  <Component id="jButtonGravar" min="-2" pref="80" max="-2" attributes="0"/>
+                                  <Component id="jButtonGravar" min="-2" pref="90" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -224,13 +224,13 @@
                               <Component id="jTextFieldCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="jButtonPesquisaCliente" min="-2" pref="70" max="-2" attributes="0"/>
+                      <Component id="jButtonPesquisaCliente" min="-2" pref="80" max="-2" attributes="0"/>
                       <Component id="jDateChooserDataVenda" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jButtonPesquisar" alignment="1" min="-2" pref="70" max="-2" attributes="0"/>
-                      <Component id="jButtonInserir" alignment="1" min="-2" pref="70" max="-2" attributes="0"/>
+                      <Component id="jButtonPesquisar" alignment="1" min="-2" pref="80" max="-2" attributes="0"/>
+                      <Component id="jButtonInserir" alignment="1" min="-2" pref="80" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
@@ -300,12 +300,12 @@
                       </Group>
                       <Component id="jScrollPane2" min="-2" pref="343" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="19" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButtonGravar" alignment="3" min="-2" pref="70" max="-2" attributes="0"/>
-                      <Component id="jButtonExcluir" alignment="3" min="-2" pref="70" max="-2" attributes="0"/>
-                      <Component id="jButtonCancelar" alignment="3" min="-2" pref="70" max="-2" attributes="0"/>
-                      <Component id="jButtonSair" alignment="3" min="-2" pref="70" max="-2" attributes="0"/>
+                      <Component id="jButtonGravar" alignment="3" min="-2" pref="80" max="-2" attributes="0"/>
+                      <Component id="jButtonExcluir" alignment="3" min="-2" pref="80" max="-2" attributes="0"/>
+                      <Component id="jButtonCancelar" alignment="3" min="-2" pref="80" max="-2" attributes="0"/>
+                      <Component id="jButtonSair" alignment="3" min="-2" pref="80" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
               </Group>
@@ -355,6 +355,9 @@
               <Image iconType="3" name="/icones/32x32/pesquisa32.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Pesquisar"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor em Forma de M&#xe3;o"/>
+            </Property>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -371,6 +374,9 @@
               <Image iconType="3" name="/icones/32x32/adicionarProduto32.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Inserir"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor em Forma de M&#xe3;o"/>
+            </Property>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -398,6 +404,9 @@
               <Image iconType="3" name="/icones/32x32/gravarVenda32.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Gravar"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor em Forma de M&#xe3;o"/>
+            </Property>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalAlignment" type="int" value="3"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -518,6 +527,9 @@
               <Image iconType="3" name="/icones/32x32/pesquisarCliente32.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Cliente"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor em Forma de M&#xe3;o"/>
+            </Property>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -666,6 +678,9 @@
               <Image iconType="3" name="/icones/32x32/excluirProduto32.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Excluir"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor em Forma de M&#xe3;o"/>
+            </Property>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -679,6 +694,9 @@
               <Image iconType="3" name="/icones/32x32/cancelar32.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor em Forma de M&#xe3;o"/>
+            </Property>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalAlignment" type="int" value="3"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -693,6 +711,9 @@
               <Image iconType="3" name="/icones/32x32/sair2.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Sair"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor em Forma de M&#xe3;o"/>
+            </Property>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalAlignment" type="int" value="3"/>
             <Property name="verticalTextPosition" type="int" value="3"/>

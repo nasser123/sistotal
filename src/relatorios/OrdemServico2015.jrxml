@@ -89,12 +89,17 @@
      estado.`uf` AS estado_uf,
      estado.`nome` AS estado_nome,
      equipamento.`idequipamento` AS equipamento_idequipamento,
-     equipamento.`descricao` AS equipamento_descricao
+     equipamento.`descricao` AS equipamento_descricao,
+     ordem_servico.`data_agendamento` AS ordem_servico_data_agendamento,
+     ordem_servico.`hora_agendamento` AS ordem_servico_hora_agendamento,
+     tipo_servico.`idtipo_servico` AS tipo_servico_idtipo_servico,
+     tipo_servico.`descricao` AS tipo_servico_descricao
 FROM
      `cliente` cliente INNER JOIN `ordem_servico` ordem_servico ON cliente.`idcliente` = ordem_servico.`idcliente`
      INNER JOIN `cidade` cidade ON cliente.`idcidade` = cidade.`idcidade`
      INNER JOIN `estado` estado ON cidade.`idestado` = estado.`idestado`
      INNER JOIN `equipamento` equipamento ON ordem_servico.`idequipamento` = equipamento.`idequipamento`
+     INNER JOIN `tipo_servico` tipo_servico ON ordem_servico.`idtipo_servico` = tipo_servico.`idtipo_servico`
 WHERE
      ordem_servico.`idordem_servico` = $P{ordem}]]>
 	</queryString>
@@ -125,8 +130,8 @@ WHERE
 	<field name="cliente_cpf_cnpj" class="java.lang.String"/>
 	<field name="cliente_insc_estadual" class="java.lang.String"/>
 	<field name="cliente_idsituacao_cliente" class="java.lang.Integer"/>
-	<field name="cliente_fone" class="java.lang.String"/>
-	<field name="cliente_celular" class="java.lang.String"/>
+	<field name="cliente_fone" class="java.lang.Long"/>
+	<field name="cliente_celular" class="java.lang.Long"/>
 	<field name="cidade_idcidade" class="java.lang.Integer"/>
 	<field name="cidade_nome" class="java.lang.String"/>
 	<field name="cidade_idestado" class="java.lang.Integer"/>
@@ -135,21 +140,25 @@ WHERE
 	<field name="estado_nome" class="java.lang.String"/>
 	<field name="equipamento_idequipamento" class="java.lang.Integer"/>
 	<field name="equipamento_descricao" class="java.lang.String"/>
+	<field name="ordem_servico_data_agendamento" class="java.sql.Date"/>
+	<field name="ordem_servico_hora_agendamento" class="java.sql.Time"/>
+	<field name="tipo_servico_idtipo_servico" class="java.lang.Integer"/>
+	<field name="tipo_servico_descricao" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="43" splitType="Stretch">
 			<staticText>
-				<reportElement x="67" y="0" width="162" height="14" uuid="8f1d3ff2-b2a9-4477-963f-b151039849ab"/>
+				<reportElement x="150" y="0" width="162" height="14" uuid="8f1d3ff2-b2a9-4477-963f-b151039849ab"/>
 				<text><![CDATA[Duque de Caxias, 1929 Sala A]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="67" y="28" width="162" height="14" uuid="3cb23634-886f-4caf-9a02-0471c6c18829"/>
+				<reportElement x="150" y="28" width="162" height="14" uuid="3cb23634-886f-4caf-9a02-0471c6c18829"/>
 				<text><![CDATA[Fone (55) 3411-6960]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="67" y="14" width="163" height="14" uuid="4c9135da-4c38-49c2-8b7e-70d7f8691faa"/>
+				<reportElement x="150" y="14" width="163" height="14" uuid="4c9135da-4c38-49c2-8b7e-70d7f8691faa"/>
 				<text><![CDATA[Uruguaiana-RS CEP 97501-523]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy">
@@ -180,10 +189,20 @@ WHERE
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ordem_servico_idordem_servico}]]></textFieldExpression>
 			</textField>
-			<image>
-				<reportElement x="1" y="0" width="52" height="42" uuid="bb36637e-54e4-4b59-bb6e-f5321cd02bcd"/>
-				<imageExpression><![CDATA[$P{Imagem}]]></imageExpression>
-			</image>
+			<staticText>
+				<reportElement x="0" y="0" width="139" height="22" uuid="2600149c-43a5-40e3-8ea2-1f507a296e5f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Bookman Old Style" size="12" isBold="true" isItalic="true" isUnderline="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[TOTALTECH]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="22" width="140" height="20" uuid="005b2912-4772-467a-85ce-0f31d24e4626"/>
+				<textElement textAlignment="Center">
+					<font fontName="Bookman Old Style" size="12" isBold="true" isItalic="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[INFORMÁTICA]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>
@@ -343,7 +362,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{cliente_complemento}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="71" width="185" height="16" uuid="ce2943f5-4a54-4131-85ff-3e17c030d907"/>
+				<reportElement x="0" y="71" width="140" height="16" uuid="ce2943f5-4a54-4131-85ff-3e17c030d907"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -1146,6 +1165,70 @@ WHERE
 			<staticText>
 				<reportElement x="302" y="578" width="60" height="15" uuid="a209f32b-0464-4ab2-b1ed-12eadb0bcb74"/>
 				<text><![CDATA[Silverlight]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="321" y="71" width="89" height="16" uuid="6c1edb82-d746-48a3-8e19-2b52987c7bcf"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Agendamento:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="415" y="70" width="70" height="16" uuid="e25f88ec-39bc-47d4-9735-e06c262e7ee3"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ordem_servico_data_agendamento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm" isBlankWhenNull="true">
+				<reportElement x="485" y="70" width="70" height="16" uuid="08b32e33-8424-4980-851b-34df2a1f89e7"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ordem_servico_hora_agendamento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="189" y="71" width="96" height="16" uuid="22ef755a-e9a7-471f-8271-ef6c7aa5e85b"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo_servico_descricao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm" isBlankWhenNull="true">
+				<reportElement x="485" y="254" width="70" height="16" uuid="6ea0d919-692a-4c04-ad1a-680b3ee4cd75"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ordem_servico_hora_agendamento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+				<reportElement x="415" y="254" width="70" height="16" uuid="b35ef639-f846-4acf-8b25-2e568ce246f8"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ordem_servico_data_agendamento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="321" y="255" width="89" height="16" uuid="af423878-ca65-420b-9738-31bbbef13b2d"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Agendamento:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="190" y="255" width="96" height="16" uuid="c5712c00-d040-49e1-8ed0-fdeee9b8c250"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo_servico_descricao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="1" y="694" width="279" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="88d71578-8b7b-4376-a8da-7926145296b9"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Local armazenado: ___________________]]></text>
 			</staticText>
 		</band>
 	</pageHeader>

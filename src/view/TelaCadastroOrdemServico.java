@@ -34,7 +34,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         initComponents();
         ConfigTelas ct = new ConfigTelas(this);
         ct.carregarConfig(this);
-        jDateChooserDataAgendamento.setDate(Datas.getCurrentTime());
+        jDateChooserAbertura.setDate(Datas.getCurrentTime());
         jLabelTitulo.setText("Ordem de Serviço");
         outroSistema = false;
         jComboBoxEquipamento.setSelectedIndex(0);
@@ -54,7 +54,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jTextFieldNome.setText(this.cliente.getNome());
         jTextFieldCelular.setText(this.cliente.getCelular().toString());
         jTextFieldFone.setText(this.cliente.getFone().toString());
-        jDateChooserDataAgendamento.setDate(Datas.getCurrentTime());
+        jDateChooserAbertura.setDate(Datas.getCurrentTime());
         outroSistema = false;
 
         jComboBoxEquipamento.setSelectedIndex(0);
@@ -125,9 +125,14 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     }
 
     private void preencheTodosDados() {
-        jDateChooserDataAgendamento.setDate(this.ordemServico.getDataAbertura());
+        jDateChooserAbertura.setDate(this.ordemServico.getDataAbertura());
+        
+        jDateChooserDataAgendamento.setDate(this.ordemServico.getData_agendamento());
 
-        jTextFieldResponsavel.setText(this.ordemServico.getResponsavel());
+        if(this.ordemServico.getHora_agendamento() != null){
+            selecionaHora(this.ordemServico.getHora_agendamento());
+        }
+        
         
         if (this.ordemServico.getPago()) {
             jComboBoxPago.setSelectedIndex(1);
@@ -137,6 +142,10 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
 
         if (this.ordemServico.getDataTermino() != null) {
             jDateChooserEntrega.setDate(this.ordemServico.getDataTermino());
+        }
+        
+        if (this.ordemServico.getIdusuario() != null){
+            jComboBoxUsuario.setSelectedItem(this.ordemServico.getIdusuario());
         }
 
         boolean encontrou = false;
@@ -193,7 +202,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jComboBoxSituacaoOS.setEnabled(false);
         jTextAreaEfeitoCliente.setEnabled(false);
         jTextAreaObservacoes.setEnabled(false);
-        jDateChooserDataAgendamento.setEnabled(false);
+        jDateChooserAbertura.setEnabled(false);
         jTextAreaServicosRealizados.setEnabled(false);
         jTextAreaFeedBack.setEnabled(false);
         jComboBoxAV.setEnabled(false);
@@ -203,7 +212,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jTextFieldOutro.setEnabled(false);
         jButtonGravar.setEnabled(false);
         jTextField_outro_hardware.setEnabled(false);
-        jComboBoxPago.setEnabled(false);
+//        jComboBoxPago.setEnabled(false);
         jTextFieldValor.setEnabled(false);
         jComboBoxLocal.setEnabled(false);
 
@@ -227,7 +236,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jComboBoxSO.setEnabled(true);
         jButtonGravar.setEnabled(true);
         jTextField_outro_hardware.setEnabled(true);
-        jComboBoxPago.setEnabled(true);
+//        jComboBoxPago.setEnabled(true);
         jTextFieldValor.setEnabled(true);
         jComboBoxLocal.setEnabled(true);
         jDateChooserEntrega.setEnabled(true);
@@ -264,7 +273,10 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         situacaoOsList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(situacaoOsQuery.getResultList());
         tipoServicoQuery = java.beans.Beans.isDesignTime() ? null : SistotalPUEntityManager.createQuery("SELECT t FROM TipoServico t");
         tipoServicoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : tipoServicoQuery.getResultList();
-        ordemServico = new model.OrdemServico();
+        ordemServico = this.osCad;
+        usuarioQuery = java.beans.Beans.isDesignTime() ? null : SistotalPUEntityManager.createQuery("SELECT u FROM Usuario u");
+        usuarioList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(usuarioQuery.getResultList());
+        usuarioListCellRenderer1 = new Renderizadores.UsuarioListCellRenderer();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaEfeitoCliente = new javax.swing.JTextArea();
@@ -331,18 +343,23 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jLabel26 = new javax.swing.JLabel();
         jComboBoxPago = new javax.swing.JComboBox();
         jLabel15 = new javax.swing.JLabel();
-        jTextFieldResponsavel = new javax.swing.JTextField();
-        jDateChooserAbertura1 = new com.toedter.calendar.JDateChooser();
+        jDateChooserAbertura = new com.toedter.calendar.JDateChooser();
         jLabel27 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jComboBoxHora = new javax.swing.JComboBox();
         jComboBoxMin = new javax.swing.JComboBox();
+        jComboBoxHora = new javax.swing.JComboBox();
+        jComboBoxUsuario = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jTextFieldArmazenamento = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
 
+        usuarioListCellRenderer1.setText("usuarioListCellRenderer1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         setMinimumSize(new java.awt.Dimension(870, 740));
         setPreferredSize(new java.awt.Dimension(852, 740));
         setResizable(false);
@@ -350,7 +367,6 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setMinimumSize(new java.awt.Dimension(870, 720));
         jPanel1.setPreferredSize(new java.awt.Dimension(875, 721));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTextAreaEfeitoCliente.setColumns(20);
         jTextAreaEfeitoCliente.setLineWrap(true);
@@ -358,56 +374,64 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jTextAreaEfeitoCliente.setWrapStyleWord(true);
         jTextAreaEfeitoCliente.setBorder(javax.swing.BorderFactory.createTitledBorder("Problemas apresentados:"));
         jTextAreaEfeitoCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${efeitoCliente}"), jTextAreaEfeitoCliente, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         jScrollPane1.setViewportView(jTextAreaEfeitoCliente);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 224, 480, 140));
-        jPanel1.add(jDateChooserDataAgendamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 190, 156, 25));
-
         jTextFieldProcessador.setToolTipText("");
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${processador}"), jTextFieldProcessador, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         jTextFieldProcessador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldProcessadorActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextFieldProcessador, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 146, 120, -1));
 
         jTextFieldMemoria.setToolTipText("");
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${memoria}"), jTextFieldMemoria, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         jTextFieldMemoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldMemoriaActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextFieldMemoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 146, 90, -1));
 
         jTextFieldDiscoRigido.setToolTipText("");
-        jPanel1.add(jTextFieldDiscoRigido, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 146, 110, -1));
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${discoRigido}"), jTextFieldDiscoRigido, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
         org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, equipamentoList, jComboBoxEquipamento);
         bindingGroup.addBinding(jComboBoxBinding);
-
-        jPanel1.add(jComboBoxEquipamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 146, 140, -1));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${idequipamento}"), jComboBoxEquipamento, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
 
         jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, situacaoOsList, jComboBoxSituacaoOS);
         bindingGroup.addBinding(jComboBoxBinding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${idsituacaoOs}"), jComboBoxSituacaoOS, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
 
         jComboBoxSituacaoOS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxSituacaoOSActionPerformed(evt);
             }
         });
-        jPanel1.add(jComboBoxSituacaoOS, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 585, 150, 25));
 
         jLabelTitulo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitulo.setText("Ordem de Serviço");
-        jPanel1.add(jLabelTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 30));
 
         jLabel3.setText("Data de Abertura:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 565, -1, -1));
 
         jTextFieldCodigo.setEnabled(false);
 
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${idcliente.idcliente}"), jTextFieldCodigo, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${idcliente.idcliente}"), jTextFieldCodigo, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
         jTextFieldCodigo.addActionListener(new java.awt.event.ActionListener() {
@@ -415,76 +439,66 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
                 jTextFieldCodigoActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextFieldCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 70, 55, -1));
 
         jTextFieldNome.setEnabled(false);
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${idcliente.nome}"), jTextFieldNome, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
-        jPanel1.add(jTextFieldNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(317, 70, 246, -1));
-
         jLabel4.setText("Código");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(252, 50, 55, -1));
 
         jLabel5.setText("Nome");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(317, 52, -1, -1));
 
-        jButtonPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/16x16/1408_16x16.png"))); // NOI18N
+        jButtonPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/16x16/pesquisar.png"))); // NOI18N
         jButtonPesquisar.setMnemonic('P');
         jButtonPesquisar.setText("Pesquisar (F2)");
         jButtonPesquisar.setToolTipText("");
+        jButtonPesquisar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPesquisarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(115, 67, 130, -1));
 
         jLabel6.setText("Telefone");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 50, 70, -1));
 
         jLabel7.setText("Celular");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 50, 70, -1));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 98, 990, -1));
 
         jLabel8.setText("Dados do Equipamento");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 106, -1, -1));
 
         jLabel9.setText("Processador");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 126, -1, -1));
 
         jLabel10.setText("Memória");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 126, -1, -1));
 
         jLabel11.setText("Disco Rígido");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 126, -1, -1));
 
         jLabel12.setText("Fonte");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 126, 70, -1));
 
         jTextFieldFonte.setToolTipText("");
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${fonte}"), jTextFieldFonte, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         jTextFieldFonte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldFonteActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextFieldFonte, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 146, 90, -1));
 
         jTextFieldPlacaMae.setToolTipText("");
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${placaMae}"), jTextFieldPlacaMae, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         jTextFieldPlacaMae.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldPlacaMaeActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextFieldPlacaMae, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 146, 130, -1));
 
         jLabel13.setText("Placa Mãe:");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 126, 111, -1));
 
         jLabel14.setText("Tipo de Equipamento:");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 126, 140, -1));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 218, 990, -1));
 
         jTextAreaObservacoes.setColumns(20);
         jTextAreaObservacoes.setLineWrap(true);
@@ -492,17 +506,19 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jTextAreaObservacoes.setWrapStyleWord(true);
         jTextAreaObservacoes.setBorder(javax.swing.BorderFactory.createTitledBorder("Observações"));
         jTextAreaObservacoes.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${observacao}"), jTextAreaObservacoes, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         jScrollPane3.setViewportView(jTextAreaObservacoes);
 
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 230, 490, 140));
-
         jLabel16.setText("Situação");
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 565, 150, -1));
 
         jButtonGravar.setBackground(new java.awt.Color(255, 255, 255));
         jButtonGravar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/gravar32.png"))); // NOI18N
         jButtonGravar.setMnemonic('G');
         jButtonGravar.setText("Gravar");
+        jButtonGravar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonGravar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonGravar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonGravar.addActionListener(new java.awt.event.ActionListener() {
@@ -510,17 +526,23 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
                 jButtonGravarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonGravar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 620, 90, 80));
 
         jTextFieldMarca.setToolTipText("");
-        jPanel1.add(jTextFieldMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 146, 90, -1));
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${marca}"), jTextFieldMarca, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
         jLabel17.setText("Marca/Modelo:");
-        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 126, 90, -1));
-        jPanel1.add(jTextFieldFone, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 70, 80, -1));
+
+        jTextFieldFone.setEditable(false);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${idcliente.fone}"), jTextFieldFone, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
         jTextFieldCelular.setEnabled(false);
-        jPanel1.add(jTextFieldCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 70, 70, -1));
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${idcliente.celular}"), jTextFieldCelular, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
         jButtonNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/16x16/add_user.png"))); // NOI18N
         jButtonNovo.setMnemonic('N');
@@ -530,11 +552,11 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
                 jButtonNovoActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 67, 100, -1));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/8394_32x32.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/edit.png"))); // NOI18N
         jButton1.setMnemonic('e');
         jButton1.setText("editar");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -542,11 +564,11 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 620, 90, 80));
 
         jButtonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/cancelar32.png"))); // NOI18N
         jButtonCancelar.setMnemonic('c');
         jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -554,11 +576,11 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
                 jButtonCancelarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 620, 90, 80));
 
         jButtonImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/relatorio.png"))); // NOI18N
         jButtonImprimir.setMnemonic('I');
         jButtonImprimir.setText("Imprimir");
+        jButtonImprimir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonImprimir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonImprimir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonImprimir.addActionListener(new java.awt.event.ActionListener() {
@@ -566,7 +588,6 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
                 jButtonImprimirActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonImprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 620, 90, 80));
 
         jButtonSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/sair2.png"))); // NOI18N
         jButtonSair.setMnemonic('S');
@@ -578,7 +599,6 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
                 jButtonSairActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 620, 90, 80));
 
         jScrollPane2.setHorizontalScrollBar(null);
 
@@ -588,42 +608,36 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jTextAreaServicosRealizados.setWrapStyleWord(true);
         jTextAreaServicosRealizados.setBorder(javax.swing.BorderFactory.createTitledBorder("Descrição dos serviços"));
         jTextAreaServicosRealizados.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${descricaoServicos}"), jTextAreaServicosRealizados, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         jScrollPane2.setViewportView(jTextAreaServicosRealizados);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 373, 480, 130));
-
-        jComboBoxSO.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Windows XP", "Windows 7 32", "Windows 7 64", "Windows 8.1 32", "Windows 8.1 64", "Ubuntu", "Windows 10 32", "Windows 10 64", "Outro" }));
+        jComboBoxSO.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Windows 10 32", "Windows 10 64", "Windows 8.1 32", "Windows 8.1 64", "Windows 7 32", "Windows 7 64", "Windows XP", "Ubuntu", "Outro" }));
         jComboBoxSO.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxSOActionPerformed(evt);
             }
         });
-        jPanel1.add(jComboBoxSO, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 529, 127, 25));
 
         jLabel18.setText("Sistema Operacional:");
-        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 509, -1, -1));
 
         jLabel19.setText("Antivírus");
-        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(343, 509, 125, -1));
 
         jComboBoxAV.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Avast", "Norton", "Panda", "AVG", "McAfee", "Security Essentials" }));
-        jPanel1.add(jComboBoxAV, new org.netbeans.lib.awtextra.AbsoluteConstraints(343, 529, 125, 25));
 
         jLabel20.setText("Suite de Escritorio");
-        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(487, 509, -1, -1));
 
-        jComboBoxOffice.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Office 2003", "Office 2007", "Office 2010", "Office 2013", "Office 365", "Br Office" }));
-        jPanel1.add(jComboBoxOffice, new org.netbeans.lib.awtextra.AbsoluteConstraints(486, 529, 165, 25));
+        jComboBoxOffice.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Office 2013", "Office 2010", "Office 2007", "Office 2003", "Office 365", "Br Office" }));
 
         jTextFieldOutro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldOutroActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextFieldOutro, new org.netbeans.lib.awtextra.AbsoluteConstraints(143, 529, 188, 25));
 
         jLabelOutro.setText("Outro:");
-        jPanel1.add(jLabelOutro, new org.netbeans.lib.awtextra.AbsoluteConstraints(143, 509, -1, -1));
 
         jTextAreaFeedBack.setColumns(20);
         jTextAreaFeedBack.setLineWrap(true);
@@ -631,91 +645,373 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jTextAreaFeedBack.setWrapStyleWord(true);
         jTextAreaFeedBack.setBorder(javax.swing.BorderFactory.createTitledBorder("Feedback do cliente"));
         jTextAreaFeedBack.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${feedback}"), jTextAreaFeedBack, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         jScrollPane4.setViewportView(jTextAreaFeedBack);
 
-        jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 380, 490, 130));
-
         jLabel22.setText("Data de Entrega:");
-        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 565, -1, -1));
-        jPanel1.add(jDateChooserEntrega, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 585, 156, 25));
 
         jButtonDetalhar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/16x16/edit_profile.png"))); // NOI18N
         jButtonDetalhar.setMnemonic('D');
         jButtonDetalhar.setText("Detalhar");
+        jButtonDetalhar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonDetalhar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDetalharActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonDetalhar, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 67, -1, -1));
 
         jLabel23.setText("Demais equipamentos");
-        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 126, -1, -1));
 
         jTextField_outro_hardware.setToolTipText("");
-        jPanel1.add(jTextField_outro_hardware, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 146, 150, -1));
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${outroHardware}"), jTextField_outro_hardware, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
         jLabel24.setText("Pago:");
-        jPanel1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 565, 170, -1));
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${valor}"), jTextFieldValor, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
 
         jTextFieldValor.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextFieldValorFocusGained(evt);
             }
         });
-        jPanel1.add(jTextFieldValor, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 585, 110, 25));
 
         jLabel25.setText("Valor Total:");
-        jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 565, 110, -1));
 
         jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tipoServicoList, jComboBoxLocal);
         bindingGroup.addBinding(jComboBoxBinding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${idtipoServico}"), jComboBoxLocal, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
 
         jComboBoxLocal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxLocalActionPerformed(evt);
             }
         });
-        jPanel1.add(jComboBoxLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 180, 25));
 
         jLabel26.setText("Local:");
-        jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 80, -1));
 
         jComboBoxPago.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Não", "Sim" }));
-        jPanel1.add(jComboBoxPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(674, 590, 150, -1));
 
         jLabel15.setText("Técnico Responsável");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 170, 240, -1));
-
-        jTextFieldResponsavel.setToolTipText("");
-        jTextFieldResponsavel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldResponsavelActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jTextFieldResponsavel, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 190, 250, -1));
-        jPanel1.add(jDateChooserAbertura1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 585, 156, 25));
 
         jLabel27.setText("Data Agendamento");
-        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 150, -1));
 
         jLabel21.setText("Hora");
-        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 170, -1, -1));
-
-        jComboBoxHora.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
-        jPanel1.add(jComboBoxHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 190, 50, 25));
 
         jComboBoxMin.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "15", "30", "45" }));
-        jComboBoxMin.removeAllItems();
-        this.preecheComboMinutos();
-        jPanel1.add(jComboBoxMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 190, 50, 25));
+
+        jComboBoxHora.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
+
+        jComboBoxUsuario.setRenderer(usuarioListCellRenderer1);
+
+        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, usuarioList, jComboBoxUsuario);
+        bindingGroup.addBinding(jComboBoxBinding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${idusuario}"), jComboBoxUsuario, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
+
+        jLabel1.setText("Armazenamento");
+
+        jTextFieldArmazenamento.setToolTipText("");
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServico, org.jdesktop.beansbinding.ELProperty.create("${local}"), jTextFieldArmazenamento, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        jTextFieldArmazenamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldArmazenamentoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 850, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(252, 252, 252)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel5)
+                        .addGap(226, 226, 226)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jButtonNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
+                        .addComponent(jButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(7, 7, 7)
+                        .addComponent(jTextFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(7, 7, 7)
+                        .addComponent(jTextFieldFone, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jTextFieldCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jButtonDetalhar))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 990, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel8))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel9)
+                        .addGap(71, 71, 71)
+                        .addComponent(jLabel10)
+                        .addGap(60, 60, 60)
+                        .addComponent(jLabel11)
+                        .addGap(63, 63, 63)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel23)
+                        .addGap(56, 56, 56)
+                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jComboBoxEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jTextFieldProcessador, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jTextFieldMemoria, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jTextFieldDiscoRigido, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jTextFieldFonte, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jTextFieldPlacaMae, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jTextField_outro_hardware, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jTextFieldMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 990, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(133, 133, 133)
+                                        .addComponent(jLabelOutro)
+                                        .addGap(168, 168, 168)
+                                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(10, 10, 10)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel18)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(477, 477, 477)
+                                .addComponent(jLabel20))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jComboBoxSO, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(jTextFieldOutro, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(jComboBoxAV, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBoxOffice, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel3)
+                        .addGap(82, 82, 82)
+                        .addComponent(jLabel22)
+                        .addGap(97, 97, 97)
+                        .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jComboBoxSituacaoOS, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(jDateChooserAbertura, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)
+                        .addComponent(jDateChooserEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)
+                        .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(jComboBoxPago, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(180, 180, 180)
+                        .addComponent(jButtonGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jButtonSair, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jComboBoxLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(jDateChooserDataAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(4, 4, 4)
+                                .addComponent(jComboBoxHora, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(jComboBoxMin, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(110, 110, 110)
+                                .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel21)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jComboBoxUsuario, 0, 190, Short.MAX_VALUE)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldArmazenamento))))
+                .addGap(11, 11, 11))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(jLabel5))
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
+                .addGap(1, 1, 1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonNovo)
+                    .addComponent(jButtonPesquisar)
+                    .addComponent(jButtonDetalhar)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldFone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(8, 8, 8)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(jLabel8)
+                .addGap(6, 6, 6)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel23)
+                    .addComponent(jLabel17))
+                .addGap(6, 6, 6)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBoxEquipamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldProcessador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldMemoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldDiscoRigido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldFonte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldPlacaMae, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField_outro_hardware, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel26)
+                    .addComponent(jLabel27)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel21)
+                        .addComponent(jLabel15)
+                        .addComponent(jLabel1)))
+                .addGap(6, 6, 6)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBoxLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDateChooserDataAgendamento, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxHora, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jComboBoxMin, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBoxUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextFieldArmazenamento, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(3, 3, 3)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(6, 6, 6)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelOutro)
+                                    .addComponent(jLabel19)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(136, 136, 136)
+                                .addComponent(jLabel18))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel20)))
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxSO, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldOutro, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxAV, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxOffice, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(11, 11, 11)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel22)
+                            .addComponent(jLabel25)
+                            .addComponent(jLabel24))
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxSituacaoOS, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jDateChooserAbertura, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jDateChooserEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(5, 5, 5)
+                                .addComponent(jComboBoxPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonSair, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         jMenu1.setText("Ordem de Serviço");
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/16x16/1408_16x16.png"))); // NOI18N
         jMenuItem2.setText("Pesquisar");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -725,7 +1021,6 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jMenu1.add(jMenuItem2);
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/16x16/add_user.png"))); // NOI18N
         jMenuItem1.setText("Novo");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -769,7 +1064,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldPlacaMaeActionPerformed
 
     private void jButtonGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGravarActionPerformed
-        this.ordemServico.setDataAbertura(jDateChooserDataAgendamento.getDate());
+        this.ordemServico.setDataAbertura(jDateChooserAbertura.getDate());
 
         if (jComboBoxPago.getSelectedIndex() == 0) {
             this.ordemServico.setPago(false);
@@ -788,6 +1083,17 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         if (jDateChooserEntrega != null) {
             this.ordemServico.setDataTermino(jDateChooserEntrega.getDate());
         }
+        
+        if (jComboBoxUsuario.getSelectedIndex() != -1){
+            this.ordemServico.setIdusuario((Usuario)jComboBoxUsuario.getSelectedItem());
+        }
+        
+        if (jDateChooserDataAgendamento != null){
+            this.ordemServico.setData_agendamento(jDateChooserDataAgendamento.getDate());
+        }
+        
+        this.ordemServico.setHora_agendamento(Datas.getTimeDataBase((String) jComboBoxHora.getSelectedItem(), jComboBoxMin.getSelectedItem().toString(), "00"));
+        
 
         OrdemServicoController osc = new OrdemServicoController();
         if (this.ordemServico.getIdordemServico() == null) {
@@ -915,10 +1221,6 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jTextFieldValor.selectAll();
     }//GEN-LAST:event_jTextFieldValorFocusGained
 
-    private void jTextFieldResponsavelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldResponsavelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldResponsavelActionPerformed
-
     private void jComboBoxLocalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxLocalActionPerformed
 
         if (jComboBoxLocal.getSelectedItem() != null) {
@@ -930,14 +1232,22 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
                 jComboBoxMin.setEnabled(true);
 
             } else {
-                jDateChooserDataAgendamento.setEnabled(true);
-                jComboBoxHora.setEnabled(true);
-                jComboBoxMin.setEnabled(true);
+                jDateChooserDataAgendamento.setEnabled(false);
+                jComboBoxMin.setEnabled(false);
+                jComboBoxMin.setEnabled(false);
 
             }
         }
     }//GEN-LAST:event_jComboBoxLocalActionPerformed
 
+    private void jTextFieldArmazenamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldArmazenamentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldArmazenamentoActionPerformed
+
+    
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -953,7 +1263,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -1001,9 +1311,11 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBoxPago;
     private javax.swing.JComboBox jComboBoxSO;
     private javax.swing.JComboBox jComboBoxSituacaoOS;
-    private com.toedter.calendar.JDateChooser jDateChooserAbertura1;
+    private javax.swing.JComboBox<String> jComboBoxUsuario;
+    private com.toedter.calendar.JDateChooser jDateChooserAbertura;
     private com.toedter.calendar.JDateChooser jDateChooserDataAgendamento;
     private com.toedter.calendar.JDateChooser jDateChooserEntrega;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -1046,6 +1358,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextAreaFeedBack;
     private javax.swing.JTextArea jTextAreaObservacoes;
     private javax.swing.JTextArea jTextAreaServicosRealizados;
+    private javax.swing.JTextField jTextFieldArmazenamento;
     private javax.swing.JTextField jTextFieldCelular;
     private javax.swing.JTextField jTextFieldCodigo;
     private javax.swing.JTextField jTextFieldDiscoRigido;
@@ -1057,7 +1370,6 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldOutro;
     private javax.swing.JTextField jTextFieldPlacaMae;
     private javax.swing.JTextField jTextFieldProcessador;
-    private javax.swing.JTextField jTextFieldResponsavel;
     private javax.swing.JTextField jTextFieldValor;
     private javax.swing.JTextField jTextField_outro_hardware;
     private model.OrdemServico ordemServico;
@@ -1065,6 +1377,9 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     private javax.persistence.Query situacaoOsQuery;
     private java.util.List<model.TipoServico> tipoServicoList;
     private javax.persistence.Query tipoServicoQuery;
+    private java.util.List<model.Usuario> usuarioList;
+    private Renderizadores.UsuarioListCellRenderer usuarioListCellRenderer1;
+    private javax.persistence.Query usuarioQuery;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

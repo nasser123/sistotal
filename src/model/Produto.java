@@ -36,6 +36,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Produto.findByEstoqueMinimo", query = "SELECT p FROM Produto p WHERE p.estoqueMinimo = :estoqueMinimo"),
     @NamedQuery(name = "Produto.findByCustoAtual", query = "SELECT p FROM Produto p WHERE p.custoAtual = :custoAtual")})
 public class Produto implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idproduto")
+    private List<EntradaProduto> entradaProdutoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idproduto")
+    private List<ListaAtributosProduto> listaAtributosProdutoList;
     @Basic(optional = false)
     @Column(name = "codigo")
     private int codigo;
@@ -306,5 +311,23 @@ public class Produto implements Serializable {
         int oldCodigo = this.codigo;
         this.codigo = codigo;
         changeSupport.firePropertyChange("codigo", oldCodigo, codigo);
+    }
+
+    @XmlTransient
+    public List<EntradaProduto> getEntradaProdutoList() {
+        return entradaProdutoList;
+    }
+
+    public void setEntradaProdutoList(List<EntradaProduto> entradaProdutoList) {
+        this.entradaProdutoList = entradaProdutoList;
+    }
+
+    @XmlTransient
+    public List<ListaAtributosProduto> getListaAtributosProdutoList() {
+        return listaAtributosProdutoList;
+    }
+
+    public void setListaAtributosProdutoList(List<ListaAtributosProduto> listaAtributosProdutoList) {
+        this.listaAtributosProdutoList = listaAtributosProdutoList;
     }
 }

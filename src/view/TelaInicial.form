@@ -51,6 +51,8 @@
     </Component>
     <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
     </Component>
+    <Component class="Renderizadores.ColunaHoraRenderer" name="colunaHoraRenderer1">
+    </Component>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="jMenu1">
@@ -135,7 +137,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar1"/>
-    <SyntheticProperty name="formSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-63,0,0,4,51"/>
+    <SyntheticProperty name="formSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-23,0,0,5,37"/>
     <SyntheticProperty name="formSizePolicy" type="int" value="0"/>
     <SyntheticProperty name="generateSize" type="boolean" value="true"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
@@ -206,14 +208,14 @@
                                   <Component id="jButtonVisualizar" min="-2" pref="90" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="0" pref="323" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="587" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" attributes="0">
                                   <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                                   <Component id="jLabel1" min="-2" pref="623" max="-2" attributes="0"/>
-                                  <EmptySpace pref="106" max="32767" attributes="0"/>
+                                  <EmptySpace pref="348" max="32767" attributes="0"/>
                                   <Component id="jButtonFiltrar" min="-2" pref="152" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
@@ -233,6 +235,7 @@
                               <Component id="jRadioButtonPagos" min="-2" pref="140" max="-2" attributes="0"/>
                               <Component id="jRadioButtonNaoPagos" min="-2" pref="140" max="-2" attributes="0"/>
                               <Component id="jCheckBoxPendente" min="-2" pref="140" max="-2" attributes="0"/>
+                              <Component id="jCheckBoxCancelada" min="-2" pref="140" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -256,7 +259,7 @@
                   </Group>
                   <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane1" pref="397" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" pref="437" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Component id="jCheckBoxTodos" min="-2" pref="25" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
@@ -271,7 +274,9 @@
                           <Component id="jCheckBoxFechada" min="-2" pref="25" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jCheckBoxEntregue" min="-2" pref="25" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jCheckBoxCancelada" min="-2" pref="25" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                           <Component id="jRadioButtonTodos" min="-2" pref="25" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                           <Component id="jRadioButtonPagos" min="-2" pref="25" max="-2" attributes="0"/>
@@ -282,21 +287,24 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jComboBoxSituacaoOs" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="jComboBoxOsSelecionada" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jComboBoxSituacaoOs" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jComboBoxOsSelecionada" alignment="1" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jButtonImprimir" min="-2" pref="80" max="-2" attributes="0"/>
                                   <Component id="jButtonVisualizar" min="-2" pref="80" max="-2" attributes="0"/>
                               </Group>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="jLabel2" min="-2" pref="14" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -312,6 +320,9 @@
             </Property>
             <Property name="mnemonic" type="int" value="78"/>
             <Property name="text" type="java.lang.String" value="Nova OS(F3)"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor em Forma de M&#xe3;o"/>
+            </Property>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -326,6 +337,9 @@
             </Property>
             <Property name="mnemonic" type="int" value="99"/>
             <Property name="text" type="java.lang.String" value="Clientes(F2)"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor em Forma de M&#xe3;o"/>
+            </Property>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -340,6 +354,9 @@
             </Property>
             <Property name="mnemonic" type="int" value="108"/>
             <Property name="text" type="java.lang.String" value="Lista OS(F4)"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor em Forma de M&#xe3;o"/>
+            </Property>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -364,7 +381,7 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="85" minWidth="85" prefWidth="85" resizable="true">
+                    <Column maxWidth="80" minWidth="80" prefWidth="80" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -384,7 +401,7 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                    <Column maxWidth="100" minWidth="100" prefWidth="100" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer editor="org.netbeans.modules.form.ComponentChooserEditor">
@@ -401,7 +418,19 @@
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="70" minWidth="50" prefWidth="50" resizable="true">
+                    <Column maxWidth="80" minWidth="80" prefWidth="80" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer editor="org.netbeans.modules.form.ComponentChooserEditor">
+                        <ComponentRef name="ordemServicoTableCellRenderer1"/>
+                      </Renderer>
+                    </Column>
+                    <Column maxWidth="50" minWidth="50" prefWidth="50" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -409,8 +438,13 @@
                     <Column maxWidth="80" minWidth="80" prefWidth="80" resizable="true">
                       <Title/>
                       <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="60" minWidth="60" prefWidth="60" resizable="true">
+                      <Title/>
+                      <Editor/>
                       <Renderer editor="org.netbeans.modules.form.ComponentChooserEditor">
-                        <ComponentRef name="ordemServicoTableCellRenderer1"/>
+                        <ComponentRef name="colunaHoraRenderer1"/>
                       </Renderer>
                     </Column>
                   </TableColumnModel>
@@ -430,7 +464,7 @@
                     <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                   </Subbinding>
                   <Subbinding sourcePath="${dataAbertura}">
-                    <BindingParameter name="NAME" value="Data Abertura"/>
+                    <BindingParameter name="NAME" value="Abertura"/>
                     <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="java.util.Date.class"/>
                     <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                   </Subbinding>
@@ -455,7 +489,7 @@
                     <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                   </Subbinding>
                   <Subbinding sourcePath="${dataTermino}">
-                    <BindingParameter name="NAME" value="Data Entrega"/>
+                    <BindingParameter name="NAME" value="Entrega"/>
                     <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="java.util.Date.class"/>
                     <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                   </Subbinding>
@@ -464,14 +498,29 @@
                     <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="java.math.BigDecimal.class"/>
                     <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                   </Subbinding>
+                  <Subbinding sourcePath="${idtipoServico.descricao}">
+                    <BindingParameter name="NAME" value="Local"/>
+                    <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
+                    <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
+                  </Subbinding>
                   <Subbinding sourcePath="${pago}">
                     <BindingParameter name="NAME" value="Pago"/>
                     <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Boolean.class"/>
                     <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                   </Subbinding>
-                  <Subbinding sourcePath="${idtipoServico.descricao}">
-                    <BindingParameter name="NAME" value="Local"/>
+                  <Subbinding sourcePath="${idusuario.nome}">
+                    <BindingParameter name="NAME" value="Responsavel"/>
                     <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
+                    <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
+                  </Subbinding>
+                  <Subbinding sourcePath="${data_agendamento}">
+                    <BindingParameter name="NAME" value="Agendamento"/>
+                    <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="java.util.Date.class"/>
+                    <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
+                  </Subbinding>
+                  <Subbinding sourcePath="${hora_agendamento}">
+                    <BindingParameter name="NAME" value="Hora"/>
+                    <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="java.util.Date.class"/>
                     <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                   </Subbinding>
                 </BindingProperty>
@@ -490,6 +539,9 @@
             </Property>
             <Property name="mnemonic" type="int" value="118"/>
             <Property name="text" type="java.lang.String" value="Visualiza"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor em Forma de M&#xe3;o"/>
+            </Property>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -584,6 +636,9 @@
             </Property>
             <Property name="mnemonic" type="int" value="97"/>
             <Property name="text" type="java.lang.String" value="Atualizar(F5)"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor em Forma de M&#xe3;o"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonFiltrarActionPerformed"/>
@@ -643,6 +698,9 @@
             </Property>
             <Property name="mnemonic" type="int" value="105"/>
             <Property name="text" type="java.lang.String" value="Imprimir"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor em Forma de M&#xe3;o"/>
+            </Property>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
@@ -655,7 +713,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Vers&#xe3;o: 2.0.5 - 16/01/2017"/>
+            <Property name="text" type="java.lang.String" value="Vers&#xe3;o: 2.0.7 - 13/11/2017"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBoxPendente">
@@ -667,6 +725,17 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxPendenteActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="jCheckBoxCancelada">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Cancelada"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBoxCanceladaActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

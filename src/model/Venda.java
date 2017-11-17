@@ -7,6 +7,7 @@ package model;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
@@ -30,6 +31,22 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Venda.findByCheque", query = "SELECT v FROM Venda v WHERE v.cheque = :cheque"),
     @NamedQuery(name = "Venda.findByPrazo", query = "SELECT v FROM Venda v WHERE v.prazo = :prazo")})
 public class Venda implements Serializable {
+
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "valortotal")
+    private BigDecimal valortotal;
+    @Column(name = "dinheiro")
+    private BigDecimal dinheiro;
+    @Column(name = "cartao")
+    private BigDecimal cartao;
+    @Column(name = "cheque")
+    private BigDecimal cheque;
+    @Column(name = "prazo")
+    private BigDecimal prazo;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idvenda")
+    private List<ContasAReceber> contasAReceberList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idvenda")
+    private List<VendaCartao> vendaCartaoList;
     @Transient
     private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
@@ -42,17 +59,6 @@ public class Venda implements Serializable {
     @Basic(optional = false)
     @Column(name = "idvenda")
     private Integer idvenda;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "valortotal")
-    private Float valortotal;
-    @Column(name = "dinheiro")
-    private Float dinheiro;
-    @Column(name = "cartao")
-    private Float cartao;
-    @Column(name = "cheque")
-    private Float cheque;
-    @Column(name = "prazo")
-    private Float prazo;
     @OneToMany(mappedBy = "idvenda")
     private List<SaidaProduto> saidaProdutoList;
     @JoinColumn(name = "idcliente", referencedColumnName = "idcliente")
@@ -76,73 +82,26 @@ public class Venda implements Serializable {
         changeSupport.firePropertyChange("idvenda", oldIdvenda, idvenda);
     }
 
-    public Float getValorTotal() {
-        return valortotal;
-    }
 
-    public void setValorTotal(Float valortotal) {
-        this.valortotal = valortotal;
-    }
-
-    public Float getDinheiro() {
-        return dinheiro;
-    }
-
-    public void setDinheiro(Float dinheiro) {
-        Float oldDinheiro = this.dinheiro;
-        this.dinheiro = dinheiro;
-        changeSupport.firePropertyChange("dinheiro", oldDinheiro, dinheiro);
-    }
-
-    public Float getCartao() {
-        return cartao;
-    }
-
-    public void setCartao(Float cartao) {
-        Float oldCartao = this.cartao;
-        this.cartao = cartao;
-        changeSupport.firePropertyChange("cartao", oldCartao, cartao);
-    }
-
-    public Float getCheque() {
-        return cheque;
-    }
-
-    public void setCheque(Float cheque) {
-        Float oldCheque = this.cheque;
-        this.cheque = cheque;
-        changeSupport.firePropertyChange("cheque", oldCheque, cheque);
-    }
-
-    public Float getPrazo() {
-        return prazo;
-    }
-
-    public void setPrazo(Float prazo) {
-        Float oldPrazo = this.prazo;
-        this.prazo = prazo;
-        changeSupport.firePropertyChange("prazo", oldPrazo, prazo);
-    }
-
-    public boolean verificaPagamento() {
-        
-        if (this.getValorTotal().equals(this.getTotalPago())) {
-            return true;
-        } else {
-            return false;
-        }
-
-    }
-    
-    public Float getTotalPago(){
-        Float total = 0f;
-        total = this.getDinheiro()+ this.getCartao() + this.getCheque() + this.getPrazo();
-        return total;
-    }
-    
-    public Float getPendente(){
-        return getValorTotal() - getTotalPago();
-    }
+//    public boolean verificaPagamento() {
+//        
+//        if (this.getValorTotal().equals(this.getTotalPago())) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//
+//    }
+//    
+//    public Float getTotalPago(){
+//        Float total = 0f;
+//        total = this.getDinheiro()+ this.getCartao() + this.getCheque() + this.getPrazo();
+//        return total;
+//    }
+//    
+//    public Float getPendente(){
+//        return getValorTotal() - getTotalPago();
+//    }
 
     @XmlTransient
     public List<SaidaProduto> getSaidaProdutoList() {
@@ -204,5 +163,63 @@ public class Venda implements Serializable {
 
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         changeSupport.removePropertyChangeListener(listener);
+    }
+
+    public BigDecimal getValortotal() {
+        return valortotal;
+    }
+
+    public void setValortotal(BigDecimal valortotal) {
+        this.valortotal = valortotal;
+    }
+
+    public BigDecimal getDinheiro() {
+        return dinheiro;
+    }
+
+    public void setDinheiro(BigDecimal dinheiro) {
+        this.dinheiro = dinheiro;
+    }
+
+    public BigDecimal getCartao() {
+        return cartao;
+    }
+
+    public void setCartao(BigDecimal cartao) {
+        this.cartao = cartao;
+    }
+
+    public BigDecimal getCheque() {
+        return cheque;
+    }
+
+    public void setCheque(BigDecimal cheque) {
+        this.cheque = cheque;
+    }
+
+    public BigDecimal getPrazo() {
+        return prazo;
+    }
+
+    public void setPrazo(BigDecimal prazo) {
+        this.prazo = prazo;
+    }
+
+    @XmlTransient
+    public List<ContasAReceber> getContasAReceberList() {
+        return contasAReceberList;
+    }
+
+    public void setContasAReceberList(List<ContasAReceber> contasAReceberList) {
+        this.contasAReceberList = contasAReceberList;
+    }
+
+    @XmlTransient
+    public List<VendaCartao> getVendaCartaoList() {
+        return vendaCartaoList;
+    }
+
+    public void setVendaCartaoList(List<VendaCartao> vendaCartaoList) {
+        this.vendaCartaoList = vendaCartaoList;
     }
 }

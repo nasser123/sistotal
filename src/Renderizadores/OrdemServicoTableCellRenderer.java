@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
-import model.SituacaoOs;
 
 /**
  *
@@ -55,6 +54,9 @@ public class OrdemServicoTableCellRenderer extends DefaultTableCellRenderer {
         }
         if(value.equals("Pendente")){
             return Color.ORANGE;
+        }
+        if(value.equals("Cancelada")){
+            return Color.PINK;
         }
        
         return Color.GREEN;

@@ -37,6 +37,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "OrdemServico.findByMarca", query = "SELECT o FROM OrdemServico o WHERE o.marca = :marca")})
 public class OrdemServico implements Serializable {
 
+    
+    @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
+    @ManyToOne
+    private Usuario idusuario;
+
    
 
     @JoinColumn(name = "idtipo_servico", referencedColumnName = "idtipo_servico")
@@ -562,6 +567,18 @@ public class OrdemServico implements Serializable {
         TipoServico oldIdtipoServico = this.idtipoServico;
         this.idtipoServico = idtipoServico;
         changeSupport.firePropertyChange("idtipoServico", oldIdtipoServico, idtipoServico);
+    }
+
+    
+
+    public Usuario getIdusuario() {
+        return idusuario;
+    }
+
+    public void setIdusuario(Usuario idusuario) {
+        Usuario oldIdusuario = this.idusuario;
+        this.idusuario = idusuario;
+        changeSupport.firePropertyChange("idusuario", oldIdusuario, idusuario);
     }
 
     

@@ -43,7 +43,6 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         produtoList1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : produtoQuery1.getResultList();
         fabricanteListCellRenderer1 = new Renderizadores.FabricanteListCellRenderer();
         grupoListCellRenderer1 = new Renderizadores.GrupoListCellRenderer();
-        subGrupoListCellRenderer1 = new renderizadores.SubGrupoListCellRenderer();
         produtoQuery2 = java.beans.Beans.isDesignTime() ? null : SistotalPUEntityManager.createQuery("SELECT p FROM Produto p");
         produtoList2 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : produtoQuery2.getResultList();
         jPanel1 = new javax.swing.JPanel();
@@ -94,8 +93,6 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         fabricanteListCellRenderer1.setText("fabricanteListCellRenderer1");
 
         grupoListCellRenderer1.setText("grupoListCellRenderer1");
-
-        subGrupoListCellRenderer1.setText("subGrupoListCellRenderer1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -214,8 +211,6 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
 
         jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, grupoList, jComboBoxGrupo);
         bindingGroup.addBinding(jComboBoxBinding);
-
-        jComboBoxSubGrupo.setRenderer(subGrupoListCellRenderer1);
 
         jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, subgrupoList, jComboBoxSubGrupo);
         bindingGroup.addBinding(jComboBoxBinding);
@@ -533,7 +528,6 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     private javax.persistence.Query produtoQuery;
     private javax.persistence.Query produtoQuery1;
     private javax.persistence.Query produtoQuery2;
-    private renderizadores.SubGrupoListCellRenderer subGrupoListCellRenderer1;
     private java.util.List<model.Subgrupo> subgrupoList;
     private javax.persistence.Query subgrupoQuery;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;

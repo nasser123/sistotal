@@ -20,7 +20,7 @@ public class TelaConfirmacaoPgto extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.venda = venda;
-        this.jTextField1.setText(this.venda.getValorTotal().toString());
+//        this.jTextField1.setText(this.venda.getValorTotal().toString());
     }
 
     
