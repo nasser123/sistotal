@@ -23,6 +23,7 @@
         <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
           <ComponentRef name="ordemServicoQuery"/>
         </Property>
+        <Property name="modifiableWrapper" type="boolean" value="true"/>
         <Property name="observable" type="boolean" value="true"/>
       </Properties>
       <AuxValues>

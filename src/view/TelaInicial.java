@@ -6,6 +6,7 @@ package view;
 
 import Utilidades.ConfigTelas;
 import Utilidades.ConnectionFactory;
+import Utilidades.Datas;
 import controller.OrdemServicoController;
 import java.sql.SQLException;
 import java.util.List;
@@ -60,7 +61,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         SistotalPUEntityManager = ConnectionFactory.getEntityManager();
         ordemServicoQuery = java.beans.Beans.isDesignTime() ? null : SistotalPUEntityManager.createQuery("SELECT o FROM OrdemServico o order by o.idordemServico desc");
-        ordemServicoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(ordemServicoQuery.getResultList());
+        ordemServicoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(new java.util.LinkedList(ordemServicoQuery.getResultList()));
         situacaoOsQuery = java.beans.Beans.isDesignTime() ? null : SistotalPUEntityManager.createQuery("SELECT s FROM SituacaoOs s");
         situacaoOsList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : situacaoOsQuery.getResultList();
         ordemServicoTableCellRenderer1 = new Renderizadores.OrdemServicoTableCellRenderer();
@@ -636,8 +637,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 && !jCheckBoxPendente.isSelected()
                 && !jCheckBoxFechada.isSelected()
                 && !jCheckBoxEntregue.isSelected()
-                && !jCheckBoxCancelada.isSelected()
-                ) {
+                && !jCheckBoxCancelada.isSelected()) {
             //JOptionPane.showMessageDialog(rootPane, "Selecione algum tipo de situação de Ordem de Serviço");
         } else {
 
@@ -667,13 +667,10 @@ public class TelaInicial extends javax.swing.JFrame {
 
             if (jRadioButtonNaoPagos.isSelected()) {
                 auxSqlPago = "0";
+            } else if (jRadioButtonPagos.isSelected()) {
+                auxSqlPago = "1";
             } else {
-                if (jRadioButtonPagos.isSelected()) {
-                    auxSqlPago = "1";
-                } else {
-                    auxSqlPago = "0,1";
-                }
-
+                auxSqlPago = "0,1";
             }
 
             char[] teste = auxSql.toCharArray();
@@ -686,16 +683,18 @@ public class TelaInicial extends javax.swing.JFrame {
                     auxSql = auxSql + ",";
                 }
             }
+            System.out.println("Antes de limpar " + Datas.getCurrentTime());
 
             ordemServicoList.clear();
+            System.out.println(ordemServicoList.size());
             OrdemServicoController osController = new OrdemServicoController();
             try {
                 ordemServicoList.addAll(osController.pesquisarTelaInicial(auxSql, auxSqlPago));
+                System.out.println(ordemServicoList.get(ordemServicoList.size()-1).getIdordemServico() + "  --  " + ordemServicoList.get(ordemServicoList.size()-1).getIdsituacaoOs().getDescricao());
+                System.out.println("tela: " + Datas.getCurrentTime());
             } catch (SQLException ex) {
                 Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-
 
         }
     }//GEN-LAST:event_jButtonFiltrarActionPerformed
@@ -787,7 +786,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jMenuItemClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemClientesActionPerformed
         TelaCadastroCliente tcc = new TelaCadastroCliente();
-        tcc.setVisible(true) ;
+        tcc.setVisible(true);
     }//GEN-LAST:event_jMenuItemClientesActionPerformed
 
     private void jMenuItemListaOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemListaOSActionPerformed
@@ -802,7 +801,7 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemNovaOSActionPerformed
 
     private void jCheckBoxPendenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxPendenteActionPerformed
-             if (!jCheckBoxPendente.isSelected()) {
+        if (!jCheckBoxPendente.isSelected()) {
             jCheckBoxTodos.setSelected(false);
         }
         this.jButtonFiltrarActionPerformed(evt);
@@ -823,7 +822,6 @@ public class TelaInicial extends javax.swing.JFrame {
         this.jButtonFiltrarActionPerformed(evt);
     }//GEN-LAST:event_jCheckBoxCanceladaActionPerformed
 
-   
     /**
      * @param args the command line arguments
      */

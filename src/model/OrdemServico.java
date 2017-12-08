@@ -25,6 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "OrdemServico.findAll", query = "SELECT o FROM OrdemServico o"),
     @NamedQuery(name = "OrdemServico.findByIdordemServico", query = "SELECT o FROM OrdemServico o WHERE o.idordemServico = :idordemServico"),
+    @NamedQuery(name = "OrdemServico.findByPago", query = "SELECT o FROM OrdemServico o WHERE o.pago = :pago"),
     @NamedQuery(name = "OrdemServico.findByDataAbertura", query = "SELECT o FROM OrdemServico o WHERE o.dataAbertura = :dataAbertura"),
     @NamedQuery(name = "OrdemServico.findByDataTermino", query = "SELECT o FROM OrdemServico o WHERE o.dataTermino = :dataTermino"),
     @NamedQuery(name = "OrdemServico.findByProcessador", query = "SELECT o FROM OrdemServico o WHERE o.processador = :processador"),
@@ -33,16 +34,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "OrdemServico.findByDiscoRigido", query = "SELECT o FROM OrdemServico o WHERE o.discoRigido = :discoRigido"),
     @NamedQuery(name = "OrdemServico.findByIdSituacaoOrdemServico", query = "SELECT o FROM OrdemServico o WHERE o.idsituacaoOs = :idsituacaoOs"),
     @NamedQuery(name = "OrdemServico.findByEmAbertoAndamento", query = "SELECT o FROM OrdemServico o WHERE o.idsituacaoOs = :situacao1 or o.idsituacaoOs = :situacao2"),
-    @NamedQuery(name = "OrdemServico.findByFiltro", query = "SELECT o FROM OrdemServico o WHERE o.idsituacaoOs in (:parametroIn)"),
     @NamedQuery(name = "OrdemServico.findByMarca", query = "SELECT o FROM OrdemServico o WHERE o.marca = :marca")})
 public class OrdemServico implements Serializable {
 
-    
     @JoinColumn(name = "idusuario", referencedColumnName = "idusuario")
     @ManyToOne
     private Usuario idusuario;
-
-   
 
     @JoinColumn(name = "idtipo_servico", referencedColumnName = "idtipo_servico")
     @ManyToOne(optional = false)
@@ -124,11 +121,7 @@ public class OrdemServico implements Serializable {
     @Column(name = "hora_agendamento")
     @Temporal(TemporalType.TIME)
     private Date hora_agendamento;
-    
-    
-    
-    
-    
+
     public PropertyChangeSupport getChangeSupport() {
         return changeSupport;
     }
@@ -168,9 +161,7 @@ public class OrdemServico implements Serializable {
     public void setHora_agendamento(Date hora_agendamento) {
         this.hora_agendamento = hora_agendamento;
     }
-    
-    
-    
+
     public OrdemServico() {
     }
 
@@ -537,12 +528,19 @@ public class OrdemServico implements Serializable {
     }
 
     public Boolean getPago() {
+        if (this.pago == null) {
+            this.pago = false;
+        }
         return pago;
     }
 
     public void setPago(Boolean pago) {
         Boolean oldPago = this.pago;
-        this.pago = pago;
+        if (pago != null) {
+            this.pago = pago;
+        } else {
+            this.pago = false;
+        }
         changeSupport.firePropertyChange("pago", oldPago, pago);
     }
 
@@ -569,8 +567,6 @@ public class OrdemServico implements Serializable {
         changeSupport.firePropertyChange("idtipoServico", oldIdtipoServico, idtipoServico);
     }
 
-    
-
     public Usuario getIdusuario() {
         return idusuario;
     }
@@ -581,5 +577,4 @@ public class OrdemServico implements Serializable {
         changeSupport.firePropertyChange("idusuario", oldIdusuario, idusuario);
     }
 
-    
 }

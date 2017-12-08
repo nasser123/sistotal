@@ -286,13 +286,15 @@ public class TelaListaOS extends javax.swing.JFrame {
 
     private void jButtonVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVisualizarActionPerformed
 
-        if (jComboBoxOS.getSelectedIndex() != -1) {
-            OrdemServico os = new OrdemServico();
-            os = (OrdemServico) jComboBoxOS.getSelectedItem();
-            TelaCadastroOrdemServico tosc = new TelaCadastroOrdemServico(os);
-            tosc.setVisible(true);
-            //this.dispose();
+        OrdemServico os = (OrdemServico) jComboBoxOS.getSelectedItem();
+        OrdemServicoController osController = new OrdemServicoController();
+        try {
+            os = osController.pesquisarPorId(os.getIdordemServico());
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
         }
+        TelaCadastroOrdemServico tosc = new TelaCadastroOrdemServico(os);
+        tosc.setVisible(true);
 
     }//GEN-LAST:event_jButtonVisualizarActionPerformed
 
@@ -302,16 +304,18 @@ public class TelaListaOS extends javax.swing.JFrame {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         if (evt.getClickCount() > 1) {
-            OrdemServico os = new OrdemServico();
-            os = (OrdemServico) jComboBoxOS.getSelectedItem();
+            OrdemServico os = (OrdemServico) jComboBoxOS.getSelectedItem();
+            OrdemServicoController osController = new OrdemServicoController();
+            try {
+                os = osController.pesquisarPorId(os.getIdordemServico());
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+            }
             TelaCadastroOrdemServico tosc = new TelaCadastroOrdemServico(os);
             tosc.setVisible(true);
         }
-        
-             
-        
-        
-        
+
+
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jTextFieldFiltroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldFiltroKeyTyped

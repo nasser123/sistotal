@@ -5,9 +5,11 @@
 package controller;
 
 import Utilidades.ConnectionFactory;
+import Utilidades.Datas;
 import Utilidades.Validadores;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -116,16 +118,34 @@ public class OrdemServicoController implements IDao {
     }
 
     public List<OrdemServico> pesquisarTelaInicial(String auxSql, String auxSqlPago) throws SQLException {
+
+        entity.getEntityManagerFactory().getCache().evictAll();
+        entity.clear();
+
         Query query = entity.createNativeQuery("Select idordem_servico from ordem_servico where idsituacao_os in (" + auxSql + ") and pago in (" + auxSqlPago + ") order by idordem_servico desc");
         List<OrdemServico> osList = new ArrayList();
+        OrdemServico osTemp = new OrdemServico();
         if (!query.getResultList().isEmpty()) {
+            System.out.println("Inicio: " + Datas.getTime(Datas.getCurrentTime()));
             List<Integer> idList = query.getResultList();
+            entity.getTransaction().begin();
             for (int i = 0; i < idList.size(); i++) {
-                osList.add((OrdemServico)this.pesquisarPorId(idList.get(i)));
+                osTemp = entity.find(OrdemServico.class, idList.get(i));
+                osList.add(osTemp);
             }
+            entity.getTransaction().commit();
+            System.out.println("Fim: " + Datas.getTime(Datas.getCurrentTime()));
             return osList;
         }
         return null;
+
+    }
+
+    public List<OrdemServico> pesquisarTelaInicial(String auxSql) throws SQLException {
+        Query query = entity.createNativeQuery("Select * from ordemservico where idsituacao_os in (" + auxSql + ")");
+
+        List<OrdemServico> osList = query.getResultList();
+        return osList;
 
     }
 
