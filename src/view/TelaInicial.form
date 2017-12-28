@@ -64,7 +64,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemClientes">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="F2"/>
+                  <KeyStroke key="F6"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Clientes"/>
               </Properties>
@@ -337,7 +337,7 @@
               <Image iconType="3" name="/icones/32x32/user.png"/>
             </Property>
             <Property name="mnemonic" type="int" value="99"/>
-            <Property name="text" type="java.lang.String" value="Clientes(F2)"/>
+            <Property name="text" type="java.lang.String" value="Clientes(F6)"/>
             <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
               <Color id="Cursor em Forma de M&#xe3;o"/>
             </Property>
@@ -714,7 +714,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Vers&#xe3;o: 2.0.7 - 13/11/2017"/>
+            <Property name="text" type="java.lang.String" value="Vers&#xe3;o: 2.0.8 - 28/12/2017"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBoxPendente">

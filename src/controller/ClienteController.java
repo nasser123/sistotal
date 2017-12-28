@@ -96,6 +96,9 @@ public class ClienteController implements IDao {
             cli = (Cliente) query.getResultList().get(0);
             entity.getTransaction().begin();
             entity.refresh(cli);
+            for(int i = 0 ; i < cli.getOrdemServicoList().size() ; i++){
+                entity.refresh(cli.getOrdemServicoList().get(i));
+            }
             entity.getTransaction().commit();
             return cli;
         }

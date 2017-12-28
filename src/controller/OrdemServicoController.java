@@ -88,10 +88,14 @@ public class OrdemServicoController implements IDao {
 
         if (Validadores.verificaNr(id)) {
             Integer idOrdem = Integer.parseInt(id);
+            OrdemServico os = new OrdemServico();
             Query query = entity.createNamedQuery("OrdemServico.findByIdordemServico");
             query.setParameter("idordemServico", idOrdem);
             if (!query.getResultList().isEmpty()) {
-                OrdemServico os = (OrdemServico) query.getResultList().get(0);
+                os = (OrdemServico) query.getResultList().get(0);
+                entity.getTransaction().begin();
+                entity.refresh(os);
+                entity.getTransaction().commit();
                 return os;
             }
         }

@@ -119,7 +119,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jButtonClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/user.png"))); // NOI18N
         jButtonClientes.setMnemonic('c');
-        jButtonClientes.setText("Clientes(F2)");
+        jButtonClientes.setText("Clientes(F6)");
         jButtonClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonClientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonClientes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -370,7 +370,7 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Versão: 2.0.7 - 13/11/2017");
+        jLabel2.setText("Versão: 2.0.8 - 28/12/2017");
 
         jCheckBoxPendente.setBackground(new java.awt.Color(255, 255, 255));
         jCheckBoxPendente.setText("Pendente");
@@ -501,7 +501,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jMenu1.setText("Cadastros");
 
-        jMenuItemClientes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
+        jMenuItemClientes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F6, 0));
         jMenuItemClientes.setText("Clientes");
         jMenuItemClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
