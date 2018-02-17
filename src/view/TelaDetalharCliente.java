@@ -325,6 +325,7 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
         bindingGroup.addBinding(binding);
 
         jButtonSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/sair2.png"))); // NOI18N
+        jButtonSair.setMnemonic('S');
         jButtonSair.setText("Sair");
         jButtonSair.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonSair.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
