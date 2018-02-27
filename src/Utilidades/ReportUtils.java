@@ -6,14 +6,14 @@ import java.sql.Connection;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.swing.JRViewer;
 import net.sf.jasperreports.view.JasperViewer;
-import view.TelaProgresso;
+//import view.TelaProgresso;
 
 /**
  * Classe com métodos utilitários para executar e abrir relatórios.
@@ -31,7 +31,7 @@ public class ReportUtils {
      * @param conexao Conexão utilizada para a execução da query.
      * @throws JRException Caso ocorra algum problema na execução do relatório
      */
-    private static TelaProgresso telaProgresso;
+    //private static TelaProgresso telaProgresso;
     private static JasperPrint print;
     private static String tituloRelatorio;
     public static void openReport(
@@ -113,34 +113,68 @@ public class ReportUtils {
          * Cria um JRViewer para exibir o relatório.
          * Um JRViewer é uma JPanel.
          */
-        //JasperViewer viewer = new JasperViewer(print, false);
-        //viewer.toFront();
-        //viewer.setVisible(true);
-        JRViewer viewer = new JRViewer(print);
-
-        // cria o JFrame
-        JFrame frameRelatorio = new JFrame(titulo);
-        
-        // adiciona o JRViewer no JFrame
-        frameRelatorio.add(viewer, BorderLayout.CENTER);
-
-        // configura o tamanho padrão do JFrame
-        frameRelatorio.setSize(700, 500);
-
-        // maximiza o JFrame para ocupar a tela toda.
-       // frameRelatorio.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
-        // configura a operação padrão quando o JFrame for fechado.
-        frameRelatorio.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        //frameRelatorio.setAlwaysOnTop(true);
-
-        // exibe o JFrame
-        
-        frameRelatorio.setLocationRelativeTo(null);
-        frameRelatorio.setAlwaysOnTop(true);
-        frameRelatorio.setVisible(true);
+        JasperViewer viewer = new JasperViewer(print, false);
+        viewer.toFront();
+        viewer.setVisible(true);
+        //JRViewer viewer = new JRViewer(print);
+//
+//        // cria o JFrame
+//        JFrame frameRelatorio = new JFrame(titulo);
+//        
+//        // adiciona o JRViewer no JFrame
+//        frameRelatorio.add(viewer, BorderLayout.CENTER);
+//
+//        // configura o tamanho padrão do JFrame
+//        frameRelatorio.setSize(700, 500);
+//
+//        // maximiza o JFrame para ocupar a tela toda.
+//       // frameRelatorio.setExtendedState(JFrame.MAXIMIZED_BOTH);
+//
+//        // configura a operação padrão quando o JFrame for fechado.
+//        frameRelatorio.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//        //frameRelatorio.setAlwaysOnTop(true);
+//
+//        // exibe o JFrame
+//        
+//        frameRelatorio.setLocationRelativeTo(null);
+//        //frameRelatorio.setAlwaysOnTop(true);
+//        
+//        frameRelatorio.setVisible(true);
+//        frameRelatorio.requestFocusInWindow();
         
 //        telaProgresso.dispose();
+
+
+
+//        JDialog dialogRelatorio = new JDialog();
+//        
+//        // adiciona o JRViewer no JFrame
+//        //dialogRelatorio.add(viewer, BorderLayout.CENTER);
+//
+//        // configura o tamanho padrão do JFrame
+//        dialogRelatorio.setSize(700, 500);
+//
+//        // maximiza o JFrame para ocupar a tela toda.
+//       // frameRelatorio.setExtendedState(JFrame.MAXIMIZED_BOTH);
+//
+//        // configura a operação padrão quando o JFrame for fechado.
+//        dialogRelatorio.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//        //frameRelatorio.setAlwaysOnTop(true);
+//
+//        // exibe o JFrame
+//        
+//        dialogRelatorio.setLocationRelativeTo(null);
+//        //frameRelatorio.setAlwaysOnTop(true);
+//        
+//        dialogRelatorio.setVisible(true);
+//        //dialogRelatorio.requestFocusInWindow();
+//        
+////        telaProgresso.dispose();
+
+
+
+
+
 
     }
 

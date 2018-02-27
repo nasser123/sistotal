@@ -7,6 +7,7 @@ package view;
 
 import Utilidades.ConfigTelas;
 import Utilidades.ConnectionFactory;
+import Utilidades.Datas;
 import controller.ClienteController;
 import java.sql.SQLException;
 import java.util.Date;
@@ -31,6 +32,7 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
 
     /**
      * Método para abertura de tela de cadastro de cliente
+     *
      * @param parent
      * @param modal utilizar sempre true
      * @param cliente enviar cliente
@@ -43,31 +45,36 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
         this.novo = novo;
         this.c = cliente;
         this.setTitle(ConfigTelas.getTitulo());
-        
+
         initComponents();
         this.jComboBox1.setVisible(false);
         if (novo) {
             jComboBox1.setSelectedIndex(0);
+            jComboBoxBrinde.setSelectedIndex(0);
             habilitaNovo();
-            if(nome != null){
+            if (nome != null) {
                 jTextFieldNome.setText(nome);
             }
+        }
+        if (!novo) {
+            if (this.c.getRecebeu_brinde()) {
+                jComboBoxBrinde.setSelectedIndex(1);
+            } else {
+                jComboBoxBrinde.setSelectedIndex(0);
+            }
+
         }
         ConfigTelas ct = new ConfigTelas(this.jPanel1);
         ct.configuraTabulacao(jPanel1);
         jPanel2.setVisible(false);
-        
-        if (editar){
+
+        if (editar) {
             habilitaEdicao();
         }
     }
 
-    
-    
-
     private void habilitaEdicao() {
-        
-        
+
         jTextFieldBairro.setEditable(true);
         jTextFieldCPF.setEditable(true);
         jTextFieldCelular.setEditable(true);
@@ -80,7 +87,9 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
         jTextFieldNr.setEditable(true);
         jTextFieldRua.setEditable(true);
         jTextFieldInscricaoMunicipal.setEditable(true);
-        
+        jDateChooserDataBrinde.setEnabled(true);
+        jComboBoxBrinde.setEditable(true);
+
         jPanel2.setVisible(true);
         jComboBox1.setVisible(true);
 
@@ -96,6 +105,8 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
         jPanel2.setVisible(true);
         jComboBoxEstado.setSelectedItem(new Estado(21));
         jComboBoxCidade.setSelectedItem(new Cidade(4266));
+        jComboBoxBrinde.setVisible(true);
+        jDateChooserDataBrinde.setVisible(true);
 
         jTextFieldBairro.setEditable(true);
         jTextFieldCPF.setEditable(true);
@@ -109,6 +120,8 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
         jTextFieldNr.setEditable(true);
         jTextFieldRua.setEditable(true);
         jTextFieldInscricaoMunicipal.setEditable(true);
+        jComboBoxBrinde.setEditable(true);
+        jDateChooserDataBrinde.setEnabled(true);
 
     }
 
@@ -165,7 +178,11 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
         jComboBoxCidade = new javax.swing.JComboBox();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
+        jComboBoxBrinde = new javax.swing.JComboBox<>();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
+        jDateChooserDataBrinde = new com.toedter.calendar.JDateChooser();
         jTextFieldEstado = new javax.swing.JTextField();
         jLabelEstado = new javax.swing.JLabel();
         jLabelCidade = new javax.swing.JLabel();
@@ -361,8 +378,6 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cliente, org.jdesktop.beansbinding.ELProperty.create("${idcidade.idestado}"), jComboBoxEstado, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
-        jComboBoxCidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${selectedItem.cidadeList}");
         jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jComboBoxEstado, eLProperty, jComboBoxCidade);
         bindingGroup.addBinding(jComboBoxBinding);
@@ -373,10 +388,33 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
 
         jLabel20.setText("Cidade:");
 
+        jComboBoxBrinde.setForeground(new java.awt.Color(255, 0, 51));
+        jComboBoxBrinde.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Não", "Sim" }));
+        jComboBoxBrinde.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxBrindeActionPerformed(evt);
+            }
+        });
+
+        jLabel16.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 0, 51));
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel16.setText("Data Brinde:");
+
+        jLabel21.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(255, 0, 51));
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel21.setText("Data Brinde:");
+
         jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, situacaoClienteList, jComboBox1);
         bindingGroup.addBinding(jComboBoxBinding);
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cliente, org.jdesktop.beansbinding.ELProperty.create("${idsituacaoCliente}"), jComboBox1, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
+
+        jDateChooserDataBrinde.setBackground(new java.awt.Color(255, 255, 255));
+        jDateChooserDataBrinde.setForeground(new java.awt.Color(255, 0, 51));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -392,22 +430,37 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
                     .addComponent(jComboBoxCidade, 0, 131, Short.MAX_VALUE)
                     .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBoxBrinde, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jDateChooserDataBrinde, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel20)
-                    .addComponent(jLabel19))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel20)
+                        .addComponent(jLabel19))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jDateChooserDataBrinde, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBoxCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBoxBrinde, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 22, Short.MAX_VALUE))
         );
 
         jTextFieldEstado.setEditable(false);
@@ -506,7 +559,7 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -515,6 +568,7 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
                             .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextFieldInscricaoEstadual, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -530,22 +584,19 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextFieldCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabelCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabelCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButtonSair, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTextFieldSituacao))
-                        .addGap(38, 38, 38))))
+                        .addComponent(jButtonGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonSair, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -628,7 +679,7 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonSair, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonGravar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -640,7 +691,10 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -654,7 +708,7 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextFieldCelularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCelularActionPerformed
-        
+
     }//GEN-LAST:event_jTextFieldCelularActionPerformed
 
     private void jTextFieldCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCPFActionPerformed
@@ -671,21 +725,41 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
             try {
                 cliente.setIdcidade((Cidade) jComboBoxCidade.getSelectedItem());
                 cliente.setIdsituacaoCliente((SituacaoCliente) jComboBox1.getSelectedItem());
+                if (jComboBoxBrinde.getSelectedIndex() == 0) {
+                    cliente.setRecebeu_brinde(false);
+                } else {
+                    cliente.setRecebeu_brinde(true);
+                }
+
+                if (jDateChooserDataBrinde != null) {
+                    cliente.setData_brinde(jDateChooserDataBrinde.getDate());
+                }
+
                 cliente.setDataCadastro(new Date(System.currentTimeMillis()));
                 cc.inserir(cliente);
             } catch (SQLException ex) {
                 Logger.getLogger(TelaDetalharCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else{
+        } else {
             try {
+                if (jComboBoxBrinde.getSelectedIndex() == 0) {
+                    cliente.setRecebeu_brinde(false);
+                } else {
+                    cliente.setRecebeu_brinde(true);
+                }
+
+                if (jDateChooserDataBrinde != null) {
+                    cliente.setData_brinde(jDateChooserDataBrinde.getDate());
+                }
+
                 cc.alterar(cliente, true);
             } catch (SQLException ex) {
                 Logger.getLogger(TelaDetalharCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
-        
+
         }
 
-        
+
     }//GEN-LAST:event_jButtonGravarActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
@@ -703,6 +777,17 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
     private void jTextFieldFoneFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldFoneFocusGained
         jTextFieldFone.selectAll();
     }//GEN-LAST:event_jTextFieldFoneFocusGained
+
+    private void jComboBoxBrindeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxBrindeActionPerformed
+        if (jComboBoxBrinde.getSelectedIndex() != -1) {
+            if (jComboBoxBrinde.getSelectedIndex() == 1) {
+                jDateChooserDataBrinde.setEnabled(true);
+                jDateChooserDataBrinde.setDate(Datas.getCurrentTime());
+            } else {
+                jDateChooserDataBrinde.setEnabled(false);
+            }
+        }
+    }//GEN-LAST:event_jComboBoxBrindeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -755,8 +840,10 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
     private javax.swing.JButton jButtonGravar;
     private javax.swing.JButton jButtonSair;
     private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox<String> jComboBoxBrinde;
     private javax.swing.JComboBox jComboBoxCidade;
     private javax.swing.JComboBox jComboBoxEstado;
+    private com.toedter.calendar.JDateChooser jDateChooserDataBrinde;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -765,11 +852,13 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

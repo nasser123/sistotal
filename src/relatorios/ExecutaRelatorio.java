@@ -20,19 +20,19 @@ public class ExecutaRelatorio {
 
     String rel = "";
 
-    public static class ThreadFrameProgressBar extends Thread {
-
-        @Override
-        public void run() {
-            telaProgresso = new TelaProgresso();
-            telaProgresso.setVisible(true);
-        }
-    }
+//    public static class ThreadFrameProgressBar extends Thread {
+//
+//        @Override
+//        public void run() {
+//            telaProgresso = new TelaProgresso();
+//            telaProgresso.setVisible(true);
+//        }
+//    }
 
     public void abrirRelatorioOS(OrdemServico os, String sistemaOperacional, String antiVirus, String office) {
 
-        ThreadFrameProgressBar tfp = new ThreadFrameProgressBar();
-        tfp.start();
+//        ThreadFrameProgressBar tfp = new ThreadFrameProgressBar();
+//        tfp.start();
         ThreadExecutaRelatorio ter = new ThreadExecutaRelatorio();
         ter.run(os, sistemaOperacional, antiVirus, office);
 
@@ -52,7 +52,7 @@ public class ExecutaRelatorio {
             try {
                 // abre o relatório
                 ReportUtils.openReport("Ordem de Serviço", inputStream, parametros, ConnectionFactory.getConnection());
-                telaProgresso.setVisible(false);
+                //telaProgresso.setVisible(false);
             } catch (JRException exc) {
                 exc.printStackTrace();
             }

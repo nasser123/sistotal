@@ -85,6 +85,15 @@ public class Cliente implements Serializable {
     private String cpfCnpj;
     @Column(name = "insc_estadual")
     private String inscEstadual;
+    
+    @Column(name = "data_brinde")
+    @Temporal(TemporalType.DATE)
+    private Date data_brinde;
+    
+    @Column(name = "recebeu_brinde")
+    private Boolean recebeu_brinde;
+    
+    
     @JoinColumn(name = "idsituacao_cliente", referencedColumnName = "idsituacao_cliente")
     @ManyToOne(optional = false)
     private SituacaoCliente idsituacaoCliente;
@@ -96,6 +105,36 @@ public class Cliente implements Serializable {
     @Transient
     private BigDecimal totalAberto;
 
+    public PropertyChangeSupport getChangeSupport() {
+        return changeSupport;
+    }
+
+    public void setChangeSupport(PropertyChangeSupport changeSupport) {
+        this.changeSupport = changeSupport;
+    }
+
+    public Date getData_brinde() {
+        return data_brinde;
+    }
+
+    public void setData_brinde(Date data_brinde) {
+        this.data_brinde = data_brinde;
+    }
+
+    public Boolean getRecebeu_brinde() {
+        return recebeu_brinde;
+    }
+
+    public void setRecebeu_brinde(Boolean recebeu_brinde) {
+        this.recebeu_brinde = recebeu_brinde;
+    }
+
+    
+    
+    
+    
+    
+    
     public Date getDataCadastro() {
         return dataCadastro;
     }

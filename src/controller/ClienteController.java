@@ -35,7 +35,7 @@ public class ClienteController implements IDao {
                     entity.persist(c);
                     entity.getTransaction().commit();
                 } else {
-                    JOptionPane.showMessageDialog(null, "Já existe cliente com esse nome.");
+                    JOptionPane.showMessageDialog(null, "Já existe cliente com esse nome/CPF/CNPJ.");
                     return false;
                 }
                 JOptionPane.showMessageDialog(null, "Cliente salvo com sucesso.");
@@ -50,12 +50,12 @@ public class ClienteController implements IDao {
         if (cliente instanceof Cliente) {
             Cliente c = (Cliente) cliente;
             if (ehValido(c)) {
-               // if (!existeCliente(c)) {
-                    entity.getTransaction().begin();
-                    entity.merge(c);
-                    entity.getTransaction().commit();
+                // if (!existeCliente(c)) {
+                entity.getTransaction().begin();
+                entity.merge(c);
+                entity.getTransaction().commit();
                 //} else {
-                    //JOptionPane.showMessageDialog(null, "Já existe cliente com esse nome.");
+                //JOptionPane.showMessageDialog(null, "Já existe cliente com esse nome.");
                 //    return false;
                 //}
                 if (mensagem) {
@@ -96,7 +96,7 @@ public class ClienteController implements IDao {
             cli = (Cliente) query.getResultList().get(0);
             entity.getTransaction().begin();
             entity.refresh(cli);
-            for(int i = 0 ; i < cli.getOrdemServicoList().size() ; i++){
+            for (int i = 0; i < cli.getOrdemServicoList().size(); i++) {
                 entity.refresh(cli.getOrdemServicoList().get(i));
             }
             entity.getTransaction().commit();
@@ -140,11 +140,21 @@ public class ClienteController implements IDao {
                 Cliente c = (Cliente) query.getSingleResult();
                 if (c.getNome().toUpperCase().equals(cliente.getNome().toUpperCase())) {
                     return true;
+                }
+            }
+        }
+
+        query = entity.createNamedQuery("Cliente.findByCpfCnpj");
+        query.setParameter("cpfCnpj", cliente.getCpfCnpj());
+        if (!query.getResultList().isEmpty()) {
+            if (query.getResultList().size() == 1) {
+                Cliente c = (Cliente) query.getSingleResult();
+                if (c.getCpfCnpj().equals(cliente.getCpfCnpj())) {
+                    return true;
                 } else {
                     return false;
                 }
             }
-            return true;
         }
         return false;
 
