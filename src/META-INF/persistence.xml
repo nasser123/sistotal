@@ -38,6 +38,7 @@
     <class>model.Pdv</class>
     <class>model.CentroCusto</class>
     <class>model.ControleCartoes</class>
+    <class>model.Questionario</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://10.1.1.1:3306/total_teste?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

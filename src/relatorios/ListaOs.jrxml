@@ -47,7 +47,9 @@
 	<parameter name="cliente" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
-	<parameter name="pago" class="java.lang.String"/>
+	<parameter name="inicial" class="java.util.Date"/>
+	<parameter name="final" class="java.util.Date"/>
+	<parameter name="aberto" class="java.math.BigDecimal"/>
 	<queryString>
 		<![CDATA[SELECT
      ordem_servico.`idordem_servico` AS ordem_servico_idordem_servico,
@@ -101,7 +103,8 @@ FROM
      INNER JOIN `tipo_servico` tipo_servico ON ordem_servico.`idtipo_servico` = tipo_servico.`idtipo_servico`
 WHERE
      cliente.`idcliente` = $P{cliente} and
-ordem_servico.`pago` = $P{pago}]]>
+ordem_servico.`data_abertura` >= $P{inicial} and
+ordem_servico.`data_abertura` <= $P{final}]]>
 	</queryString>
 	<field name="ordem_servico_idordem_servico" class="java.lang.Integer"/>
 	<field name="ordem_servico_idcliente" class="java.lang.Integer"/>
@@ -146,6 +149,9 @@ ordem_servico.`pago` = $P{pago}]]>
 	<field name="tipo_servico_descricao" class="java.lang.String"/>
 	<field name="ordem_servico_valor" class="java.math.BigDecimal"/>
 	<field name="ordem_servico_pago" class="java.lang.Boolean"/>
+	<variable name="TOTAL" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{ordem_servico_valor}]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -413,15 +419,46 @@ ordem_servico.`pago` = $P{pago}]]>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{ordem_servico_valor}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="480" y="0" width="73" height="15" uuid="8dda18a6-f64f-428f-a1e0-f8a3863556e3"/>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{ordem_servico_pago}]]></textFieldExpression>
-			</textField>
-			<textField pattern="dd/MM/yyyy">
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement x="223" y="0" width="53" height="13" uuid="44ecc066-d4f2-4b85-8f0c-8b10ddcf6bbc"/>
 				<textFieldExpression><![CDATA[$F{ordem_servico_data_termino}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="501" y="0" width="52" height="13" uuid="1ace1495-7d64-4479-a2b4-2fceff6349b1"/>
+				<textFieldExpression><![CDATA[( $F{ordem_servico_pago} ? "PAGO" : "NÃO PAGO" )]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
+	<summary>
+		<band height="71">
+			<textField>
+				<reportElement x="372" y="0" width="100" height="13" uuid="79fbadb8-90df-4363-85a0-a12ffca47f44"/>
+				<textElement textAlignment="Right">
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TOTAL}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="272" y="0" width="100" height="13" uuid="0c837930-679b-4654-8ad4-b5ddb31a2ee0"/>
+				<textElement textAlignment="Right">
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Total Geral]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="272" y="13" width="100" height="13" uuid="57511893-48de-4d9f-9817-acbb4efb0e86"/>
+				<textElement textAlignment="Right">
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Total em Aberto]]></text>
+			</staticText>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement x="372" y="13" width="100" height="13" uuid="ce2b5030-a1ba-4062-807e-e62da427fd97"/>
+				<textElement textAlignment="Right">
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{aberto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
 </jasperReport>

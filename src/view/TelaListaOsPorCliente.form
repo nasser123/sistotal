@@ -258,6 +258,8 @@
                   <Component id="jButtonEditar" min="-2" pref="92" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jButtonOS" min="-2" pref="89" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jButtonListaOS" min="-2" pref="89" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="jButtonCancelar" min="-2" pref="89" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -399,7 +401,7 @@
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="jButtonOS" alignment="1" min="-2" pref="87" max="-2" attributes="0"/>
                       <Component id="jButtonEditar" alignment="1" min="-2" pref="87" max="-2" attributes="0"/>
                       <Component id="jButtonEditarOS" alignment="1" min="-2" pref="87" max="-2" attributes="0"/>
@@ -408,6 +410,7 @@
                           <Component id="jButtonCancelar" min="-2" pref="87" max="-2" attributes="0"/>
                           <Component id="jButtonOS1" min="-2" pref="87" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="jButtonListaOS" min="-2" pref="87" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -1188,6 +1191,22 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCancelarActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jButtonListaOS">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/icones/32x32/relatorio.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Lista OS"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor em Forma de M&#xe3;o"/>
+            </Property>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonListaOSActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

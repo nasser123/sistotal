@@ -16,7 +16,6 @@ import java.util.logging.Logger;
 import model.Cidade;
 import model.Cliente;
 import model.Estado;
-import model.SituacaoCliente;
 
 /**
  *
@@ -29,6 +28,7 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
      */
     Cliente c;
     boolean novo;
+    boolean mensagem = true;
 
     /**
      * Método para abertura de tela de cadastro de cliente
@@ -47,9 +47,9 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
         this.setTitle(ConfigTelas.getTitulo());
 
         initComponents();
-        this.jComboBox1.setVisible(false);
+//        this.jComboBox1.setVisible(false);
         if (novo) {
-            jComboBox1.setSelectedIndex(0);
+//            jComboBox1.setSelectedIndex(0);
             jComboBoxBrinde.setSelectedIndex(0);
             habilitaNovo();
             if (nome != null) {
@@ -57,8 +57,9 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
             }
         }
         if (!novo) {
-            if (this.c.getRecebeu_brinde()) {
+            if (this.c.getRecebeuBrinde()) {
                 jComboBoxBrinde.setSelectedIndex(1);
+                jDateChooserDataBrinde.setDate(this.c.getData_brinde());
             } else {
                 jComboBoxBrinde.setSelectedIndex(0);
             }
@@ -91,7 +92,7 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
         jComboBoxBrinde.setEditable(true);
 
         jPanel2.setVisible(true);
-        jComboBox1.setVisible(true);
+//        jComboBox1.setVisible(true);
 
     }
 
@@ -181,7 +182,6 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
         jComboBoxBrinde = new javax.swing.JComboBox<>();
         jLabel16 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
         jDateChooserDataBrinde = new com.toedter.calendar.JDateChooser();
         jTextFieldEstado = new javax.swing.JTextField();
         jLabelEstado = new javax.swing.JLabel();
@@ -190,6 +190,7 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
         jLabelSituacao = new javax.swing.JLabel();
         jTextFieldSituacao = new javax.swing.JTextField();
         jButtonEditar = new javax.swing.JButton();
+        jButtonQuestionario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -400,18 +401,13 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(255, 0, 51));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel16.setText("Data Brinde:");
+        jLabel16.setText("Recebeu Brinde");
 
         jLabel21.setBackground(new java.awt.Color(255, 255, 255));
         jLabel21.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(255, 0, 51));
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel21.setText("Data Brinde:");
-
-        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, situacaoClienteList, jComboBox1);
-        bindingGroup.addBinding(jComboBoxBinding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cliente, org.jdesktop.beansbinding.ELProperty.create("${idsituacaoCliente}"), jComboBox1, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
-        bindingGroup.addBinding(binding);
 
         jDateChooserDataBrinde.setBackground(new java.awt.Color(255, 255, 255));
         jDateChooserDataBrinde.setForeground(new java.awt.Color(255, 0, 51));
@@ -436,11 +432,8 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jDateChooserDataBrinde, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jDateChooserDataBrinde, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -458,8 +451,7 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jComboBoxCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBoxBrinde, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jComboBoxBrinde, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 22, Short.MAX_VALUE))
         );
 
@@ -499,6 +491,16 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
         jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEditarActionPerformed(evt);
+            }
+        });
+
+        jButtonQuestionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/10693_32x32.png"))); // NOI18N
+        jButtonQuestionario.setText("Questionario");
+        jButtonQuestionario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonQuestionario.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonQuestionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonQuestionarioActionPerformed(evt);
             }
         });
 
@@ -592,6 +594,8 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonQuestionario)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -683,7 +687,8 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonSair, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonGravar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonEditar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonEditar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonQuestionario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -692,9 +697,9 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -724,15 +729,17 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
         if (novo) {
             try {
                 cliente.setIdcidade((Cidade) jComboBoxCidade.getSelectedItem());
-                cliente.setIdsituacaoCliente((SituacaoCliente) jComboBox1.getSelectedItem());
+//                cliente.setIdsituacaoCliente((SituacaoCliente) jComboBox1.getSelectedItem());
                 if (jComboBoxBrinde.getSelectedIndex() == 0) {
-                    cliente.setRecebeu_brinde(false);
+                    cliente.setRecebeuBrinde(false);
+                    jDateChooserDataBrinde.setDate(null);
                 } else {
-                    cliente.setRecebeu_brinde(true);
-                }
-
-                if (jDateChooserDataBrinde != null) {
-                    cliente.setData_brinde(jDateChooserDataBrinde.getDate());
+                    cliente.setRecebeuBrinde(true);
+                    if (jDateChooserDataBrinde != null) {
+                        cliente.setData_brinde(jDateChooserDataBrinde.getDate());
+                    }else{
+                        cliente.setData_brinde(Datas.getCurrentTime());
+                    }
                 }
 
                 cliente.setDataCadastro(new Date(System.currentTimeMillis()));
@@ -743,16 +750,18 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
         } else {
             try {
                 if (jComboBoxBrinde.getSelectedIndex() == 0) {
-                    cliente.setRecebeu_brinde(false);
+                    cliente.setRecebeuBrinde(false);
+
                 } else {
-                    cliente.setRecebeu_brinde(true);
+                    cliente.setRecebeuBrinde(true);
+                    if (jDateChooserDataBrinde != null) {
+                        cliente.setData_brinde(jDateChooserDataBrinde.getDate());
+                    }else{
+                        cliente.setData_brinde(Datas.getCurrentTime());
+                    }
                 }
 
-                if (jDateChooserDataBrinde != null) {
-                    cliente.setData_brinde(jDateChooserDataBrinde.getDate());
-                }
-
-                cc.alterar(cliente, true);
+                cc.alterar(cliente, mensagem);
             } catch (SQLException ex) {
                 Logger.getLogger(TelaDetalharCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -785,9 +794,20 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
                 jDateChooserDataBrinde.setDate(Datas.getCurrentTime());
             } else {
                 jDateChooserDataBrinde.setEnabled(false);
+                jDateChooserDataBrinde.setDate(null);
             }
         }
     }//GEN-LAST:event_jComboBoxBrindeActionPerformed
+
+    private void jButtonQuestionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQuestionarioActionPerformed
+        mensagem = false;
+        jButtonGravarActionPerformed(evt);
+        mensagem = true;
+        TelaQuestionario tq = new TelaQuestionario(true, cliente, false, false, "teste");
+        this.setModal(false);
+        this.dispose();
+        tq.setVisible(true);
+    }//GEN-LAST:event_jButtonQuestionarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -838,8 +858,8 @@ public class TelaDetalharCliente extends javax.swing.JDialog {
     private javax.persistence.Query estadoQuery;
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonGravar;
+    private javax.swing.JButton jButtonQuestionario;
     private javax.swing.JButton jButtonSair;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox<String> jComboBoxBrinde;
     private javax.swing.JComboBox jComboBoxCidade;
     private javax.swing.JComboBox jComboBoxEstado;

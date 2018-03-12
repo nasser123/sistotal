@@ -8,14 +8,15 @@ package view;
 import Utilidades.ConfigTelas;
 import Utilidades.ConnectionFactory;
 import Utilidades.Datas;
-import controller.ClienteController;
 import controller.OrdemServicoController;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import model.Cliente;
 import model.OrdemServico;
+import relatorios.ExecutaRelatorio;
 
 /**
  *
@@ -121,6 +122,7 @@ public class TelaListaOsPorCliente extends javax.swing.JDialog {
         jCheckBox1 = new javax.swing.JCheckBox();
         jButtonOS1 = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
+        jButtonListaOS = new javax.swing.JButton();
 
         cliente.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
@@ -542,6 +544,17 @@ public class TelaListaOsPorCliente extends javax.swing.JDialog {
             }
         });
 
+        jButtonListaOS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/relatorio.png"))); // NOI18N
+        jButtonListaOS.setText("Lista OS");
+        jButtonListaOS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonListaOS.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonListaOS.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButtonListaOS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonListaOSActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -683,6 +696,8 @@ public class TelaListaOsPorCliente extends javax.swing.JDialog {
                 .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonOS, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonListaOS, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -794,14 +809,15 @@ public class TelaListaOsPorCliente extends javax.swing.JDialog {
                         .addGap(6, 6, 6)
                         .addComponent(jDateChooserAbertura, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonOS, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonEditar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonEditarOS, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonOS, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonEditarOS, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jButtonSair, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButtonOS1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonOS1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonListaOS, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -906,6 +922,18 @@ public class TelaListaOsPorCliente extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
+    private void jButtonListaOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListaOSActionPerformed
+        
+        
+            Date dataInicial = this.c.getDataCadastro();
+            Date dataFinal = Datas.getCurrentTime();
+            
+            ExecutaRelatorio er = new ExecutaRelatorio();
+            er.abrirRelatorioListaOS(c, dataInicial, dataFinal, c.getTotalAberto());
+
+        
+    }//GEN-LAST:event_jButtonListaOSActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -968,6 +996,7 @@ public class TelaListaOsPorCliente extends javax.swing.JDialog {
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonEditarOS;
+    private javax.swing.JButton jButtonListaOS;
     private javax.swing.JButton jButtonOS;
     private javax.swing.JButton jButtonOS1;
     private javax.swing.JButton jButtonSair;

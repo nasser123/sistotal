@@ -9,6 +9,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
@@ -503,13 +504,18 @@ public class OrdemServico implements Serializable {
         if (valor != null) {
             return valor;
         }
-        BigDecimal v = new BigDecimal("0.0");
-        return v;
+        valor = new BigDecimal("0.0");
+        return valor;
     }
 
     public void setValor(BigDecimal valor) {
         BigDecimal oldValor = this.valor;
+        if(valor == null){
+            valor = new BigDecimal("0.0");
+        }
         this.valor = valor;
+        
+        
         changeSupport.firePropertyChange("valor", oldValor, valor);
     }
 

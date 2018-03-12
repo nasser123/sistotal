@@ -39,6 +39,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cliente.findByCelular", query = "SELECT c FROM Cliente c WHERE c.celular = :celular")})
 public class Cliente implements Serializable {
 
+    @Column(name = "recebeu_brinde")
+    private boolean recebeuBrinde;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clienteIdcliente")
+    private List<Questionario> questionarioList;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idcliente")
     private List<EntradaPagamentos> entradaPagamentosList;
 
@@ -90,8 +95,6 @@ public class Cliente implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date data_brinde;
     
-    @Column(name = "recebeu_brinde")
-    private Boolean recebeu_brinde;
     
     
     @JoinColumn(name = "idsituacao_cliente", referencedColumnName = "idsituacao_cliente")
@@ -121,13 +124,6 @@ public class Cliente implements Serializable {
         this.data_brinde = data_brinde;
     }
 
-    public Boolean getRecebeu_brinde() {
-        return recebeu_brinde;
-    }
-
-    public void setRecebeu_brinde(Boolean recebeu_brinde) {
-        this.recebeu_brinde = recebeu_brinde;
-    }
 
     
     
@@ -480,6 +476,23 @@ public class Cliente implements Serializable {
 
     public void setEntradaPagamentosList(List<EntradaPagamentos> entradaPagamentosList) {
         this.entradaPagamentosList = entradaPagamentosList;
+    }
+
+    public boolean getRecebeuBrinde() {
+        return recebeuBrinde;
+    }
+
+    public void setRecebeuBrinde(boolean recebeuBrinde) {
+        this.recebeuBrinde = recebeuBrinde;
+    }
+
+    @XmlTransient
+    public List<Questionario> getQuestionarioList() {
+        return questionarioList;
+    }
+
+    public void setQuestionarioList(List<Questionario> questionarioList) {
+        this.questionarioList = questionarioList;
     }
 
 }
