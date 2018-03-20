@@ -596,7 +596,8 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
 
     private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
         Cliente c = new Cliente();
-        new TelaDetalharCliente(this, true, c, true, false, jTextFieldFiltro.getText()).setVisible(true);
+        TelaDetalharCliente tdc = new TelaDetalharCliente(this, true, c, true, false, jTextFieldFiltro.getText());
+        tdc.setVisible(true);
         
 //        habilitaNovo();
 //        liberaEdicao();

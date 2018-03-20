@@ -46,4 +46,14 @@
       <property name="javax.persistence.jdbc.password" value="totaltech"/>
     </properties>
   </persistence-unit>
+  <persistence-unit name="totaltech?zeroDateTimeBehavior=convertToNullPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>model.SituacaoCliente</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://10.1.1.1:3306/totaltech?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="totaltech"/>
+    </properties>
+  </persistence-unit>
 </persistence>

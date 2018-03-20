@@ -107,6 +107,9 @@ public class Cliente implements Serializable {
     private BigDecimal totalServicos;
     @Transient
     private BigDecimal totalAberto;
+    
+    @Transient
+    private BigDecimal totalAbertoPeriodo;
 
     public PropertyChangeSupport getChangeSupport() {
         return changeSupport;
@@ -467,6 +470,22 @@ public class Cliente implements Serializable {
             v = v.add(this.getOrdemServicoList().get(i).getValor());
         }
         return v;
+    }
+    
+    public BigDecimal getTotalAbertoPeriodo(Date dataInicial, Date dataFinal){
+        BigDecimal v = new BigDecimal("0.0");
+        for (int i = 0 ; i < this.getOrdemServicoList().size() ; i++){
+            if(!this.getOrdemServicoList().get(i).getPago()){
+//              if(this.getOrdemServicoList().get(i).getDataAbertura().after(dataInicial) && this.getOrdemServicoList().get(i).getDataAbertura().before(dataFinal)){
+//                  v = v.add(this.getOrdemServicoList().get(i).getValor());
+//              } 
+                int compDataInicial = this.getOrdemServicoList().get(i).getDataAbertura().compareTo(dataInicial);
+                int compDataFinal   = this.getOrdemServicoList().get(i).getDataAbertura().compareTo(dataFinal);
+                if(compDataInicial >=0 && compDataFinal <= 0)
+                    v = v.add(this.getOrdemServicoList().get(i).getValor());
+            }
+        }
+    return v;
     }
 
     @XmlTransient

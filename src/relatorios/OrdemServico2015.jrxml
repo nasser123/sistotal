@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a8f18236-1399-4cb7-9695-840bcf5603f3">
 	<property name="ireport.zoom" value="1.2100000000000009"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="404"/>
+	<property name="ireport.y" value="171"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -537,14 +537,14 @@ WHERE
 				<reportElement x="0" y="297" width="557" height="1" uuid="b157c734-b89b-4243-8f6a-f5b9b1fb85e3"/>
 			</line>
 			<textField>
-				<reportElement x="385" y="626" width="168" height="17" uuid="252b9cca-e45c-4e51-b997-ea527bb8643d"/>
+				<reportElement x="332" y="626" width="221" height="17" uuid="252b9cca-e45c-4e51-b997-ea527bb8643d"/>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cliente_nome}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="387" y="623" width="168" height="1" uuid="9b89327c-f322-419b-ab77-47791340f7a6"/>
+				<reportElement x="333" y="624" width="222" height="1" uuid="9b89327c-f322-419b-ab77-47791340f7a6"/>
 			</line>
 			<textField pattern="dd MMMMM yyyy">
 				<reportElement x="425" y="573" width="128" height="18" uuid="3f3ae08c-80c6-4d98-bbc6-6e4e81dcba93"/>
@@ -854,7 +854,7 @@ WHERE
 				<text><![CDATA[Retirado em: _____/______/________]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="385" y="732" width="170" height="17" uuid="74daf8ec-120a-4338-b440-2ed96adc96a1"/>
+				<reportElement x="332" y="732" width="223" height="17" uuid="74daf8ec-120a-4338-b440-2ed96adc96a1"/>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -1175,7 +1175,7 @@ WHERE
 				<text><![CDATA[Local armazenado: ___________________]]></text>
 			</staticText>
 			<line>
-				<reportElement x="385" y="731" width="168" height="1" uuid="7ceb62e6-a69a-47a1-913d-a308d2c50518"/>
+				<reportElement x="332" y="731" width="221" height="1" uuid="7ceb62e6-a69a-47a1-913d-a308d2c50518"/>
 			</line>
 			<line>
 				<reportElement x="0" y="497" width="555" height="1" uuid="8ed104f6-443f-4ef9-96fd-bc22bdedb587"/>

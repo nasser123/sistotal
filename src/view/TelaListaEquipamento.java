@@ -113,8 +113,11 @@ public class TelaListaEquipamento extends javax.swing.JFrame {
         jLabel3.setText("Descrição");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 250, -1, -1));
 
+        jButtonNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/6765_32x32.png"))); // NOI18N
         jButtonNovo.setText("Novo");
         jButtonNovo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonNovo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonNovo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jButtonNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonNovoActionPerformed(evt);
