@@ -55,7 +55,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
 
         SistotalPUEntityManager = ConnectionFactory.getEntityManager();
         usuarioQuery = java.beans.Beans.isDesignTime() ? null : SistotalPUEntityManager.createQuery("SELECT u FROM Usuario u");
-        usuarioList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : usuarioQuery.getResultList();
+        usuarioList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(usuarioQuery.getResultList());
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -65,7 +65,6 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         jTextFieldNome = new javax.swing.JTextField();
         jTextFieldUsername = new javax.swing.JTextField();
         jTextFieldEmail = new javax.swing.JTextField();
-        jButtonGravar = new javax.swing.JButton();
         jButtonNovo = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -125,7 +124,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         }
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 75, 880, 273);
+        jScrollPane1.setBounds(10, 75, 530, 273);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel1.setText("Nome:");
@@ -135,13 +134,13 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("Username");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(470, 360, 190, 20);
+        jLabel2.setBounds(20, 420, 190, 20);
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel6.setText("e-mail:");
         jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(290, 360, 170, 20);
+        jLabel6.setBounds(220, 420, 170, 20);
 
         jTextFieldNome.setEditable(false);
 
@@ -149,7 +148,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         bindingGroup.addBinding(binding);
 
         jPanel1.add(jTextFieldNome);
-        jTextFieldNome.setBounds(80, 380, 200, 25);
+        jTextFieldNome.setBounds(80, 380, 310, 25);
 
         jTextFieldUsername.setEditable(false);
 
@@ -157,7 +156,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         bindingGroup.addBinding(binding);
 
         jPanel1.add(jTextFieldUsername);
-        jTextFieldUsername.setBounds(470, 380, 190, 25);
+        jTextFieldUsername.setBounds(20, 440, 190, 25);
 
         jTextFieldEmail.setEditable(false);
 
@@ -165,27 +164,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         bindingGroup.addBinding(binding);
 
         jPanel1.add(jTextFieldEmail);
-        jTextFieldEmail.setBounds(290, 380, 170, 25);
-
-        jButtonGravar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/gravar32.png"))); // NOI18N
-        jButtonGravar.setText("Gravar");
-        jButtonGravar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButtonGravar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonGravar.setMaximumSize(new java.awt.Dimension(65, 65));
-        jButtonGravar.setMinimumSize(new java.awt.Dimension(65, 65));
-        jButtonGravar.setPreferredSize(new java.awt.Dimension(65, 65));
-        jButtonGravar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jTable1, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), jButtonGravar, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
-        bindingGroup.addBinding(binding);
-
-        jButtonGravar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonGravarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButtonGravar);
-        jButtonGravar.setBounds(460, 530, 90, 80);
+        jTextFieldEmail.setBounds(220, 440, 170, 25);
 
         jButtonNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/add_user.png"))); // NOI18N
         jButtonNovo.setText("Novo");
@@ -251,7 +230,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButtonSair);
-        jButtonSair.setBounds(800, 530, 90, 80);
+        jButtonSair.setBounds(440, 530, 90, 80);
 
         jTextFieldFiltro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -265,7 +244,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel17.setText("Cadastro de Usuarios");
         jPanel1.add(jLabel17);
-        jLabel17.setBounds(0, 10, 910, 30);
+        jLabel17.setBounds(0, 10, 560, 30);
 
         jButtonEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/edit_profile.png"))); // NOI18N
         jButtonEditar.setText("Editar");
@@ -289,63 +268,32 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 923, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 669, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
         bindingGroup.bind();
 
-        setSize(new java.awt.Dimension(922, 692));
+        setSize(new java.awt.Dimension(582, 692));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
-        Usuario u = new Usuario();
-        new TelaCadastroUsuarioNovo(u).setVisible(true);
-        
+
+        new TelaCadastroUsuarioNovo().setVisible(true);
+        this.dispose();
 //        habilitaNovo();
 //        liberaEdicao();
     }//GEN-LAST:event_jButtonNovoActionPerformed
 
     private void habilitaNovo() {
-        
+
     }
-
-    private void jButtonGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGravarActionPerformed
-        int linhaSelecionada = jTable1.getSelectedRow();
-
-        //validado = Validadores.verificaNr(jTextFieldNr.getText());
-        if (validado) {
-            if (jTable1.getModel().getValueAt(linhaSelecionada, 0) == null) {
-                u.setNome(jTextFieldNome.getText());
-                u.setEmail(jTextFieldEmail.getText());
-                u.setUsername(jTextFieldUsername.getText());
-                SistotalPUEntityManager.getTransaction().begin();
-                SistotalPUEntityManager.persist(this.u);
-                SistotalPUEntityManager.getTransaction().commit();
-                JOptionPane.showMessageDialog(rootPane, "Dados gravados com sucesso");
-
-            } else {
-                SistotalPUEntityManager.getTransaction().begin();
-                //SistotalPUEntityManager.persist(this.c);
-                SistotalPUEntityManager.getTransaction().commit();
-                JOptionPane.showMessageDialog(rootPane, "Dados gravados com sucesso");
-            }
-
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Verifique os campos");
-        }
-
-       
-
-    }//GEN-LAST:event_jButtonGravarActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
         int valor = JOptionPane.showConfirmDialog(rootPane, "Você tem certeza que deseja excluir?");
@@ -354,26 +302,21 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
             UsuarioController usuController = new UsuarioController();
             try {
                 usuController.excluir(u);
-            } catch (    MySQLIntegrityConstraintViolationException | javax.persistence.RollbackException | org.eclipse.persistence.exceptions.DatabaseException ex) {
-                Logger.getLogger(TelaCadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (MySQLIntegrityConstraintViolationException | javax.persistence.RollbackException | org.eclipse.persistence.exceptions.DatabaseException ex) {
+                //String erro = "erro";
+                //JOptionPane.showMessageDialog(rootPane, "Não foi possivel excluir o usuário" + '\n' + ex.getMessage(), "Exclusão de Usuario", 0);
+                
+                //Logger.getLogger(TelaCadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                
             } catch (SQLException ex) {
-                Logger.getLogger(TelaCadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                //JOptionPane.showMessageDialog(rootPane, "Não foi possivel excluir o usuário", "Exclusão de Usuario", 0);
+                //Logger.getLogger(TelaCadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-
-
-
         }
-        atualizaTela();
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
-    private void excluirUsuario(Usuario u) throws MySQLIntegrityConstraintViolationException {
 
-        SistotalPUEntityManager.getTransaction().begin();
-        SistotalPUEntityManager.remove(u);
-        SistotalPUEntityManager.getTransaction().commit();
-
-    }
     private void jButtonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSairActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButtonSairActionPerformed
@@ -390,7 +333,8 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         Usuario u = new Usuario();
         u = (Usuario) jComboBox1.getSelectedItem();
         TelaCadastroUsuarioNovo tcun = new TelaCadastroUsuarioNovo(u);
-       tcun.setVisible(true);
+        tcun.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -408,28 +352,18 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void liberaEdicao() {
-        
+
     }
 
     private void bloqueiaEdicao() {
-        
+
     }
 
     private void limpaCampos() {
-        
 
     }
 
-    private void atualizaTela() {
-//        java.util.Collection data = clienteQuery.getResultList();
-//        for (Object entity : data) {
-//            SistotalPUEntityManager.refresh(entity);
-//        }
-//        clienteQuery = SistotalPUEntityManager.createQuery("SELECT c FROM Cliente c");
-//        clienteList.clear();
-//        clienteList.addAll(clienteQuery.getResultList());
-//        limpaCampos();
-    }
+   
 
     /**
      * @param args the command line arguments
@@ -478,7 +412,6 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
     private javax.persistence.EntityManager SistotalPUEntityManager;
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonExcluir;
-    private javax.swing.JButton jButtonGravar;
     private javax.swing.JButton jButtonNovo;
     private javax.swing.JButton jButtonSair;
     private javax.swing.JComboBox jComboBox1;

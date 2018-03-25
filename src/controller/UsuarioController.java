@@ -31,17 +31,18 @@ import model.Usuario;
 import Utilidades.ConnectionFactory;
 import Utilidades.Senhas;
 import Utilidades.Variaveis;
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
 /**
  *
  * @author Nasser
  */
-public class UsuarioController  {
+public class UsuarioController {
+
     /*
      * To change this template, choose Tools | Templates
      * and open the template in the editor.
      */
-
     public static EntityManager entity;
 
     public UsuarioController() {
@@ -66,16 +67,12 @@ public class UsuarioController  {
         if (u.getNome().equals("")) {
             JOptionPane.showMessageDialog(null, "Campo 'nome' não pode ser vazio");
             return false;
-        } else {
-            if (u.getSenha().equals("")) {
-                JOptionPane.showMessageDialog(null, "Campo 'senha' não pode ser vazio");
-                return false;
-            } else {
-                if (u.getUsername().equals("")) {
-                    JOptionPane.showMessageDialog(null, "Campo 'username' não pode ser vazio");
-                    return false;
-                }
-            }
+        } else if (u.getSenha().equals("")) {
+            JOptionPane.showMessageDialog(null, "Campo 'senha' não pode ser vazio");
+            return false;
+        } else if (u.getUsername().equals("")) {
+            JOptionPane.showMessageDialog(null, "Campo 'username' não pode ser vazio");
+            return false;
         }
         return true;
 
@@ -105,18 +102,24 @@ public class UsuarioController  {
             if (!entity.getTransaction().isActive()) {
                 entity.getTransaction().begin();
                 entity.remove(u);
-                entity.getTransaction().commit();
+                try {
+                    entity.getTransaction().commit();
+                } catch (javax.persistence.RollbackException | org.eclipse.persistence.exceptions.DatabaseException ex) {
+                    JOptionPane.showMessageDialog(null, "Não foi possivel excluir o usuário" + '\n' + ex.getMessage(), "Exclusão de Usuario", 0);
+                    return false;
+                }
+                
                 JOptionPane.showMessageDialog(null, "Usuário excluido com sucesso.");
                 return true;
             }
         }
-        JOptionPane.showMessageDialog(null, "Esse usuário não pode ser excluido.");
+
         return false;
     }
 
     private boolean existeUsuario(String usuario) {
         Usuario u = null;
-        List usuarios = entity.createNamedQuery("Usuario.findByUsuario").setParameter("usuario", usuario).getResultList();
+        List usuarios = entity.createNamedQuery("Usuario.findByUsername").setParameter("username", usuario).getResultList();
         if (!usuarios.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Já existe cadastro com esse usuario.");
             return true;
@@ -137,8 +140,8 @@ public class UsuarioController  {
     private List<Usuario> getUsuarioBanco(String usuario) {
         return entity.createNamedQuery("Usuario.findByUsername").setParameter("username", usuario).getResultList();
 
-}
-    
+    }
+
     public Usuario pesquisarPorUsuario(String usuario) throws SQLException {
         Usuario u = null;
         List usuarios = entity.createNamedQuery("Usuario.findByUsuario").setParameter("usuario", usuario).getResultList();
@@ -158,7 +161,7 @@ public class UsuarioController  {
                     entity.getTransaction().begin();
                 }
                 entity.merge(u);
-                entity.refresh(u);
+
                 entity.getTransaction().commit();
                 if (mensagem) {
                     JOptionPane.showMessageDialog(null, "Usuario alterado com sucesso.");
@@ -186,7 +189,7 @@ public class UsuarioController  {
     }
 
     /*
-    */
+     */
     public boolean verificaLogin(String usuario, String senha) throws SQLException, NoSuchAlgorithmException {
         if (senha != null) {
 //            transforma a senha texto em md5

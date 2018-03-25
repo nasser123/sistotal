@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.Cidade;
 import model.Cliente;
@@ -25,6 +26,7 @@ import model.SituacaoCliente;
 public class TelaCadastroCliente extends javax.swing.JFrame {
 
     Cliente c = new Cliente();
+    JFrame frame;
     private boolean validado = true;
     private boolean testeOS = false;
 
@@ -115,6 +117,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         jTextFieldInscricaoMunicipal = new javax.swing.JTextField();
         jButtonEditar = new javax.swing.JButton();
         jButtonListaOS = new javax.swing.JButton();
+        jButtonListaRelatorioOS = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -569,6 +572,23 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         jPanel1.add(jButtonListaOS);
         jButtonListaOS.setBounds(570, 530, 90, 80);
 
+        jButtonListaRelatorioOS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/32x32/relatorio.png"))); // NOI18N
+        jButtonListaRelatorioOS.setText("Lista OS");
+        jButtonListaRelatorioOS.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonListaRelatorioOS.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonListaRelatorioOS.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jTable1, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), jButtonListaRelatorioOS, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
+
+        jButtonListaRelatorioOS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonListaRelatorioOSActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonListaRelatorioOS);
+        jButtonListaRelatorioOS.setBounds(670, 530, 90, 80);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -751,6 +771,17 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
+    private void jButtonListaRelatorioOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonListaRelatorioOSActionPerformed
+
+        Cliente c = new Cliente();
+        c = (Cliente) jComboBox1.getSelectedItem();
+        
+        RelatorioClienteJDialog rcj = new RelatorioClienteJDialog(frame, true, c);
+        
+        rcj.setVisible(true);
+
+    }//GEN-LAST:event_jButtonListaRelatorioOSActionPerformed
+
     private void liberaEdicao() {
         jTextFieldBairro.setEditable(true);
         jTextFieldCPF.setEditable(true);
@@ -859,6 +890,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonGravar;
     private javax.swing.JButton jButtonListaOS;
+    private javax.swing.JButton jButtonListaRelatorioOS;
     private javax.swing.JButton jButtonNovo;
     private javax.swing.JButton jButtonOS;
     private javax.swing.JButton jButtonSair;

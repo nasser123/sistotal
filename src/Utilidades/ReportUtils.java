@@ -42,8 +42,7 @@ public class ReportUtils {
 
         
         tituloRelatorio = titulo;
-//        telaProgresso = new TelaProgresso();
-//        telaProgresso.setVisible(true);
+
        
         print = JasperFillManager.fillReport(
                 inputStream, parametros, conexao);
@@ -54,11 +53,10 @@ public class ReportUtils {
         
         
         
-//        GeraRelatorio gr = new GeraRelatorio();
-//        gr.start();
         try {
             // abre o JasperPrint em um JFrame
             viewReportFrame(titulo, print);
+            
             
         } catch (InterruptedException ex) {
             Logger.getLogger(ReportUtils.class.getName()).log(Level.SEVERE, null, ex);

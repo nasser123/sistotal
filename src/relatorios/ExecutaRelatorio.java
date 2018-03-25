@@ -33,8 +33,7 @@ public class ExecutaRelatorio {
 //    }
     public void abrirRelatorioOS(OrdemServico os, String sistemaOperacional, String antiVirus, String office) {
 
-//        ThreadFrameProgressBar tfp = new ThreadFrameProgressBar();
-//        tfp.start();
+
         ThreadExecutaRelatorio ter = new ThreadExecutaRelatorio();
         ter.run(os, sistemaOperacional, antiVirus, office);
 
@@ -59,7 +58,7 @@ public class ExecutaRelatorio {
             try {
                 // abre o relatório
                 ReportUtils.openReport("Ordem de Serviço", inputStream, parametros, ConnectionFactory.getConnection());
-                //telaProgresso.setVisible(false);
+                
             } catch (JRException exc) {
                 exc.printStackTrace();
             }
@@ -80,7 +79,7 @@ public class ExecutaRelatorio {
             try {
                 // abre o relatório
                 ReportUtils.openReport("Lista de Serviços", inputStream, parametros, ConnectionFactory.getConnection());
-                //telaProgresso.setVisible(false);
+                
             } catch (JRException exc) {
                 exc.printStackTrace();
             }

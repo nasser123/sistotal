@@ -266,13 +266,13 @@ public class TelaCadastroUsuarioNovo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-//        new TelaListaUsuarios().setVisible(true);
-//        this.dispose();
+        new TelaCadastroUsuario().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSairActionPerformed
-//        new TelaListaUsuarios().setVisible(true);
-//        this.dispose();
+        new TelaCadastroUsuario().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButtonSairActionPerformed
 
 
@@ -281,7 +281,7 @@ public class TelaCadastroUsuarioNovo extends javax.swing.JFrame {
         char[] pass2 = jPasswordFieldSenha2.getPassword();
 
         if (Senhas.testaSenhasCadastro(pass1, pass2)) {
-            
+
             try {
                 String senha = Senhas.toMD5(pass1);
                 this.usu.setSenha(senha);
@@ -292,13 +292,16 @@ public class TelaCadastroUsuarioNovo extends javax.swing.JFrame {
             this.usu.setNome(jTextFieldNome.getText());
             this.usu.setEmail(jTextFieldEmail.getText());
             this.usu.setUsername(jTextFieldUsuario.getText());
-            
 
             try {
                 if (this.usu.getIdusuario() == null) {
                     uc.inserir(this.usu);
+                    new TelaCadastroUsuario().setVisible(true);
+                    this.dispose();
                 } else {
                     uc.alterar(this.usu, true);
+                    new TelaCadastroUsuario().setVisible(true);
+                    this.dispose();
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(TelaCadastroUsuarioNovo.class.getName()).log(Level.SEVERE, null, ex);
@@ -312,7 +315,7 @@ public class TelaCadastroUsuarioNovo extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSenhaActionPerformed
-        
+
         jPasswordFieldSenha1.setEnabled(true);
         jPasswordFieldSenha2.setEnabled(true);
     }//GEN-LAST:event_jButtonSenhaActionPerformed
