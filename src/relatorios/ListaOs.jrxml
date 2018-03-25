@@ -94,18 +94,22 @@
      tipo_servico.`idtipo_servico` AS tipo_servico_idtipo_servico,
      tipo_servico.`descricao` AS tipo_servico_descricao,
      ordem_servico.`valor` AS ordem_servico_valor,
-     ordem_servico.`pago` AS ordem_servico_pago
+     ordem_servico.`pago` AS ordem_servico_pago,
+     situacao_os.`idsituacao_os` AS situacao_os_idsituacao_os,
+     situacao_os.`descricao` AS situacao_os_descricao
 FROM
      `cliente` cliente INNER JOIN `ordem_servico` ordem_servico ON cliente.`idcliente` = ordem_servico.`idcliente`
      INNER JOIN `cidade` cidade ON cliente.`idcidade` = cidade.`idcidade`
      INNER JOIN `estado` estado ON cidade.`idestado` = estado.`idestado`
      INNER JOIN `equipamento` equipamento ON ordem_servico.`idequipamento` = equipamento.`idequipamento`
      INNER JOIN `tipo_servico` tipo_servico ON ordem_servico.`idtipo_servico` = tipo_servico.`idtipo_servico`
+     INNER JOIN `situacao_os` situacao_os ON ordem_servico.`idsituacao_os` = situacao_os.`idsituacao_os`
 WHERE
-     cliente.`idcliente` = $P{cliente} and
-ordem_servico.`data_abertura` >= $P{inicial} and
-ordem_servico.`data_abertura` <= $P{final}
-order by ordem_servico.`idordem_servico`]]>
+     cliente.`idcliente` = $P{cliente}
+     and ordem_servico.`data_abertura` >= $P{inicial}
+     and ordem_servico.`data_abertura` <= $P{final}
+ORDER BY
+     ordem_servico.`idordem_servico` ASC]]>
 	</queryString>
 	<field name="ordem_servico_idordem_servico" class="java.lang.Integer"/>
 	<field name="ordem_servico_idcliente" class="java.lang.Integer"/>
@@ -150,6 +154,8 @@ order by ordem_servico.`idordem_servico`]]>
 	<field name="tipo_servico_descricao" class="java.lang.String"/>
 	<field name="ordem_servico_valor" class="java.math.BigDecimal"/>
 	<field name="ordem_servico_pago" class="java.lang.Boolean"/>
+	<field name="situacao_os_idsituacao_os" class="java.lang.Integer"/>
+	<field name="situacao_os_descricao" class="java.lang.String"/>
 	<variable name="TOTAL" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{ordem_servico_valor}]]></variableExpression>
 	</variable>
@@ -397,6 +403,10 @@ order by ordem_servico.`idordem_servico`]]>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[à]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="286" y="80" width="100" height="15" uuid="5953bbbe-d94d-48cf-af6c-930ab2c1d5b8"/>
+				<text><![CDATA[Situação]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<detail>
@@ -421,6 +431,10 @@ order by ordem_servico.`idordem_servico`]]>
 			<textField>
 				<reportElement x="501" y="0" width="52" height="13" uuid="1ace1495-7d64-4479-a2b4-2fceff6349b1"/>
 				<textFieldExpression><![CDATA[( $F{ordem_servico_pago} ? "PAGO" : "NÃO PAGO" )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="286" y="0" width="100" height="13" uuid="c9c215e8-665f-48eb-a9e3-ceea6bdf86af"/>
+				<textFieldExpression><![CDATA[$F{situacao_os_descricao}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
