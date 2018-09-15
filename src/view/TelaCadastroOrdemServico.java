@@ -32,6 +32,15 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
     public TelaCadastroOrdemServico() {
         this.osCad = new OrdemServico();
         initComponents();
+
+        if (this.osCad.getIdusuario() == null) {
+            usuarioQuery = this.SistotalPUEntityManager.createNativeQuery("Select * from usuario where idsituacao_cliente = 1", Usuario.class);
+            usuarioList.clear();
+            usuarioList.addAll(usuarioQuery.getResultList());
+            jComboBoxUsuario.setSelectedIndex(-1);
+        }
+        
+        
         ConfigTelas ct = new ConfigTelas(this);
         ct.carregarConfig(this);
         jDateChooserAbertura.setDate(Datas.getCurrentTime());
@@ -48,6 +57,14 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         this.cliente = c;
         this.osCad.setIdcliente(this.cliente);
         initComponents();
+
+        if (this.osCad.getIdusuario() == null) {
+            usuarioQuery = this.SistotalPUEntityManager.createNativeQuery("Select * from usuario where idsituacao_cliente = 1", Usuario.class);
+            usuarioList.clear();
+            usuarioList.addAll(usuarioQuery.getResultList());
+            jComboBoxUsuario.setSelectedIndex(-1);
+        }
+
         ConfigTelas ct = new ConfigTelas(this);
         ct.carregarConfig(this);
         jTextFieldCodigo.setText(this.cliente.getIdcliente().toString());
@@ -69,6 +86,17 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         initComponents();
         SistotalPUEntityManager.refresh(this.osCad);
         SistotalPUEntityManager.refresh(this.osCad.getIdcliente());
+        
+        
+        if (this.osCad.getIdusuario() == null) {
+            usuarioQuery = this.SistotalPUEntityManager.createNativeQuery("Select * from usuario where idsituacao_cliente = 1", Usuario.class);
+            usuarioList.clear();
+            usuarioList.addAll(usuarioQuery.getResultList());
+            jComboBoxUsuario.setSelectedIndex(-1);
+        }
+        
+        
+        
         ConfigTelas ct = new ConfigTelas(this);
         ct.carregarConfig(this);
         this.ordemServico = os;
@@ -126,14 +154,13 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
 
     private void preencheTodosDados() {
         jDateChooserAbertura.setDate(this.ordemServico.getDataAbertura());
-        
+
         jDateChooserDataAgendamento.setDate(this.ordemServico.getData_agendamento());
 
-        if(this.ordemServico.getHora_agendamento() != null){
+        if (this.ordemServico.getHora_agendamento() != null) {
             selecionaHora(this.ordemServico.getHora_agendamento());
         }
-        
-        
+
         if (this.ordemServico.getPago()) {
             jComboBoxPago.setSelectedIndex(1);
         } else {
@@ -143,8 +170,8 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         if (this.ordemServico.getDataTermino() != null) {
             jDateChooserEntrega.setDate(this.ordemServico.getDataTermino());
         }
-        
-        if (this.ordemServico.getIdusuario() != null){
+
+        if (this.ordemServico.getIdusuario() != null) {
             jComboBoxUsuario.setSelectedItem(this.ordemServico.getIdusuario());
         }
 
@@ -348,7 +375,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jComboBoxMin = new javax.swing.JComboBox();
         jComboBoxHora = new javax.swing.JComboBox();
-        jComboBoxUsuario = new javax.swing.JComboBox<>();
+        jComboBoxUsuario = new javax.swing.JComboBox<String>();
         jLabel1 = new javax.swing.JLabel();
         jTextFieldArmazenamento = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -363,6 +390,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(870, 740));
         setPreferredSize(new java.awt.Dimension(852, 740));
         setResizable(false);
+        getContentPane().setLayout(new java.awt.BorderLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setMinimumSize(new java.awt.Dimension(870, 720));
@@ -1099,23 +1127,22 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         }
         this.ordemServico.setAntivirus(jComboBoxAV.getSelectedItem().toString());
         this.ordemServico.setOffice(jComboBoxOffice.getSelectedItem().toString());
-        
-        
+
         if (jDateChooserEntrega != null) {
             this.ordemServico.setDataTermino(jDateChooserEntrega.getDate());
         }
-        
-        if (jComboBoxUsuario.getSelectedIndex() != -1){
-            this.ordemServico.setIdusuario((Usuario)jComboBoxUsuario.getSelectedItem());
+
+        if (jComboBoxUsuario.getSelectedIndex() != -1) {
+            this.ordemServico.setIdusuario((Usuario) jComboBoxUsuario.getSelectedItem());
         }
-        
-        if (jDateChooserDataAgendamento != null){
+
+        if (jDateChooserDataAgendamento != null) {
             this.ordemServico.setData_agendamento(jDateChooserDataAgendamento.getDate());
         }
-        
-        if(!((jComboBoxHora.getSelectedIndex() == 0) && (jComboBoxMin.getSelectedIndex() == 0 )))
-        this.ordemServico.setHora_agendamento(Datas.getTimeDataBase((String) jComboBoxHora.getSelectedItem(), jComboBoxMin.getSelectedItem().toString(), "00"));
-        
+
+        if (!((jComboBoxHora.getSelectedIndex() == 0) && (jComboBoxMin.getSelectedIndex() == 0))) {
+            this.ordemServico.setHora_agendamento(Datas.getTimeDataBase((String) jComboBoxHora.getSelectedItem(), jComboBoxMin.getSelectedItem().toString(), "00"));
+        }
 
         OrdemServicoController osc = new OrdemServicoController();
         if (this.ordemServico.getIdordemServico() == null) {
@@ -1123,14 +1150,17 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
                 osc.inserir(ordemServico);
 
             } catch (SQLException ex) {
-                Logger.getLogger(TelaCadastroOrdemServico.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TelaCadastroOrdemServico.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
 
         } else {
             try {
                 osc.alterar(ordemServico, this.mensagem);
+
             } catch (SQLException ex) {
-                Logger.getLogger(TelaCadastroOrdemServico.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TelaCadastroOrdemServico.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
 
         }
@@ -1266,10 +1296,6 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldArmazenamentoActionPerformed
 
-    
-    
-    
-    
     /**
      * @param args the command line arguments
      */
@@ -1288,16 +1314,21 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
                 if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroOrdemServico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroOrdemServico.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroOrdemServico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroOrdemServico.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroOrdemServico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroOrdemServico.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroOrdemServico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroOrdemServico.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>

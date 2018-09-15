@@ -724,7 +724,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Vers&#xe3;o: 2.0.10 - 19/03/2018"/>
+            <Property name="text" type="java.lang.String" value="Vers&#xe3;o: 2.0.11 - 15/09/2018"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jCheckBoxPendente">

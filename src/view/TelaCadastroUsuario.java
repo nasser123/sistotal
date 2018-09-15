@@ -56,6 +56,8 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         SistotalPUEntityManager = ConnectionFactory.getEntityManager();
         usuarioQuery = java.beans.Beans.isDesignTime() ? null : SistotalPUEntityManager.createQuery("SELECT u FROM Usuario u");
         usuarioList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(usuarioQuery.getResultList());
+        situacaoClienteQuery = java.beans.Beans.isDesignTime() ? null : SistotalPUEntityManager.createQuery("SELECT s FROM SituacaoCliente s");
+        situacaoClienteList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : situacaoClienteQuery.getResultList();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -74,6 +76,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         jTextFieldFiltro = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         jButtonEditar = new javax.swing.JButton();
+        jComboBox2 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -100,6 +103,9 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         columnBinding.setColumnName("Email");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idsituacaoCliente.descricao}"));
+        columnBinding.setColumnName("Idsituacao Cliente.descricao");
+        columnBinding.setColumnClass(String.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -264,6 +270,14 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         jPanel1.add(jButtonEditar);
         jButtonEditar.setBounds(20, 530, 90, 80);
 
+        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, situacaoClienteList, jComboBox2);
+        bindingGroup.addBinding(jComboBoxBinding);
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jTable1, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.idsituacaoCliente}"), jComboBox2, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
+
+        jPanel1.add(jComboBox2);
+        jComboBox2.setBounds(410, 440, 130, 20);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -415,6 +429,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
     private javax.swing.JButton jButtonNovo;
     private javax.swing.JButton jButtonSair;
     private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel17;
@@ -428,6 +443,8 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldFiltro;
     private javax.swing.JTextField jTextFieldNome;
     private javax.swing.JTextField jTextFieldUsername;
+    private java.util.List<model.SituacaoCliente> situacaoClienteList;
+    private javax.persistence.Query situacaoClienteQuery;
     private java.util.List<model.Usuario> usuarioList;
     private javax.persistence.Query usuarioQuery;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;

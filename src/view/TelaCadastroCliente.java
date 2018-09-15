@@ -70,6 +70,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         cidadeList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(cidadeQuery.getResultList());
         situacaoClienteQuery = java.beans.Beans.isDesignTime() ? null : SistotalPUEntityManager.createQuery("SELECT s FROM SituacaoCliente s");
         situacaoClienteList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : situacaoClienteQuery.getResultList();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -118,6 +119,9 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         jButtonEditar = new javax.swing.JButton();
         jButtonListaOS = new javax.swing.JButton();
         jButtonListaRelatorioOS = new javax.swing.JButton();
+        jRadioButtonNome = new javax.swing.JRadioButton();
+        jRadioButtonCelular = new javax.swing.JRadioButton();
+        jRadioButtonFixo = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -589,6 +593,30 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         jPanel1.add(jButtonListaRelatorioOS);
         jButtonListaRelatorioOS.setBounds(670, 530, 90, 80);
 
+        jRadioButtonNome.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(jRadioButtonNome);
+        jRadioButtonNome.setSelected(true);
+        jRadioButtonNome.setText("Nome");
+        jPanel1.add(jRadioButtonNome);
+        jRadioButtonNome.setBounds(370, 40, 53, 23);
+
+        jRadioButtonCelular.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(jRadioButtonCelular);
+        jRadioButtonCelular.setText("Celular");
+        jPanel1.add(jRadioButtonCelular);
+        jRadioButtonCelular.setBounds(470, 40, 59, 23);
+
+        jRadioButtonFixo.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(jRadioButtonFixo);
+        jRadioButtonFixo.setText("Fixo");
+        jRadioButtonFixo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonFixoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jRadioButtonFixo);
+        jRadioButtonFixo.setBounds(570, 40, 45, 23);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -618,7 +646,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         Cliente c = new Cliente();
         TelaDetalharCliente tdc = new TelaDetalharCliente(this, true, c, true, false, jTextFieldFiltro.getText());
         tdc.setVisible(true);
-        
+
 //        habilitaNovo();
 //        liberaEdicao();
     }//GEN-LAST:event_jButtonNovoActionPerformed
@@ -692,14 +720,11 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
             ClienteController cliController = new ClienteController();
             try {
                 cliController.excluir(c);
-            } catch (    MySQLIntegrityConstraintViolationException | javax.persistence.RollbackException | org.eclipse.persistence.exceptions.DatabaseException ex) {
+            } catch (MySQLIntegrityConstraintViolationException | javax.persistence.RollbackException | org.eclipse.persistence.exceptions.DatabaseException ex) {
                 Logger.getLogger(TelaCadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
                 Logger.getLogger(TelaCadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-
-
 
         }
         atualizaTela();
@@ -722,7 +747,15 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
 
     private void jTextFieldFiltroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldFiltroKeyTyped
         String filtro = jTextFieldFiltro.getText();
-        clienteQuery = SistotalPUEntityManager.createNativeQuery("Select * from cliente where nome like '%" + filtro + "%'", Cliente.class);
+
+        if (jRadioButtonNome.isSelected()) {
+            clienteQuery = SistotalPUEntityManager.createNativeQuery("Select * from cliente where nome like '%" + filtro + "%'", Cliente.class);
+        } else if (jRadioButtonCelular.isSelected()) {
+            clienteQuery = SistotalPUEntityManager.createNativeQuery("Select * from cliente where celular like '%" + filtro + "%'", Cliente.class);
+        } else {
+            clienteQuery = SistotalPUEntityManager.createNativeQuery("Select * from cliente where fone like '%" + filtro + "%'", Cliente.class);
+        }
+
         clienteList.clear();
         clienteList.addAll(clienteQuery.getResultList());
     }//GEN-LAST:event_jTextFieldFiltroKeyTyped
@@ -747,13 +780,13 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         Cliente c = new Cliente();
         c = (Cliente) jComboBox1.getSelectedItem();
         ClienteController cliController = new ClienteController();
-            try {
-                c = cliController.pesquisarPorId(c.getIdcliente());
-            } catch (SQLException ex) {
-                Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        try {
+            c = cliController.pesquisarPorId(c.getIdcliente());
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        }
         new TelaListaOsPorCliente(this, false, c).setVisible(true);
-        
+
 
     }//GEN-LAST:event_jButtonListaOSActionPerformed
 
@@ -775,12 +808,16 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
 
         Cliente c = new Cliente();
         c = (Cliente) jComboBox1.getSelectedItem();
-        
+
         RelatorioClienteJDialog rcj = new RelatorioClienteJDialog(frame, true, c);
-        
+
         rcj.setVisible(true);
 
     }//GEN-LAST:event_jButtonListaRelatorioOSActionPerformed
+
+    private void jRadioButtonFixoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonFixoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButtonFixoActionPerformed
 
     private void liberaEdicao() {
         jTextFieldBairro.setEditable(true);
@@ -880,6 +917,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager SistotalPUEntityManager;
+    private javax.swing.ButtonGroup buttonGroup1;
     private java.util.List<model.Cidade> cidadeList;
     private javax.persistence.Query cidadeQuery;
     private java.util.List<model.Cliente> clienteList;
@@ -918,6 +956,9 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JRadioButton jRadioButtonCelular;
+    private javax.swing.JRadioButton jRadioButtonFixo;
+    private javax.swing.JRadioButton jRadioButtonNome;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;

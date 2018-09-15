@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.OrdemServico;
+import model.Usuario;
 
 /**
  *
@@ -41,10 +42,13 @@ public class TelaListaOS extends javax.swing.JFrame {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         SistotalPUEntityManager = ConnectionFactory.getEntityManager();
-        ordemServicoQuery = java.beans.Beans.isDesignTime() ? null : SistotalPUEntityManager.createQuery("SELECT o FROM OrdemServico o");
+        ordemServicoQuery = java.beans.Beans.isDesignTime() ? null : SistotalPUEntityManager.createQuery("SELECT o FROM OrdemServico o order by o.idordemServico desc");
         ordemServicoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(ordemServicoQuery.getResultList());
         buttonGroup1 = new javax.swing.ButtonGroup();
         ordemServicoTableCellRenderer1 = new Renderizadores.OrdemServicoTableCellRenderer();
+        usuarioQuery = java.beans.Beans.isDesignTime() ? null : SistotalPUEntityManager.createQuery("SELECT u FROM Usuario u");
+        usuarioList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : usuarioQuery.getResultList();
+        usuarioListCellRenderer1 = new Renderizadores.UsuarioListCellRenderer();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -56,8 +60,12 @@ public class TelaListaOS extends javax.swing.JFrame {
         jRadioButtonNome = new javax.swing.JRadioButton();
         jRadioButtonCodigo = new javax.swing.JRadioButton();
         jButtonPesquisar = new javax.swing.JButton();
+        jCheckBoxTecnico = new javax.swing.JCheckBox();
+        jComboBoxTecnico = new javax.swing.JComboBox();
 
         ordemServicoTableCellRenderer1.setText("ordemServicoTableCellRenderer1");
+
+        usuarioListCellRenderer1.setText("usuarioListCellRenderer1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -111,6 +119,9 @@ public class TelaListaOS extends javax.swing.JFrame {
         columnBinding.setColumnName("Armazenamento");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idusuario.username}"));
+        columnBinding.setColumnName("Técnico");
+        columnBinding.setColumnClass(String.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -211,6 +222,25 @@ public class TelaListaOS extends javax.swing.JFrame {
             }
         });
 
+        jCheckBoxTecnico.setBackground(new java.awt.Color(255, 255, 255));
+        jCheckBoxTecnico.setText("Filtrar por Técnico");
+        jCheckBoxTecnico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxTecnicoActionPerformed(evt);
+            }
+        });
+
+        jComboBoxTecnico.setRenderer(usuarioListCellRenderer1);
+
+        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, usuarioList, jComboBoxTecnico);
+        bindingGroup.addBinding(jComboBoxBinding);
+
+        jComboBoxTecnico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxTecnicoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -240,8 +270,12 @@ public class TelaListaOS extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextFieldFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 559, Short.MAX_VALUE)))
+                                .addComponent(jButtonPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(33, 33, 33)
+                                .addComponent(jCheckBoxTecnico)
+                                .addGap(18, 18, 18)
+                                .addComponent(jComboBoxTecnico, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 324, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -254,7 +288,9 @@ public class TelaListaOS extends javax.swing.JFrame {
                     .addComponent(jRadioButtonNome)
                     .addComponent(jRadioButtonCodigo)
                     .addComponent(jTextFieldFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonPesquisar))
+                    .addComponent(jButtonPesquisar)
+                    .addComponent(jCheckBoxTecnico)
+                    .addComponent(jComboBoxTecnico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
@@ -319,15 +355,43 @@ public class TelaListaOS extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jTextFieldFiltroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldFiltroKeyTyped
+
+        realizaFiltro();
+
+//        if (jRadioButtonNome.isSelected()) {
+//            String filtro = jTextFieldFiltro.getText();
+//            OrdemServicoController osc = new OrdemServicoController();
+//            if (jCheckBoxTecnico.isSelected()) {
+//                Usuario tecnico = (Usuario)jComboBoxTecnico.getSelectedItem();
+//                int idTecnico = tecnico.getIdusuario();
+//                ordemServicoQuery = SistotalPUEntityManager.createNativeQuery("Select * from ordem_servico where idcliente in (select idcliente from cliente where nome like '%" + filtro + "%') and idusuario = " + idTecnico, OrdemServico.class);
+//            }else{
+//            ordemServicoQuery = SistotalPUEntityManager.createNativeQuery("Select * from ordem_servico where idcliente in (select idcliente from cliente where nome like '%" + filtro + "%')", OrdemServico.class);
+//            }
+//
+//            ordemServicoList.clear();
+//            ordemServicoList.addAll(ordemServicoQuery.getResultList());
+//        }
+
+    }//GEN-LAST:event_jTextFieldFiltroKeyTyped
+
+    private void realizaFiltro() {
+
         if (jRadioButtonNome.isSelected()) {
             String filtro = jTextFieldFiltro.getText();
             OrdemServicoController osc = new OrdemServicoController();
-            ordemServicoQuery = SistotalPUEntityManager.createNativeQuery("Select * from ordem_servico where idcliente in (select idcliente from cliente where nome like '%" + filtro + "%')", OrdemServico.class);
+            if (jCheckBoxTecnico.isSelected()) {
+                Usuario tecnico = (Usuario) jComboBoxTecnico.getSelectedItem();
+                int idTecnico = tecnico.getIdusuario();
+                ordemServicoQuery = SistotalPUEntityManager.createNativeQuery("Select * from ordem_servico where idcliente in (select idcliente from cliente where nome like '%" + filtro + "%') and idusuario = " + idTecnico, OrdemServico.class);
+            } else {
+                ordemServicoQuery = SistotalPUEntityManager.createNativeQuery("Select * from ordem_servico where idcliente in (select idcliente from cliente where nome like '%" + filtro + "%')", OrdemServico.class);
+            }
             ordemServicoList.clear();
             ordemServicoList.addAll(ordemServicoQuery.getResultList());
         }
+    }
 
-    }//GEN-LAST:event_jTextFieldFiltroKeyTyped
 
     private void jRadioButtonNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonNomeActionPerformed
         if (jRadioButtonNome.isSelected()) {
@@ -354,6 +418,19 @@ public class TelaListaOS extends javax.swing.JFrame {
         ordemServicoList.add(os);
 
     }//GEN-LAST:event_jButtonPesquisarActionPerformed
+
+    private void jCheckBoxTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxTecnicoActionPerformed
+        if (jCheckBoxTecnico.isSelected()) {
+            jComboBoxTecnico.setEnabled(true);
+        } else {
+            jComboBoxTecnico.setEnabled(false);
+        }
+        realizaFiltro();
+    }//GEN-LAST:event_jCheckBoxTecnicoActionPerformed
+
+    private void jComboBoxTecnicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTecnicoActionPerformed
+         realizaFiltro();
+    }//GEN-LAST:event_jComboBoxTecnicoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -403,7 +480,9 @@ public class TelaListaOS extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonPesquisar;
     private javax.swing.JButton jButtonVisualizar;
+    private javax.swing.JCheckBox jCheckBoxTecnico;
     private javax.swing.JComboBox jComboBoxOS;
+    private javax.swing.JComboBox jComboBoxTecnico;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButtonCodigo;
@@ -414,6 +493,9 @@ public class TelaListaOS extends javax.swing.JFrame {
     private java.util.List<model.OrdemServico> ordemServicoList;
     private javax.persistence.Query ordemServicoQuery;
     private Renderizadores.OrdemServicoTableCellRenderer ordemServicoTableCellRenderer1;
+    private java.util.List<model.Usuario> usuarioList;
+    private Renderizadores.UsuarioListCellRenderer usuarioListCellRenderer1;
+    private javax.persistence.Query usuarioQuery;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

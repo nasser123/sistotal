@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model;
 
 import java.beans.PropertyChangeListener;
@@ -19,6 +18,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -42,6 +43,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuario.findByUsername", query = "SELECT u FROM Usuario u WHERE u.username = :username"),
     @NamedQuery(name = "Usuario.findBySenha", query = "SELECT u FROM Usuario u WHERE u.senha = :senha")})
 public class Usuario implements Serializable {
+
+    @JoinColumn(name = "idsituacao_cliente", referencedColumnName = "idsituacao_cliente")
+    @ManyToOne(optional = false)
+    private SituacaoCliente idsituacaoCliente;
 
     @OneToMany(mappedBy = "idusuario")
     private List<OrdemServico> ordemServicoList;
@@ -69,13 +74,13 @@ public class Usuario implements Serializable {
     public Usuario(Integer idusuario) {
         this.idusuario = idusuario;
     }
-    
-    public Usuario(String nome, String email, String username){
-        this.nome       =   nome;
-        this.email      =   email;
-        this.username   =   username;
+
+    public Usuario(String nome, String email, String username) {
+        this.nome = nome;
+        this.email = email;
+        this.username = username;
 //        this.senha      =   senha;
-    
+
     }
 
     public Integer getIdusuario() {
@@ -126,7 +131,7 @@ public class Usuario implements Serializable {
         MessageDigest m = MessageDigest.getInstance("MD5");
         m.update(senha.getBytes(), 0, senha.length());
         this.senha = new BigInteger(1, m.digest()).toString(16);
-        
+
     }
 
     @Override
@@ -170,5 +175,15 @@ public class Usuario implements Serializable {
     public void setOrdemServicoList(List<OrdemServico> ordemServicoList) {
         this.ordemServicoList = ordemServicoList;
     }
-    
+
+    public SituacaoCliente getIdsituacaoCliente() {
+        return idsituacaoCliente;
+    }
+
+    public void setIdsituacaoCliente(SituacaoCliente idsituacaoCliente) {
+        SituacaoCliente oldIdsituacaoCliente = this.idsituacaoCliente;
+        this.idsituacaoCliente = idsituacaoCliente;
+        changeSupport.firePropertyChange("idsituacaoCliente", oldIdsituacaoCliente, idsituacaoCliente);
+    }
+
 }
