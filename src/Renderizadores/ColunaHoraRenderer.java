@@ -24,7 +24,10 @@ public class ColunaHoraRenderer implements TableCellRenderer {
                 if (value != null) {
                     String hora = Datas.getTimeDataBase((Date) value);
                     etiqueta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-                    etiqueta.setText(hora);
+                    if(hora.equals("00:00:00"))
+                        etiqueta.setText("");
+                    else
+                        etiqueta.setText(hora);
                 }
 
             }

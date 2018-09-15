@@ -33,6 +33,13 @@ deff4a65-ffbf-2074-42f5-d0bcd4f365bd
 
 0
 
+Atributos.java
+file
+0
+
+
+add
+
 Cidade.java
 file
 
@@ -100,6 +107,20 @@ nasser123rs@gmail.com
 
 
 9663
+
+ContasAReceber.java
+file
+0
+
+
+add
+
+EntradaPagamentos.java
+file
+0
+
+
+add
 
 Equipamento.java
 file
@@ -203,6 +224,13 @@ nasser123rs@gmail.com
 
 2720
 
+Fornecedor.java
+file
+0
+
+
+add
+
 Grupo.java
 file
 13
@@ -236,6 +264,13 @@ nasser123rs@gmail.com
 
 
 3272
+
+ListaAtributosProduto.java
+file
+0
+
+
+add
 
 NewMasterDetailForm.form
 file
@@ -352,6 +387,13 @@ nasser123rs@gmail.com
 
 
 10609
+
+Questionario.java
+file
+0
+
+
+add
 
 SaidaProduto.java
 file

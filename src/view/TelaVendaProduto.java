@@ -26,7 +26,7 @@ public class TelaVendaProduto extends javax.swing.JFrame {
 
     Produto produto;
     Cliente cliente = null;
-    Venda venda = null;
+    Venda venda = new Venda();
     VendaController vc = new VendaController();
 
     /**
@@ -533,7 +533,7 @@ public class TelaVendaProduto extends javax.swing.JFrame {
             sp.setIdproduto(produto);
             sp.setQtd(Integer.parseInt(this.jFormattedTextFieldQtd.getText()));
             sp.setDataSaida(this.jDateChooserDataVenda.getDate());
-            sp.setIdtipoSaida(new TipoSaidaController().getTipoSaidaByIdTipoSaida(clienteQuery, SistotalPUEntityManager, 1));
+            sp.setIdtipoSaida(new TipoSaidaController().getTipoSaidaByIdTipoSaida(clienteQuery, 1));
             sp.setValorunitario(BigDecimal.valueOf(Double.parseDouble(this.jTextFieldValorUnitario.getText())));
         } catch (NumberFormatException nfe) {
             nfe.printStackTrace();

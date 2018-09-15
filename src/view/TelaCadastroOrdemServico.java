@@ -1113,6 +1113,7 @@ public class TelaCadastroOrdemServico extends javax.swing.JFrame {
             this.ordemServico.setData_agendamento(jDateChooserDataAgendamento.getDate());
         }
         
+        if(!((jComboBoxHora.getSelectedIndex() == 0) && (jComboBoxMin.getSelectedIndex() == 0 )))
         this.ordemServico.setHora_agendamento(Datas.getTimeDataBase((String) jComboBoxHora.getSelectedItem(), jComboBoxMin.getSelectedItem().toString(), "00"));
         
 

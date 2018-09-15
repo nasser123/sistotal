@@ -12,7 +12,7 @@ import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.view.JasperViewer;
+import net.sf.jasperreports.swing.JRViewer;
 //import view.TelaProgresso;
 
 /**
@@ -111,9 +111,7 @@ public class ReportUtils {
          * Cria um JRViewer para exibir o relatório.
          * Um JRViewer é uma JPanel.
          */
-        JasperViewer viewer = new JasperViewer(print, false);
-        viewer.toFront();
-        viewer.setVisible(true);
+        
         //JRViewer viewer = new JRViewer(print);
 //
 //        // cria o JFrame
@@ -142,30 +140,37 @@ public class ReportUtils {
         
 //        telaProgresso.dispose();
 
+//        JasperViewer viewer = new JasperViewer(print, false);
+          JRViewer viewer = new JRViewer(print);
+//        viewer.toFront();
+ //       viewer.setVisible(true);
 
+  
 
-//        JDialog dialogRelatorio = new JDialog();
-//        
-//        // adiciona o JRViewer no JFrame
-//        //dialogRelatorio.add(viewer, BorderLayout.CENTER);
-//
-//        // configura o tamanho padrão do JFrame
-//        dialogRelatorio.setSize(700, 500);
-//
-//        // maximiza o JFrame para ocupar a tela toda.
-//       // frameRelatorio.setExtendedState(JFrame.MAXIMIZED_BOTH);
-//
-//        // configura a operação padrão quando o JFrame for fechado.
-//        dialogRelatorio.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//        //frameRelatorio.setAlwaysOnTop(true);
-//
-//        // exibe o JFrame
-//        
-//        dialogRelatorio.setLocationRelativeTo(null);
-//        //frameRelatorio.setAlwaysOnTop(true);
-//        
-//        dialogRelatorio.setVisible(true);
-//        //dialogRelatorio.requestFocusInWindow();
+        JDialog dialogRelatorio = new JDialog();
+        
+        // adiciona o JRViewer no JFrame
+        dialogRelatorio.add(viewer, BorderLayout.CENTER);
+
+        // configura o tamanho padrão do JFrame
+        dialogRelatorio.setSize(1024, 700);
+        dialogRelatorio.toFront();
+        
+
+        // maximiza o JFrame para ocupar a tela toda.
+       // frameRelatorio.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        // configura a operação padrão quando o JFrame for fechado.
+        dialogRelatorio.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        //frameRelatorio.setAlwaysOnTop(true);
+
+        // exibe o JFrame
+        
+        dialogRelatorio.setLocationRelativeTo(null);
+        //frameRelatorio.setAlwaysOnTop(true);
+        
+        dialogRelatorio.setVisible(true);
+        dialogRelatorio.requestFocusInWindow();
 //        
 ////        telaProgresso.dispose();
 

@@ -26,6 +26,34 @@ svn:special svn:externals svn:needs-lock
 
 deff4a65-ffbf-2074-42f5-d0bcd4f365bd
 
+javax.persistence-2.1.0-doc.zip
+file
+
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+
+javax.persistence_2.1.0.v201304241213.jar
+file
+
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+
 org.eclipse.persistence.jpa.jpql_2.5.2.v20140319-9ad6abd.jar
 file
 

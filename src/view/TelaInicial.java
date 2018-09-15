@@ -143,6 +143,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jTable1.setAutoCreateRowSorter(true);
         jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable1.getTableHeader().setReorderingAllowed(false);
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, ordemServicoList, jTable1);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idordemServico}"));
@@ -196,6 +197,10 @@ public class TelaInicial extends javax.swing.JFrame {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${hora_agendamento}"));
         columnBinding.setColumnName("Hora");
         columnBinding.setColumnClass(java.util.Date.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${local}"));
+        columnBinding.setColumnName("Local");
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
@@ -631,6 +636,7 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBoxTodosActionPerformed
 
     private void jButtonFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFiltrarActionPerformed
+       
         if (!jCheckBoxAbertas.isSelected()
                 && !jCheckBoxAndamento.isSelected()
                 && !jCheckBoxAguardando.isSelected()
@@ -690,13 +696,14 @@ public class TelaInicial extends javax.swing.JFrame {
             OrdemServicoController osController = new OrdemServicoController();
             try {
                 ordemServicoList.addAll(osController.pesquisarTelaInicial(auxSql, auxSqlPago));
-                System.out.println(ordemServicoList.get(ordemServicoList.size()-1).getIdordemServico() + "  --  " + ordemServicoList.get(ordemServicoList.size()-1).getIdsituacaoOs().getDescricao());
-                System.out.println("tela: " + Datas.getCurrentTime());
+               // System.out.println(ordemServicoList.get(ordemServicoList.size()-1).getIdordemServico() + "  --  " + ordemServicoList.get(ordemServicoList.size()-1).getIdsituacaoOs().getDescricao());
+               // System.out.println("tela: " + Datas.getCurrentTime());
             } catch (SQLException ex) {
                 Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
+        
     }//GEN-LAST:event_jButtonFiltrarActionPerformed
 
     private void jCheckBoxAbertasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxAbertasActionPerformed

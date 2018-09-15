@@ -1143,9 +1143,7 @@ WHERE
 				<textElement>
 					<font size="12" isBold="true" isItalic="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{ordem_servico_hora_agendamento}
-
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ordem_servico_hora_agendamento}.equals("00:00")  ? "23:00" : $F{ordem_servico_hora_agendamento}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement x="415" y="254" width="70" height="16" uuid="b35ef639-f846-4acf-8b25-2e568ce246f8"/>

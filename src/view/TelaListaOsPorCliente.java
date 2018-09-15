@@ -28,7 +28,7 @@ public class TelaListaOsPorCliente extends javax.swing.JDialog {
     Cliente c;
     JFrame frame;
     OrdemServico osTemp;
-    
+
     public TelaListaOsPorCliente(java.awt.Frame parent, boolean modal, Cliente cliente) {
         super(parent, modal);
         this.c = cliente;
@@ -265,6 +265,8 @@ public class TelaListaOsPorCliente extends javax.swing.JDialog {
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cliente, org.jdesktop.beansbinding.ELProperty.create("${inscMunicipal}"), jTextFieldInscricaoMunicipal, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
+
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${ordemServicoList}");
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cliente, eLProperty, jTable1);
@@ -881,6 +883,22 @@ public class TelaListaOsPorCliente extends javax.swing.JDialog {
         osTemp = (OrdemServico) jComboBox1.getSelectedItem();
         jDateChooserEntrega.setDate(osTemp.getDataTermino());
         jDateChooserAbertura.setDate(osTemp.getDataAbertura());
+
+        if (evt.getClickCount() > 1) {
+
+            OrdemServico os = (OrdemServico) jComboBox1.getSelectedItem();
+            OrdemServicoController osController = new OrdemServicoController();
+            try {
+                os = osController.pesquisarPorId(os.getIdordemServico());
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            TelaCadastroOrdemServico tosc = new TelaCadastroOrdemServico(os);
+            tosc.setVisible(true);
+            System.gc();
+        }
+
+
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButtonOS1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOS1ActionPerformed
@@ -906,7 +924,7 @@ public class TelaListaOsPorCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonOS1ActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        
+
         this.dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
@@ -918,8 +936,9 @@ public class TelaListaOsPorCliente extends javax.swing.JDialog {
 //            ExecutaRelatorio er = new ExecutaRelatorio();
 //            er.abrirRelatorioListaOS(c, dataInicial, dataFinal, c.getTotalAberto());
         RelatorioClienteJDialog rcj = new RelatorioClienteJDialog(frame, true, c);
+
         rcj.setVisible(true);
-        
+
 
     }//GEN-LAST:event_jButtonListaOSActionPerformed
 
